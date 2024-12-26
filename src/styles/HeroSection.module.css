@@ -1,0 +1,60 @@
+.heroSection {
+    position: relative;
+    height: 50vh;
+    background: linear-gradient(90deg, #122d2f, #abb9a4);
+    display: flex;
+    justify-content: flex-start; /* Aligns text to the left */
+    align-items: center; /* Aligns text to the top */
+    padding: 0 80px; /* Adjusted padding for more space on the left */
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .heroContent {
+    max-width: 600px; /* Limit the width of the text content */
+  }
+  
+  .heroContent h1 {
+    font-size: 6rem;  /* Increase the font size for the heading */
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  
+  .heroContent p {
+    font-size: 2rem;  /* Increase the font size for the paragraph */
+    color: white;
+    line-height: 1.5;
+  }
+  
+  .heroContent p br {
+    margin-bottom: 10px;  /* Add some space between the lines */
+  }
+  
+  .hiveText {
+    color: #ffcc00; /* Yellow color for "Hive" */
+  }
+  
+  .heroImage {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 80%; /* Set the image height to 80% of the hero section */
+    max-height: 40vh;
+    object-fit: contain; /* Ensure proper scaling */
+    z-index: 1; /* Place the image behind the text */
+  }
+  
+  .signup-button {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: #122d2f;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    background-color: #ffcc00;
+    width: 35%;
+    padding: 10px;
+    border-radius: 10px;
+  }

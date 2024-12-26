@@ -1,0 +1,111 @@
+.featureButtonsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 45vh;
+    width: 100%;
+    background-color: #2F4745;
+  }
+  
+  .banner {
+    width: 100%;
+    background-color: #3D5B59;
+    color: #ffffff;
+    text-align: left;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 20px 40px;
+  }
+  
+  .featureButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    padding: 70px 0;
+    gap: 40px; /* Space between buttons */
+  }
+  
+  .featureButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .circle {
+    position: relative; /* Ensures pseudo-element stays within the circle */
+    width: 170px;
+    height: 175px;
+    border-radius: 50%;
+    background-color: #abb9a4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  
+  .circle:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .yellowCircle .circle {
+    background-color: #ffd700;
+  }
+  
+  .circleImage {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+  }
+
+  .circleImageFindTalent {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+  }
+  
+  .circleImageFindWork {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    transform: translateY(-5%) rotate(-45deg);
+  }
+  
+  .buttonText {
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .featureButtonsSection {
+      height: auto;
+      padding: 40px 20px;
+    }
+  
+    .circle {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .buttonText {
+      font-size: 1.5rem;
+    }
+  }
+  

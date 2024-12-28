@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/FeatureButtons.module.css';
 
 // Import images for the circles
@@ -19,24 +20,30 @@ const FeatureButtons = () => {
           </div>
           <span className={styles.buttonText}>Find Work</span>
         </button>
-        <button className={`${styles.featureButton} ${styles.yellowCircle}`}>
-          <div className={styles.circle}>
-            <img src={image2} alt="Feature 2" className={styles.circleImageFindTalent} />
-          </div>
-          <span className={styles.buttonText}>Find Talent</span>
-        </button>
-        <button className={styles.featureButton}>
-          <div className={styles.circle}>
-            <img src={image3} alt="Feature 3" className={styles.circleImage} />
-          </div>
-          <span className={styles.buttonText}>How it works</span>
-        </button>
-        <button className={styles.featureButton}>
-          <div className={styles.circle}>
-            <img src={image4} alt="Feature 4" className={styles.circleImage} />
-          </div>
-          <span className={styles.buttonText}>Pricing</span>
-        </button>
+        <Link to="/signup?tab=client" className={styles.buttonText}>
+          <button className={`${styles.featureButton} ${styles.yellowCircle}`}>
+            <div className={styles.circle}>
+              <img src={image2} alt="Feature 2" className={styles.circleImageFindTalent} />
+            </div>
+            <span className={styles.buttonText}>Find Talent</span>
+          </button>
+        </Link>
+        <Link to="/how-it-works" className={styles.buttonText}>
+          <button className={styles.featureButton}>
+            <div className={styles.circle}>
+              <img src={image3} alt="Feature 3" className={styles.circleImage} />
+            </div>
+            <span className={styles.buttonText}>How it works</span>
+          </button>
+        </Link>
+        <Link to="/pricing" className={styles.buttonText}>
+          <button className={styles.featureButton}>
+            <div className={styles.circle}>
+              <img src={image4} alt="Feature 4" className={styles.circleImage} />
+            </div>
+            <span className={styles.buttonText}>Pricing</span>
+          </button>
+        </Link>
         <button className={styles.featureButton}>
           <div className={styles.circle}>
             <img src={image5} alt="Feature 5" className={styles.circleImage} />

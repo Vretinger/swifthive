@@ -18,7 +18,9 @@ const Navbar = () => {
           Home
         </Link>
         <button className={styles['navbar-button']}>Explore</button>
-        <button className={styles['navbar-button']}>Pricing</button>
+        <Link to="/pricing" className={`${styles['navbar-button']}`}>
+          Pricing
+        </Link>
         <Link to="/signin" className={`${styles['navbar-button']} ${styles['login-button']}`}>
           Log in
         </Link>

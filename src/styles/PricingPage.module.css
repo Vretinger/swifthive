@@ -1,0 +1,125 @@
+.pricingPage {
+    background-color: #f4f9f4; /* Light background for the pricing page */
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .subHeading {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 60px;
+  }
+  
+  .pricingSection {
+    margin-bottom: 60px;
+  }
+  
+  .pricingTiers {
+    display: flex;
+    justify-content: space-between; /* Ensure cards are spaced apart */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Add space between cards */
+  }
+  
+  .pricingCard {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Default to full width on small screens */
+    max-width: 300px; /* Set a maximum width for cards */
+    min-width: 280px; /* Prevent the card from getting too small */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .pricingCardHeader {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .pricingCardPrice {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .featuresList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+  }
+  
+  .featuresList li {
+    margin-bottom: 10px;
+  }
+  
+  .ctaButton {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  .ctaButton:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .pricingCard {
+      width: 100%;
+    }
+  
+    .ctaButton {
+      width: 100%;
+      padding: 12px 0;
+    }
+  }
+  
+  .faqsSection {
+    background-color: #b5f7d9;
+    padding: 60px 20px;
+  }
+  
+  .faqsHeading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  .faq {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faqQuestion {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+  
+  .faqAnswer {
+    color: #666;
+  }

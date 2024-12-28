@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Container from "react-bootstrap/Container";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Make sure this is imported
 import "./api/axiosDefaults";
+import HowItWorks from "./pages/HowItWorks";
 
 // Lazy-loaded components for performance optimization
 const Home = lazy(() => import("./pages/Home"));
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/signin" element={<SignInForm />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

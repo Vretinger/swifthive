@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/SignUpPage.module.css";
-import btnStyles from "../../styles/Button.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("freelancer");
+  const location = useLocation();
+  
+  // Extract query parameter from the URL to set the initial active tab
+  const urlParams = new URLSearchParams(location.search);
+  const initialTab = urlParams.get("tab") || "freelancer"; // Default to "freelancer"
+
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -74,151 +79,96 @@ const SignUpPage = () => {
     <div className={styles.signupPage}>
       <div className={styles.signupContainer}>
         <h4 className="mb-4">Sign Up</h4>
-        <Tabs
-          activeKey={activeTab}
-          onSelect={(k) => setActiveTab(k)}
-          id="signup-tabs"
-          className="mb-4"
-        >
-          <Tab eventKey="freelancer" title="Freelancer">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="username" className="mt-3">
-                <Form.Control
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="email" className="mt-3">
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password1" className="mt-3">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password1"
-                  value={formData.password1}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password2" className="mt-3">
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="password2"
-                  value={formData.password2}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Button
-                className={`${styles.Button} mt-3`}
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Signing Up..." : "Sign Up as Freelancer"}
-              </Button>
-              {success && (
-                <Alert variant="success" className="mt-3">
-                  Registration successful! Redirecting...
-                </Alert>
-              )}
-              {Object.keys(errors).length > 0 &&
-                Object.entries(errors).map(([key, messages]) =>
-                  messages.map((message, idx) => (
-                    <Alert key={`${key}-${idx}`} variant="danger" className="mt-3">
-                      {message}
-                    </Alert>
-                  ))
-                )}
-            </Form>
-          </Tab>
-          <Tab eventKey="client" title="Client">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="username" className="mt-3">
-                <Form.Control
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="email" className="mt-3">
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password1" className="mt-3">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  name="password1"
-                  value={formData.password1}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="password2" className="mt-3">
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="password2"
-                  value={formData.password2}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="company" className="mt-3">
-                <Form.Control
-                  type="text"
-                  placeholder="Company Name"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Button
-                className={`${btnStyles.Button} mt-3`}
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Signing Up..." : "Sign Up as Client"}
-              </Button>
-              {success && (
-                <Alert variant="success" className="mt-3">
-                  Registration successful! Redirecting...
-                </Alert>
-              )}
-              {Object.keys(errors).length > 0 &&
-                Object.entries(errors).map(([key, messages]) =>
-                  messages.map((message, idx) => (
-                    <Alert key={`${key}-${idx}`} variant="danger" className="mt-3">
-                      {message}
-                    </Alert>
-                  ))
-                )}
-            </Form>
-          </Tab>
-        </Tabs>
+
+        {/* Show success or error message */}
+        {success && (
+          <Alert variant="success">Registration successful! Redirecting...</Alert>
+        )}
+        {Object.keys(errors).length > 0 && (
+          <Alert variant="danger">
+            {errors.non_field_errors
+              ? errors.non_field_errors.join(", ")
+              : "There were some errors in your submission."}
+          </Alert>
+        )}
+
+        <Form onSubmit={handleSubmit}>
+          <Tabs
+            activeKey={activeTab}
+            onSelect={(k) => setActiveTab(k)}
+            id="signup-tabs"
+            className="mb-4"
+          >
+            <Tab eventKey="freelancer" title="Freelancer">
+              {/* Freelancer Tab Specific Content */}
+            </Tab>
+            <Tab eventKey="client" title="Client">
+              {/* Client Tab Specific Content */}
+            </Tab>
+          </Tabs>
+
+          {/* Common Fields (outside of Tabs to make sure they show in both tabs) */}
+          <Form.Group controlId="username" className="mt-3">
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="email" className="mt-3">
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="password1" className="mt-3">
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password1"
+              value={formData.password1}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="password2" className="mt-3">
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              name="password2"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          {/* Client-Specific Field (only shown in the "Client" tab) */}
+          {activeTab === "client" && (
+            <Form.Group controlId="company" className="mt-3">
+              <Form.Control
+                type="text"
+                placeholder="Company Name"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          )}
+
+          <Button type="submit" className="mt-3" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
+          </Button>
+        </Form>
+
+        {/* Link to sign-in */}
         <Container className="mt-3">
           <Link className={styles.Link} to="/signin">
             Already have an account? <span>Sign in</span>

@@ -1,0 +1,105 @@
+.howItWorks {
+    background-color: #e5f9f0; /* Soft green background */
+    padding: 69.5px 20px; /* Ample space for content */
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333; /* Dark text for contrast */
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #555; /* Lighter gray for descriptions */
+  }
+  
+  .stepsContainer {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  
+  .steps {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    max-width: 450px;
+  }
+  
+  .stepHeading {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #007bff; /* Use a blue accent color for the headings */
+  }
+  
+  .step {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .step h4 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333; /* Dark text for step headings */
+  }
+  
+  .step p {
+    font-size: 1.1rem;
+    color: #666; /* Soft gray for descriptions */
+  }
+  
+  .ctaContainer {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .ctaText {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #333; /* Dark text for call-to-action */
+  }
+  
+  .ctaButton {
+    display: inline-block;
+    margin: 10px;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    background-color: #007bff; /* Primary brand color */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ctaButton:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+  }
+  
+  @media (max-width: 768px) {
+    .steps {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .ctaButton {
+      width: 100%;
+      padding: 12px 0;
+    }
+  }
+  

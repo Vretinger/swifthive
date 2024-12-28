@@ -1,0 +1,65 @@
+.aboutIntro {
+    background-color: #2F4745; /* Dark background similar to your FeatureButtons */
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff; /* White text color for better contrast */
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .textContainer {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .heading {
+    font-size: 3rem; /* Adjusted to fit your overall design */
+    color: #ffd700; /* Yellow color to match buttons and accents */
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .description {
+    font-size: 1.5rem; /* Adjusted font size for better readability */
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  .ctaContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .ctaButton {
+    background-color: #ffcc00; /* Yellow button color */
+    color: #122d2f; /* Text color matching your Hero section */
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .ctaButton:hover {
+    background-color: #b38f00; /* Hover effect */
+    color: #fff; /* White text on hover */
+  }
+  
+  @media (max-width: 768px) {
+    .heading {
+      font-size: 2rem; /* Smaller heading on smaller screens */
+    }
+  
+    .description {
+      font-size: 1.2rem; /* Adjusted for readability */
+    }
+  
+    .ctaButton {
+      font-size: 1rem; /* Smaller button text */
+    }
+  }
+  

@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../assets/images/HiveLogo.png';
 import { FaHome, FaSearch, FaUsers, FaQuestion, FaDollarSign, FaListUl, FaSignInAlt } from 'react-icons/fa';
 import styles from '../styles/Footer.module.css'; // Assuming you have a CSS file for styling
+import { Link } from 'react-router-dom'; // Import Link for routing
 
 const Footer = () => {
   return (
@@ -32,7 +33,7 @@ const Footer = () => {
           <div className={styles.linkColumn}>
             <a href="/find-talent" className={styles.link}>
               <FaUsers className={styles.icon} />
-              Find Talent
+              <Link to="/signup?tab=client" className={styles.link}>Find Talent</Link>
             </a>
             <a href="/how-it-works" className={styles.link}>
               <FaQuestion className={styles.icon} />

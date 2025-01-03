@@ -1,14 +1,25 @@
-import React from 'react';
-import HeroSection from '../components/HeroSection';
-import FeatureButtons from '../components/FeatureButtons';
-import AboutIntro from '../components/AboutIntro';
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import HeroSection from "../components/HeroSection";
+import FeatureButtons from "../components/FeatureButtons";
+import AboutIntro from "../components/AboutIntro";
+import FreelancerHome from "../components/FreelancerHome";
 
 const Home = () => {
+  const currentUser = useCurrentUser();
+
+  console.log('Current User:', currentUser); // Log the current user to inspect the data
+
   return (
     <div>
-      <HeroSection />
-      <FeatureButtons />
-      <AboutIntro />
+      {currentUser?.role === "freelancer" ? (
+        <FreelancerHome />
+      ) : (
+        <>
+          <HeroSection />
+          <FeatureButtons />
+          <AboutIntro />
+        </>
+      )}
     </div>
   );
 };

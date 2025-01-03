@@ -13,8 +13,11 @@ import {
   Alert,
 } from "react-bootstrap";
 import axios from "axios";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const LoginPage = () => {
+  const setCurrentUser = useSetCurrentUser();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,12 +38,12 @@ const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       setLoading(true); // Set loading to true when starting the request
-
+  
       // Make the login request
-      const response = await axios.post(
+      const {data} = await axios.post(
         "https://swifthive-api-bad383c6f380.herokuapp.com/dj-rest-auth/login/", 
         JSON.stringify({ username: email, password: password }),
         {
@@ -50,16 +53,13 @@ const LoginPage = () => {
         }
       );
 
-      // Step 1: Store the JWT token in localStorage
-      localStorage.setItem("authToken", response.data.access); // Storing token
-
-      // Optionally, you can save the user data too
-      localStorage.setItem("userData", JSON.stringify(response.data.user));
-
+      setCurrentUser(data.user);
+  
       // Step 2: Redirect to a protected page (e.g., dashboard or profile)
-      navigate("/dashboard"); // Navigate to a protected page
-    }
-    finally {
+      navigate("/home"); // Navigate to a protected page
+    } catch (error) {
+      console.error("Login error:", error); // Handle errors here (optional)
+    } finally {
       setLoading(false); // Set loading to false after request completes
     }
   };

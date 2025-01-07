@@ -55,6 +55,9 @@ const LoginPage = () => {
       );
       setCurrentUser(data.user);
       setTokenTimestamp(data);
+      localStorage.setItem("currentUser", JSON.stringify(data.user));
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
   
       // Step 2: Redirect to a protected page (e.g., dashboard or profile)
       navigate("/"); // Navigate to a protected page

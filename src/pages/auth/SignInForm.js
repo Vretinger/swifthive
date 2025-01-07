@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { setTokenTimestamp } from "../../utils/utils";
 
 const LoginPage = () => {
   const setCurrentUser = useSetCurrentUser();
@@ -44,7 +45,7 @@ const LoginPage = () => {
   
       // Make the login request
       const {data} = await axios.post(
-        "https://swifthive-api-bad383c6f380.herokuapp.com/dj-rest-auth/login/", 
+        "/dj-rest-auth/login/", 
         JSON.stringify({ username: email, password: password }),
         {
           headers: {
@@ -52,17 +53,18 @@ const LoginPage = () => {
           },
         }
       );
-
       setCurrentUser(data.user);
+      setTokenTimestamp(data);
   
       // Step 2: Redirect to a protected page (e.g., dashboard or profile)
-      navigate("/home"); // Navigate to a protected page
+      navigate("/"); // Navigate to a protected page
     } catch (error) {
       console.error("Login error:", error); // Handle errors here (optional)
     } finally {
       setLoading(false); // Set loading to false after request completes
     }
   };
+  
 
   return (
     <Row className={styles.Row}>

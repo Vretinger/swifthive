@@ -17,36 +17,36 @@ const Footer = () => {
         {/* Links and Icons */}
         <div className={styles.linkContainer}>
           <div className={styles.linkColumn}>
-            <a href="/" className={styles.link}>
+            <Link to="/" className={styles.link}>
               <FaHome className={styles.icon} />
               Home
-            </a>
-            <a href="/signup" className={styles.link}>
+            </Link>
+            <Link to="/signup" className={styles.link}>
               <FaSignInAlt className={styles.icon} />
               Sign Up
-            </a>
-            <a href="/find-work" className={styles.link}>
+            </Link>
+            <Link to="/find-work" className={styles.link}>
               <FaSearch className={styles.icon} />
               Find Work
-            </a>
+            </Link>
           </div>
           <div className={styles.linkColumn}>
-            <a href="/find-talent" className={styles.link}>
+            <Link to="/find-talent" className={styles.link}>
               <FaUsers className={styles.icon} />
-              <Link to="/signup?tab=client" className={styles.link}>Find Talent</Link>
-            </a>
-            <a href="/how-it-works" className={styles.link}>
+              Find Talent
+            </Link>
+            <Link to="/how-it-works" className={styles.link}>
               <FaQuestion className={styles.icon} />
               How it Works
-            </a>
-            <a href="/pricing" className={styles.link}>
+            </Link>
+            <Link to="/pricing" className={styles.link}>
               <FaDollarSign className={styles.icon} />
               Pricing
-            </a>
-            <a href="/categories" className={styles.link}>
+            </Link>
+            <Link to="/categories" className={styles.link}>
               <FaListUl className={styles.icon} />
               Categories
-            </a>
+            </Link>
           </div>
         </div>
       </div>

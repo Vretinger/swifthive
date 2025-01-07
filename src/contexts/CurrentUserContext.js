@@ -14,9 +14,18 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
+  const signOut = () => {
+    // Clear user session
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('access_token');
+    setCurrentUser(null);
+
+    // Redirect
+    window.location.href = '/';
+  };
+
   const refreshAccessToken = useCallback(async () => {
     const refreshToken = localStorage.getItem("refresh_token");
-    console.log("Stored refreshToken:", refreshToken); 
     if (!refreshToken) {
       console.warn("Refresh token is missing.");
       return null; // Don't throw an error, just return null
@@ -59,7 +68,7 @@ export const CurrentUserProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("currentUser");
     const accessToken = localStorage.getItem("access_token");
-    console.log("storedUser:", storedUser); 
+    
 
     if (storedUser && accessToken) {
       setCurrentUser(JSON.parse(storedUser));
@@ -109,7 +118,7 @@ export const CurrentUserProvider = ({ children }) => {
   }, [navigate, refreshAccessToken]); // Add refreshAccessToken as a dependency
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, signOut}}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {children}
       </SetCurrentUserContext.Provider>

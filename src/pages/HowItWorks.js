@@ -1,8 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/HowItWorks.module.css'; // Use your existing CSS module
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const HowItWorks = () => {
+  const currentUser = useCurrentUser();
+  const loggedIn = (
+    <>
+      <Link to="/find-work" className={styles.ctaButton}>Find Work!</Link>
+    </>
+  )
+
+  const loggedOut = (
+    <>
+      <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Sign Up as Freelancer</Link>
+      <Link to="/signup?tab=client" className={styles.ctaButton}>Sign Up as Client</Link>
+    </>
+  )
+
+
   return (
     <section className={styles.howItWorks}>
       <div className={styles.container}>
@@ -49,8 +65,7 @@ const HowItWorks = () => {
 
         <div className={styles.ctaContainer}>
           <p className={styles.ctaText}>Ready to get started?</p>
-          <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Sign Up as Freelancer</Link>
-          <Link to="/signup?tab=client" className={styles.ctaButton}>Sign Up as Client</Link>
+          {currentUser ? loggedIn : loggedOut}
         </div>
       </div>
     </section>

@@ -5,9 +5,7 @@ import AboutIntro from "../components/AboutIntro";
 import FreelancerHome from "../components/FreelancerHome";
 
 const Home = () => {
-  const currentUser = useCurrentUser();
-
-  console.log('Current User:', currentUser); // Log the current user to inspect the data
+  const { currentUser } = useCurrentUser();
 
   return (
     <div>

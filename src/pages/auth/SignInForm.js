@@ -67,6 +67,12 @@ const LoginPage = () => {
       setLoading(false); // Set loading to false after request completes
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    axios.defaults.headers.common["Authorization"] = null; // Clear Authorization header
+  };
   
 
   return (

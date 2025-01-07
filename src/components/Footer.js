@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const Footer = () => {
-  const currentUser = useCurrentUser();
+  const { currentUser, signOut } = useCurrentUser();
+
   const loggedInFotL = (
     <>
       <Link to="/" className={styles.link}>
         <FaHome className={styles.icon} />
           Home
       </Link>
-      <Link to="/" className={styles.link}>
+      <Link to="/" className={styles.link} onClick={signOut}>
         <FaSignOutAlt className={styles.icon} />
           Log Out
       </Link>

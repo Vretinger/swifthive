@@ -4,7 +4,8 @@ import logo from '../assets/images/HiveLogo.png';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const Navbar = () => {
-  const currentUser = useCurrentUser();
+  const { currentUser, signOut } = useCurrentUser();
+
   const loggedInNav = (
     <>
       <Link to="/dashboard" className={`${styles['navbar-button']}`}>
@@ -16,11 +17,9 @@ const Navbar = () => {
       <Link to="/profile" className={`${styles['navbar-button']}`}>
         Profile
       </Link>
-      <button
-        className={`${styles['navbar-button']} ${styles['logout-button']}`}
-      >
-        Logout
-      </button>
+      <Link to="/" className={`${styles['navbar-button']} ${styles['login-button']}`} onClick={signOut}>
+          Log Out
+      </Link>
     </>
   )
   const loggedOutNav = (

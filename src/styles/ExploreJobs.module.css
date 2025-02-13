@@ -1,0 +1,35 @@
+.explore-jobbs {
+    padding: 20px;
+  }
+  
+  .job-listings {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .job-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .job-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .explore-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .explore-button:hover {
+    background-color: #0056b3;
+  }
+  

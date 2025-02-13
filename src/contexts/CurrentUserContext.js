@@ -32,7 +32,7 @@ export const CurrentUserProvider = ({ children }) => {
     }
 
     try {
-      const { data } = await axios.post("/dj-rest-auth/token/refresh/", {
+      const { data } = await axios.post("/api/auth/token/refresh/", {
         refresh: refreshToken,
       });
       localStorage.setItem("access_token", data.access);
@@ -49,7 +49,7 @@ export const CurrentUserProvider = ({ children }) => {
       // Refresh the token and fetch user data
       const newAccessToken = await refreshAccessToken();
       if (newAccessToken) {
-        const { data } = await axiosRes.get("/dj-rest-auth/user/");
+        const { data } = await axiosRes.get("/api/users/");
         setCurrentUser(data);
         localStorage.setItem("currentUser", JSON.stringify(data));
       } else {

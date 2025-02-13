@@ -1,0 +1,28 @@
+.job-detail {
+    padding: 20px;
+  }
+  
+  .job-detail h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+  
+  .job-detail p {
+    font-size: 1.1em;
+    margin: 5px 0;
+  }
+  
+  .apply-button, .save-button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .apply-button:hover, .save-button:hover {
+    background-color: #0056b3;
+  }
+  

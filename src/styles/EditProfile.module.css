@@ -1,0 +1,53 @@
+.editProfileContainer {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .editProfileContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .editProfileForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .editProfileForm input,
+  .editProfileForm select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .saveButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .saveButton:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  
+  .success {
+    color: green;
+    text-align: center;
+  }
+  

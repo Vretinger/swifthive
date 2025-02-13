@@ -14,7 +14,6 @@ const SignUpPage = () => {
 
   const [activeTab, setActiveTab] = useState(initialTab);
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password1: "",
     password2: "",
@@ -36,7 +35,6 @@ const SignUpPage = () => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append("username", formData.username);
     data.append("email", formData.email);
     data.append("password1", formData.password1);
     data.append("password2", formData.password2);
@@ -50,7 +48,7 @@ const SignUpPage = () => {
 
     try {
       const response = await fetch(
-        "https://swifthive-api-bad383c6f380.herokuapp.com/dj-rest-auth/registration/",
+        "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
         {
           method: "POST",
           body: data,
@@ -108,16 +106,6 @@ const SignUpPage = () => {
           </Tabs>
 
           {/* Common Fields (outside of Tabs to make sure they show in both tabs) */}
-          <Form.Group controlId="username" className="mt-3">
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
           <Form.Group controlId="email" className="mt-3">
             <Form.Control
               type="email"

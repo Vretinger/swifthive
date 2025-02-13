@@ -7,6 +7,9 @@ import { Routes, Route } from "react-router-dom";
 import "./api/axiosDefaults";
 import HowItWorks from "./pages/HowItWorks";
 import PricingPage from "./pages/PricingPage";
+import EditProfile from "./pages/freelancers/EditProfile";
+import ExploreJobs from "./pages/ExploreJobs";
+import JobDetail from "./pages/JobDetail";
 
 // Lazy-loaded components for performance optimization
 const Home = lazy(() => import("./pages/Home"));
@@ -27,9 +30,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/signin" element={<SignInForm />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/jobs" element={<ExploreJobs />} />
+            <Route path="/job/:id" element={<JobDetail />} />
           </Routes>
         </Suspense>
       </Container>

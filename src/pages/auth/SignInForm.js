@@ -44,12 +44,12 @@ const LoginPage = () => {
       setLoading(true); // Set loading to true when starting the request
   
       // Make the login request
-      const {data} = await axios.post(
-        "/dj-rest-auth/login/", 
-        JSON.stringify({ username: email, password: password }),
+      const { data } = await axios.post(
+        "/api/auth/login/", 
+        { email: email, password: password },
         {
           headers: {
-            "Content-Type": "application/json", // Ensure that we send JSON
+            "Content-Type": "application/json",
           },
         }
       );
@@ -62,18 +62,22 @@ const LoginPage = () => {
       // Step 2: Redirect to a protected page (e.g., dashboard or profile)
       navigate("/"); // Navigate to a protected page
     } catch (error) {
-      console.error("Login error:", error); // Handle errors here (optional)
+      if (error.response) {
+        console.error("Login error:", error.response.data); // This will give more details about the error
+      } else {
+        console.error("Login error:", error.message); // For non-response errors
+      }
     } finally {
       setLoading(false); // Set loading to false after request completes
     }
   };
 
-  const handleLogout = () => {
+/*   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     axios.defaults.headers.common["Authorization"] = null; // Clear Authorization header
   };
-  
+   */
 
   return (
     <Row className={styles.Row}>

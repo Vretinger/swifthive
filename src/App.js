@@ -9,7 +9,7 @@ import HowItWorks from "./pages/HowItWorks";
 import PricingPage from "./pages/PricingPage";
 import EditProfile from "./pages/freelancers/EditProfile";
 import ExploreJobs from "./pages/ExploreJobs";
-import JobDetail from "./pages/JobDetail";
+import JobDetail from "./components/JobDetail";
 
 // Lazy-loaded components for performance optimization
 const Home = lazy(() => import("./pages/Home"));
@@ -35,7 +35,7 @@ function App() {
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/jobs" element={<ExploreJobs />} />
-            <Route path="/job/:id" element={<JobDetail />} />
+            <Route path="/job/:jobId" element={<JobDetail />} />
           </Routes>
         </Suspense>
       </Container>

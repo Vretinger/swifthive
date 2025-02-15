@@ -27,7 +27,9 @@ const Navbar = () => {
       <Link to="/" className={`${styles['navbar-button']}`}>
         Home
       </Link>
-      <button className={styles['navbar-button']}>Explore</button>
+      <Link to="/jobs" className={`${styles['navbar-button']}`}>
+        Explore
+      </Link>
       <Link to="/pricing" className={`${styles['navbar-button']}`}>
         Pricing
       </Link>

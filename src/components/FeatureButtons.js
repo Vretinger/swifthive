@@ -14,12 +14,14 @@ const FeatureButtons = () => {
     <div className={styles.featureButtonsSection}>
       <div className={styles.banner}>Connecting Talents</div>
       <div className={styles.featureButtonsContainer}>
-        <button className={`${styles.featureButton} ${styles.yellowCircle}`}>
-          <div className={styles.circle}>
-            <img src={image1} alt="Feature 1" className={styles.circleImageFindWork} />
-          </div>
-          <span className={styles.buttonText}>Find Work</span>
-        </button>
+        <Link to="/jobs" className={styles.buttonText}>
+          <button className={`${styles.featureButton} ${styles.yellowCircle}`}>
+            <div className={styles.circle}>
+              <img src={image1} alt="Feature 1" className={styles.circleImageFindWork} />
+            </div>
+            <span className={styles.buttonText}>Find Work</span>
+          </button>
+        </Link>
         <Link to="/signup?tab=client" className={styles.buttonText}>
           <button className={`${styles.featureButton} ${styles.yellowCircle}`}>
             <div className={styles.circle}>

@@ -18,7 +18,7 @@ const Footer = () => {
         <FaSignOutAlt className={styles.icon} />
           Log Out
       </Link>
-      <Link to="/find-work" className={styles.link}>
+      <Link to="/jobs" className={styles.link}>
         <FaSearch className={styles.icon} />
           Find Work
       </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
         <FaSignInAlt className={styles.icon} />
           Sign Up
       </Link>
-      <Link to="/find-work" className={styles.link}>
+      <Link to="/jobs" className={styles.link}>
         <FaSearch className={styles.icon} />
           Find Work
       </Link>
@@ -59,7 +59,7 @@ const Footer = () => {
   )
   const loggedOutFotR = (
     <>
-     <Link to="/find-talent" className={styles.link}>
+     <Link to="/signup?tab=client" className={styles.link}>
        <FaUsers className={styles.icon} />
          Find Talent
       </Link>

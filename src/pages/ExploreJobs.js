@@ -33,32 +33,30 @@ const ExploreJobbs = () => {
   };
 
   return (
-    <div className="explore-jobbs">
+    <div className={styles.exploreJobbs}>
       <h2>Explore Job Listings</h2>
-  
+
       {loading && <div>Loading...</div>}
-      {error && <div className="error-message">{error}</div>}
-      {!loading && !error && jobListings.length === 0 && <div>No jobs available</div>}
-  
-      <div className="job-listings">
+      {error && <div className={styles.errorMessage}>{error}</div>}
+      {!loading && !error && jobListings.length === 0 && <div className={styles.noJobs}>No jobs available</div>}
+
+      <div className={styles.jobListings}>
         {Array.isArray(jobListings) && jobListings.length > 0 ? (
           jobListings.map((listing) => (
-            <div key={listing.id} className="job-card">
-              <h3>{listing.title}</h3>
-              <p><strong>Category:</strong> {listing.category}</p>
-              <p><strong>Location:</strong> {listing.location}</p>
-              <p>{listing.short_description}</p>
-              <button onClick={() => handleJobClick(listing.id)} className="explore-button">
-                See More
-              </button>
+            <div key={listing.id} className={styles.jobCard} onClick={() => handleJobClick(listing.id)}>
+              <h3 className={styles.jobTitle}>{listing.title}</h3>
+              <p className={styles.jobDetails}><strong>Category:</strong> {listing.category}</p>
+              <p className={styles.jobDetails}><strong>Location:</strong> {listing.location}</p>
+              <p className={styles.jobDetails}>{listing.short_description}</p>
+              <button className={styles.exploreButton}>See More</button>
             </div>
           ))
         ) : (
-          <div>No job listings available</div> // Display message if jobListings is not an array or empty
+          <div className={styles.noJobs}>No job listings available</div>
         )}
       </div>
     </div>
-  );  
+  );
 };
 
 export default ExploreJobbs;

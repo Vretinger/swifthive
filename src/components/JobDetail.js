@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic from "../api/axiosDefaults";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 import styles from '../styles/JobDetail.module.css';
 
 const JobDetail = () => {
-  const { jobId } = useParams(); // Get jobId from the URL params
-  const [job, setJob] = useState(null); // Store job details
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const { jobId } = useParams();
+  const navigate = useNavigate();
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { isAuthenticated } = useCurrentUser(); // Check if user is logged in
 
   useEffect(() => {
     const fetchJobDetail = async () => {
@@ -19,50 +22,66 @@ const JobDetail = () => {
 
       try {
         const response = await axiosPublic.get(`/api/job-listings/listings/${jobId}/`);
-        setJob(response.data); // Set the job data
+        setJob(response.data);
       } catch (err) {
         console.error("Error fetching job details:", err);
         setError("Failed to load job details.");
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
     fetchJobDetail();
-  }, [jobId]); // Re-run the effect when jobId changes
+  }, [jobId]);
 
-  // Rendering the job details
-  const renderJobDetail = () => {
-    if (loading) {
-      return <div>Loading...</div>;
+  // Handle Apply Button Click
+  const handleApply = () => {
+    if (isAuthenticated) {
+      navigate(`/apply/${jobId}`); // Redirect to application page
+    } else {
+      navigate("/signin"); // Redirect to login page
     }
-
-    if (error) {
-      return <div>{error}</div>;
-    }
-
-    if (!job) {
-      return <div>Job not found</div>;
-    }
-
-    return (
-      <div className="job-detail-card">
-        <h2>{job.title}</h2>
-        <p><strong>Category:</strong> {job.category}</p>
-        <p><strong>Location:</strong> {job.location}</p>
-        <p><strong>Description:</strong> {job.description}</p>
-        <p><strong>Salary:</strong> {job.salary}</p>
-        <p><strong>Type:</strong> {job.job_type}</p>
-        <p><strong>Requirements:</strong> {job.requirements}</p>
-        <p><strong>Posted on:</strong> {job.created_at ? new Date(job.created_at).toLocaleDateString() : "Date not available"}</p>
-      </div>
-    );
   };
 
   return (
-    <div className="job-detail-container">
-      <h1>Job Details</h1>
-      {renderJobDetail()}
+    <div className={styles.jobContainer}>
+      {loading && <div className={styles.loadingMessage}>Loading...</div>}
+      {error && <div className={styles.errorMessage}>{error}</div>}
+      {!loading && !error && job ? (
+        <div className={styles.jobDetailCard}>
+          <h1 className={styles.jobDetailTitle}>Job Details</h1>
+          <h2>{job.title}</h2>
+          <h4>{job.company}</h4>
+          <p><strong>Category:</strong> {job.category}</p>
+          <p><strong>Location:</strong> {job.location}</p>
+          <label><strong>Description:</strong></label>
+          <textarea 
+            className={styles.descriptionField} 
+            value={job.description} 
+            readOnly 
+          />
+          <p><strong>Salary:</strong> {job.salary}</p>
+          <p><strong>Employment type:</strong> {job.employment_type}</p>
+          <p><strong>Remote:</strong> {job.remote ? "Yes" : "No"}</p>
+          <p><strong>Application deadline:</strong> {job.application_deadline}</p>
+          <p><strong>Posted on:</strong> {job.created_at ? new Date(job.created_at).toLocaleDateString() : "Date not available"}</p>
+
+          {/* Buttons Container */}
+          <div className={styles.buttonContainer}>
+            {/* Back to Job Listings Button (Bottom Left) */}
+            <button onClick={() => navigate("/jobs")} className={styles.backButton}>
+              ← Back to Job Listings
+            </button>
+
+            {/* Apply Button (Bottom Right) */}
+            <button onClick={handleApply} className={styles.applyButton}>
+              Apply to Job →
+            </button>
+          </div>
+        </div>
+      ) : (
+        !loading && !error && <div className={styles.errorMessage}>Job not found</div>
+      )}
     </div>
   );
 };

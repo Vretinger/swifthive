@@ -1,35 +1,66 @@
-.explore-jobbs {
-    padding: 20px;
-  }
-  
-  .job-listings {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  .job-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .job-card h3 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-  
-  .explore-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .explore-button:hover {
-    background-color: #0056b3;
-  }
-  
+.exploreJobbs {
+  text-align: center;
+  padding: 20px;
+  height: 70vh;
+  background-color: #395754;
+}
+
+.exploreJobbs h2 {
+font-size: 2rem;
+font-weight: bold;
+color: #f9f9f9;
+}
+
+.jobListings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.jobCard {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.jobCard:hover {
+  transform: translateY(-5px);
+}
+
+.jobTitle {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.jobDetails {
+  font-size: 1rem;
+  color: #666;
+}
+
+.exploreButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.exploreButton:hover {
+  background-color: #0056b3;
+}
+
+.errorMessage,
+.noJobs {
+  color: #ff4d4d;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}

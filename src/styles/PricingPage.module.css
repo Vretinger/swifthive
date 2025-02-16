@@ -96,7 +96,7 @@
   }
   
   .faqsSection {
-    background-color: #b5f7d9;
+    background-color: #6aa09b;
     padding: 60px 20px;
   }
   
@@ -117,9 +117,9 @@
   .faqQuestion {
     font-weight: bold;
     margin-bottom: 10px;
-    color: #007bff;
+    color: #005ab9;
   }
   
   .faqAnswer {
-    color: #666;
+    color: #494949;
   }

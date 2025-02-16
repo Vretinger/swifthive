@@ -18,6 +18,8 @@ const SignUpPage = () => {
     password1: "",
     password2: "",
     company: "", // Only for clients
+    first_name: "", // New field
+    last_name: "", // New field
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -39,6 +41,8 @@ const SignUpPage = () => {
     data.append("password1", formData.password1);
     data.append("password2", formData.password2);
     data.append("role", activeTab);
+    data.append("first_name", formData.first_name); // Added first_name
+    data.append("last_name", formData.last_name); // Added last_name
     if (activeTab === "client") {
       data.append("company", formData.company);
     }
@@ -106,6 +110,28 @@ const SignUpPage = () => {
           </Tabs>
 
           {/* Common Fields (outside of Tabs to make sure they show in both tabs) */}
+          <Form.Group controlId="first_name" className="mt-3">
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group controlId="last_name" className="mt-3">
+            <Form.Control
+              type="text"
+              placeholder="Last Name"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
           <Form.Group controlId="email" className="mt-3">
             <Form.Control
               type="email"

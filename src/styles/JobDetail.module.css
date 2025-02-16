@@ -1,28 +1,99 @@
-.job-detail {
-    padding: 20px;
-  }
-  
-  .job-detail h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-  }
-  
-  .job-detail p {
-    font-size: 1.1em;
-    margin: 5px 0;
-  }
-  
-  .apply-button, .save-button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .apply-button:hover, .save-button:hover {
-    background-color: #0056b3;
-  }
-  
+.jobContainer {
+  min-height: 70vh;
+  background-color: #395754;
+  padding-top: 10px;
+}
+
+.jobDetailTitle {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.jobDetailCard {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px; 
+  height: 60vh;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  background-color: #f9f9f9;
+}
+
+.jobDetailCard p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+.jobDetailCard strong {
+  color: #222;
+}
+
+.errorMessage {
+  color: #ff4d4d;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loadingMessage {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+}
+
+.descriptionField {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+  background-color: #f9f9f9;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; /* Space between buttons */
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Back Button - Bottom Left */
+.backButton {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  align-self: flex-start;
+}
+
+.backButton:hover {
+  background-color: #0056b3;
+}
+
+/* Apply Button - Bottom Right */
+.applyButton {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  align-self: flex-end;
+}
+
+.applyButton:hover {
+  background-color: #218838;
+}

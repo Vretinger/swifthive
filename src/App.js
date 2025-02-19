@@ -10,6 +10,12 @@ import PricingPage from "./pages/PricingPage";
 import EditProfile from "./pages/freelancers/EditProfile";
 import ExploreJobs from "./pages/ExploreJobs";
 import JobDetail from "./components/JobDetail";
+import CreateJob from "./components/CreateJob";
+import ManageJobs from "./components/ManageJobs";
+import EditJob from "./components/EditJob";
+import ManageApplications from "./components/ManageApplications";
+import FreelancerProfiles from "./components/FreelancerProfiles";
+import FreelancerDetails from "./components/FreelancerDetails";
 
 // Lazy-loaded components for performance optimization
 const Home = lazy(() => import("./pages/Home"));
@@ -36,6 +42,12 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/jobs" element={<ExploreJobs />} />
             <Route path="/job/:jobId" element={<JobDetail />} />
+            <Route path="/create-job" element={<CreateJob />} />
+            <Route path="/manage-jobs" element={<ManageJobs />} />
+            <Route path="/edit-job/:id" element={<EditJob />} />
+            <Route path="/manage-applications" element={<ManageApplications />} />
+            <Route path="/freelancers" element={<FreelancerProfiles />} />
+            <Route path="/freelancer/:id" element={<FreelancerDetails />} />
           </Routes>
         </Suspense>
       </Container>

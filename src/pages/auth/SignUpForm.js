@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/SignUpPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const SignUpPage = () => {
   // Extract query parameter from the URL to set the initial active tab
   const urlParams = new URLSearchParams(location.search);
   const initialTab = urlParams.get("tab") || "freelancer"; // Default to "freelancer"
-
+  const setCurrentUser = useSetCurrentUser();
   const [activeTab, setActiveTab] = useState(initialTab);
   const [formData, setFormData] = useState({
     email: "",
@@ -41,41 +42,73 @@ const SignUpPage = () => {
     data.append("password1", formData.password1);
     data.append("password2", formData.password2);
     data.append("role", activeTab);
-    data.append("first_name", formData.first_name); // Added first_name
-    data.append("last_name", formData.last_name); // Added last_name
+    data.append("first_name", formData.first_name);
+    data.append("last_name", formData.last_name);
     if (activeTab === "client") {
-      data.append("company", formData.company);
+        data.append("company", formData.company);
     }
 
     setLoading(true);
     setErrors({});
 
     try {
-      const response = await fetch(
-        "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
-        {
-          method: "POST",
-          body: data,
+        // Step 1: Register the user
+        const response = await fetch(
+            "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
+            {
+                method: "POST",
+                body: data,
+            }
+        );
+
+        const result = await response.json();
+
+        if (response.ok) {
+            // Step 2: Auto-login after successful registration
+            const loginResponse = await fetch(
+                "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/login/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password1, // Use the same password for login
+                    }),
+                }
+            );
+
+            const loginResult = await loginResponse.json();
+
+            if (loginResponse.ok) {
+                // Step 3: Store correct user data and tokens
+                setCurrentUser(loginResult.user);
+                localStorage.setItem("currentUser", JSON.stringify(loginResult.user));
+                localStorage.setItem('access_token', loginResult.access_token);
+                localStorage.setItem('refresh_token', loginResult.refresh_token);
+
+                setSuccess(true);
+                setErrors({});
+                
+                // Step 4: Redirect user to home page
+                navigate("/");
+            } else {
+                setErrors({ loginError: "Auto-login failed. Please sign in manually." });
+                navigate("/signin");
+            }
+        } else {
+            setErrors(result);
+            setSuccess(false);
         }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setSuccess(true);
-        setErrors({});
-        setTimeout(() => navigate("/home"), 2000); // Redirect after 2 seconds
-      } else {
-        setErrors(result);
-        setSuccess(false);
-      }
     } catch (error) {
-      setErrors({ non_field_errors: ["Network error. Please try again."] });
-      setSuccess(false);
+        setErrors({ non_field_errors: ["Network error. Please try again."] });
+        setSuccess(false);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
+
 
   return (
     <div className={styles.signupPage}>

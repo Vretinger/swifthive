@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from "../../styles/EditProfile.module.css";
+import axiosPublic from "../../api/axiosDefaults"; 
 import { axiosReq } from "../../api/axiosDefaults";
 import { Alert, Button } from 'react-bootstrap';
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
@@ -22,15 +23,17 @@ const EditProfile = () => {
     skills: [],
   });
 
-  const { bio, experience, portfolio_link, hourly_rate, location, availability_status, skills } = profileData;
+  const { bio, experience, portfolio_link, hourly_rate, location, availability_status, skills, profile_picture } = profileData;
 
   const [errors, setErrors] = useState({});
+  const [allSkills, setAllSkills] = useState([]); // Store available skills
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   useEffect(() => {
     const fetchProfileData = async () => {
       if (currentUser?.profile_id?.toString() === id) {
         try {
-          const { data } = await axiosReq.get(`/api/accounts/freelancers/2`);
+          const { data } = await axiosReq.get(`/api/accounts/freelancers/${id}`);
           setProfileData({
             bio: data.bio || "",
             experience: data.experience || "",
@@ -38,7 +41,7 @@ const EditProfile = () => {
             hourly_rate: data.hourly_rate || "",
             location: data.location || "",
             availability_status: data.availability_status || "Available",
-            skills: data.skills || [],
+            skills: data.skills.map(skill => skill.id) || [], // Store only skill IDs
           });
         } catch (err) {
           navigate("/");
@@ -47,7 +50,19 @@ const EditProfile = () => {
         navigate("/");
       }
     };
+
+    const fetchSkills = async () => {
+      try {
+        const { data } = await axiosPublic.get("/api/accounts/skills/");
+        console.log(data); // Log data to verify it's the correct structure
+        setAllSkills(Array.isArray(data.results) ? data.results : []); // Set allSkills to the "results" array
+      } catch (err) {
+        console.error("Error fetching skills:", err);
+      }
+    };
+
     fetchProfileData();
+    fetchSkills();
   }, [currentUser, id, navigate]);
 
   const handleChange = (event) => {
@@ -71,12 +86,24 @@ const EditProfile = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!bio) newErrors.bio = "Bio is required";
+    if (!experience) newErrors.experience = "Experience is required";
+    if (!portfolio_link) newErrors.portfolio_link = "Portfolio Link is required";
+    if (!hourly_rate || isNaN(hourly_rate)) newErrors.hourly_rate = "Please provide a valid hourly rate";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validateForm()) return; // Don't submit if validation fails
+
+    setIsSubmitting(true); // Set submitting state
+
     const token = localStorage.getItem("access_token");
-    const headers = {
-      "Authorization": `Bearer ${token}`,
-    };
+    const headers = { "Authorization": `Bearer ${token}` };
 
     const formData = new FormData();
     for (const key in profileData) {
@@ -86,7 +113,7 @@ const EditProfile = () => {
     }
 
     try {
-      const response = await axiosReq.put(`/api/accounts/freelancers/2/`, formData, { headers });
+      const response = await axiosReq.put(`/api/accounts/freelancers/${id}/`, formData, { headers });
       setCurrentUser((prevUser) => ({
         ...prevUser,
         profile_image: response.data.profile_image,
@@ -94,6 +121,8 @@ const EditProfile = () => {
       navigate("/profile");
     } catch (err) {
       setErrors(err.response?.data || {});
+    } finally {
+      setIsSubmitting(false); // Reset submitting state
     }
   };
 
@@ -103,18 +132,22 @@ const EditProfile = () => {
       <form onSubmit={handleSubmit} className={styles.editProfileForm} encType="multipart/form-data">
         <label>Bio:
           <textarea name="bio" value={bio} onChange={handleChange} className="form-control" />
+          {errors.bio && <div className="text-danger">{errors.bio}</div>}
         </label>
 
         <label>Experience:
           <textarea name="experience" value={experience} onChange={handleChange} className="form-control" />
+          {errors.experience && <div className="text-danger">{errors.experience}</div>}
         </label>
 
         <label>Portfolio Link:
           <input type="url" name="portfolio_link" value={portfolio_link} onChange={handleChange} className="form-control" />
+          {errors.portfolio_link && <div className="text-danger">{errors.portfolio_link}</div>}
         </label>
 
         <label>Hourly Rate:
           <input type="text" name="hourly_rate" value={hourly_rate} onChange={handleChange} className="form-control" />
+          {errors.hourly_rate && <div className="text-danger">{errors.hourly_rate}</div>}
         </label>
 
         <label>Location:
@@ -131,11 +164,26 @@ const EditProfile = () => {
 
         <label>Profile Picture:
           <input type="file" name="profile_picture" onChange={handleChange} className="form-control" />
+          {profile_picture && (
+            <img
+              src={URL.createObjectURL(profile_picture)}
+              alt="Profile Preview"
+              style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+            />
+          )}
         </label>
 
         <label>Skills:
           <select name="skills" multiple value={skills} onChange={handleChange} className="form-control">
-            <option value="">No items to select.</option>
+            {allSkills.length === 0 ? (
+              <option>Loading skills...</option>
+            ) : (
+              allSkills.map(skill => (
+                <option key={skill.id} value={skill.id}>
+                  {skill.name}
+                </option>
+              ))
+            )}
           </select>
         </label>
 
@@ -143,7 +191,9 @@ const EditProfile = () => {
 
         <div>
           <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button>
-          <Button type="submit" className={styles.saveButton}>Save Changes</Button>
+          <Button type="submit" className={styles.saveButton} disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </Button>
         </div>
       </form>
     </div>

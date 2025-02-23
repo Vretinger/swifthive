@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import "./api/axiosDefaults";
 import HowItWorks from "./pages/HowItWorks";
 import PricingPage from "./pages/PricingPage";
+import Profile from "./pages/freelancers/Profile";
 import EditProfile from "./pages/freelancers/EditProfile";
 import ExploreJobs from "./pages/ExploreJobs";
 import JobDetail from "./components/JobDetail";
@@ -36,6 +37,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUpForm />} />
             <Route path="/signin" element={<SignInForm />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/pricing" element={<PricingPage />} />

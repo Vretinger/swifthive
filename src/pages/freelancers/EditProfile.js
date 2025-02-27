@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from "../../styles/EditProfile.module.css";
-import axiosPublic from "../../api/axiosDefaults"; 
+import axiosPublic from "../../api/axiosDefaults";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Alert, Button } from 'react-bootstrap';
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const EditProfile = () => {
   const { currentUser } = useCurrentUser();
@@ -30,10 +33,15 @@ const EditProfile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   useEffect(() => {
+    if (!currentUser || !id) return; // Ensure currentUser and id exist
+  
     const fetchProfileData = async () => {
       if (currentUser?.profile_id?.toString() === id) {
         try {
-          const { data } = await axiosReq.get(`/api/accounts/freelancers/${id}`);
+          const { data } = await axiosReq.get(`/api/accounts/freelancers/${currentUser.pk}`);
+          console.log("Fetched data:", data); // Debugging
+          console.log("Skills:", data.skills); // Check if skills exist
+  
           setProfileData({
             bio: data.bio || "",
             experience: data.experience || "",
@@ -41,42 +49,49 @@ const EditProfile = () => {
             hourly_rate: data.hourly_rate || "",
             location: data.location || "",
             availability_status: data.availability_status || "Available",
-            skills: data.skills.map(skill => skill.id) || [], // Store only skill IDs
+            skills: Array.isArray(data.skills) ? data.skills.map(skill => skill.id) : [], // Safe mapping
           });
         } catch (err) {
-          navigate("/");
+          console.error("Error fetching profile data:", err);
         }
       } else {
+        console.warn("Unauthorized profile access, redirecting...");
         navigate("/");
       }
     };
-
-    const fetchSkills = async () => {
-      try {
-        const { data } = await axiosPublic.get("/api/accounts/skills/");
-        console.log(data); // Log data to verify it's the correct structure
-        setAllSkills(Array.isArray(data.results) ? data.results : []); // Set allSkills to the "results" array
-      } catch (err) {
-        console.error("Error fetching skills:", err);
-      }
-    };
-
+  
     fetchProfileData();
-    fetchSkills();
   }, [currentUser, id, navigate]);
+  
+
+  const handleSkillChange = (skillId) => {
+    setProfileData((prevData) => {
+      const updatedSkills = prevData.skills.includes(skillId)
+        ? prevData.skills.filter((id) => id !== skillId) // Remove if already selected
+        : [...prevData.skills, skillId]; // Add if not selected
+  
+      return { ...prevData, skills: updatedSkills };
+    });
+  };
+  
 
   const handleChange = (event) => {
-    const { name, value, files, type } = event.target;
+    const { name, value, files, type, multiple, options } = event.target;
+  
     if (type === "file") {
       setProfileData(prevData => ({
         ...prevData,
         [name]: files[0],
       }));
-    } else if (type === "select-multiple") {
-      const selectedOptions = Array.from(event.target.selectedOptions).map(option => option.value);
+    } else if (multiple && name === "skills") {
+      // For multi-select (skills), convert to integers
+      const selectedValues = Array.from(options)
+        .filter(option => option.selected)
+        .map(option => parseInt(option.value, 10)); // Ensure integers are used
+  
       setProfileData(prevData => ({
         ...prevData,
-        [name]: selectedOptions,
+        [name]: selectedValues,
       }));
     } else {
       setProfileData(prevData => ({
@@ -92,6 +107,9 @@ const EditProfile = () => {
     if (!experience) newErrors.experience = "Experience is required";
     if (!portfolio_link) newErrors.portfolio_link = "Portfolio Link is required";
     if (!hourly_rate || isNaN(hourly_rate)) newErrors.hourly_rate = "Please provide a valid hourly rate";
+    if (skills.length < 3) {
+      newErrors.skills = "Please select at least 3 skills";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -99,21 +117,26 @@ const EditProfile = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) return; // Don't submit if validation fails
-
+  
     setIsSubmitting(true); // Set submitting state
-
+  
     const token = localStorage.getItem("access_token");
     const headers = { "Authorization": `Bearer ${token}` };
-
+  
     const formData = new FormData();
     for (const key in profileData) {
-      if (profileData[key] !== null) {
+      if (key === "skills") {
+        // Make sure the skills are passed as an array of integers
+        profileData.skills.forEach(skillId => {
+          formData.append("skills", skillId); // Append each skill as an individual key-value pair
+        });
+      } else if (profileData[key] !== null) {
         formData.append(key, profileData[key]);
       }
     }
-
+  
     try {
-      const response = await axiosReq.put(`/api/accounts/freelancers/${id}/`, formData, { headers });
+      const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData, { headers });
       setCurrentUser((prevUser) => ({
         ...prevUser,
         profile_image: response.data.profile_image,
@@ -125,6 +148,15 @@ const EditProfile = () => {
       setIsSubmitting(false); // Reset submitting state
     }
   };
+  
+
+  // Group skills by category name
+  const categorizedSkills = allSkills.reduce((categories, skill) => {
+    const category = skill.category?.name || "Uncategorized"; // Default to "Uncategorized" if no category is defined
+    if (!categories[category]) categories[category] = [];
+    categories[category].push(skill);
+    return categories;
+  }, {});
 
   return (
     <div className={styles.editProfileContainer}>
@@ -134,8 +166,7 @@ const EditProfile = () => {
           <textarea name="bio" value={bio} onChange={handleChange} className="form-control" />
           {errors.bio && <div className="text-danger">{errors.bio}</div>}
         </label>
-
-        <label>Experience:
+      <label>Experience:
           <textarea name="experience" value={experience} onChange={handleChange} className="form-control" />
           {errors.experience && <div className="text-danger">{errors.experience}</div>}
         </label>
@@ -172,20 +203,26 @@ const EditProfile = () => {
             />
           )}
         </label>
+        <label>Skills:</label>
+        <Tabs defaultActiveKey="All" id="skills-tabs">
+          {Object.keys(categorizedSkills).map((category) => (
+            <Tab eventKey={category} title={category} key={category}>
+              <div className="skills-container">
+                {categorizedSkills[category].map((skill) => (
+                  <label key={skill.id} className={`mb-2 skill-item ${skills.includes(skill.id) ? "selected" : ""}`} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+                    <InputGroup.Checkbox
+                      checked={profileData.skills.includes(skill.id)}
+                      onChange={() => handleSkillChange(skill.id)}
+                    />
+                    <span style={{ marginLeft: "8px" }}>{skill.name}</span>
+                  </label>
+                ))}
+              </div>
+            </Tab>
+          ))}
+        </Tabs>
 
-        <label>Skills:
-          <select name="skills" multiple value={skills} onChange={handleChange} className="form-control">
-            {allSkills.length === 0 ? (
-              <option>Loading skills...</option>
-            ) : (
-              allSkills.map(skill => (
-                <option key={skill.id} value={skill.id}>
-                  {skill.name}
-                </option>
-              ))
-            )}
-          </select>
-        </label>
+
 
         {errors?.detail && <Alert variant="warning">{errors.detail}</Alert>}
 

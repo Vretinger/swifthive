@@ -9,6 +9,7 @@ import HowItWorks from "./pages/HowItWorks";
 import PricingPage from "./pages/PricingPage";
 import Profile from "./pages/freelancers/Profile";
 import EditProfile from "./pages/freelancers/EditProfile";
+import FreelancerDashboard from "./pages/freelancers/FreelancerDashboard";
 import ExploreJobs from "./pages/ExploreJobs";
 import JobDetail from "./components/JobDetail";
 import CreateJob from "./components/CreateJob";
@@ -52,6 +53,7 @@ function App() {
               <Route path="/edit-job/:id" element={<EditJob />} />
               <Route path="/freelancers" element={<FreelancerProfiles />} />
               <Route path="/freelancer/:id" element={<FreelancerDetails />} />
+              <Route path="/dashboard/" element={<FreelancerDashboard />} />
             </Routes>
           </Suspense>
         </Container>

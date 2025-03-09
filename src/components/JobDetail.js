@@ -10,7 +10,7 @@ const JobDetail = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { isAuthenticated } = useCurrentUser(); // Check if user is logged in
+  const { currentUser } = useCurrentUser(); // Check if user is logged in
 
   useEffect(() => {
     const fetchJobDetail = async () => {
@@ -36,7 +36,7 @@ const JobDetail = () => {
 
   // Handle Apply Button Click
   const handleApply = () => {
-    if (isAuthenticated) {
+    if (currentUser?.role === "freelancer") {
       navigate(`/apply/${jobId}`); // Redirect to application page
     } else {
       navigate("/signin"); // Redirect to login page

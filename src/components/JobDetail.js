@@ -60,7 +60,7 @@ const JobDetail = () => {
             value={job.description} 
             readOnly 
           />
-          <p><strong>Salary:</strong> {job.salary}</p>
+          <p><strong>Salary range:</strong> {job.salary_range}</p>
           <p><strong>Employment type:</strong> {job.employment_type}</p>
           <p><strong>Remote:</strong> {job.remote ? "Yes" : "No"}</p>
           <p><strong>Application deadline:</strong> {job.application_deadline}</p>

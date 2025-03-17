@@ -1,5 +1,11 @@
 .editProfileContainer {
-    max-width: 500px;
+  background-color: #3D5B59;
+  min-height: 72vh;
+  padding: 35px;
+}
+
+.editProfileCard {
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -7,7 +13,7 @@
     background-color: #fff;
   }
   
-  .editProfileContainer h2 {
+  .editProfileCard h2 {
     text-align: center;
     margin-bottom: 20px;
   }

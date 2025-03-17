@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from "../../styles/EditProfile.module.css";
-import axiosPublic from "../../api/axiosDefaults";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Alert, Button } from 'react-bootstrap';
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
@@ -29,7 +28,7 @@ const EditProfile = () => {
   const { bio, experience, portfolio_link, hourly_rate, location, availability_status, skills, profile_picture } = profileData;
 
   const [errors, setErrors] = useState({});
-  const [allSkills, setAllSkills] = useState([]); // Store available skills
+  const [allSkills] = useState([]); // Store available skills
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   useEffect(() => {
@@ -160,79 +159,81 @@ const EditProfile = () => {
 
   return (
     <div className={styles.editProfileContainer}>
-      <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit} className={styles.editProfileForm} encType="multipart/form-data">
-        <label>Bio:
-          <textarea name="bio" value={bio} onChange={handleChange} className="form-control" />
-          {errors.bio && <div className="text-danger">{errors.bio}</div>}
-        </label>
-      <label>Experience:
-          <textarea name="experience" value={experience} onChange={handleChange} className="form-control" />
-          {errors.experience && <div className="text-danger">{errors.experience}</div>}
-        </label>
+      <div className={styles.editProfileCard}>
+        <h2>Edit Profile</h2>
+        <form onSubmit={handleSubmit} className={styles.editProfileForm} encType="multipart/form-data">
+          <label>Bio:
+            <textarea name="bio" value={bio} onChange={handleChange} className="form-control" />
+            {errors.bio && <div className="text-danger">{errors.bio}</div>}
+          </label>
+        <label>Experience:
+            <textarea name="experience" value={experience} onChange={handleChange} className="form-control" />
+            {errors.experience && <div className="text-danger">{errors.experience}</div>}
+          </label>
 
-        <label>Portfolio Link:
-          <input type="url" name="portfolio_link" value={portfolio_link} onChange={handleChange} className="form-control" />
-          {errors.portfolio_link && <div className="text-danger">{errors.portfolio_link}</div>}
-        </label>
+          <label>Portfolio Link:
+            <input type="url" name="portfolio_link" value={portfolio_link} onChange={handleChange} className="form-control" />
+            {errors.portfolio_link && <div className="text-danger">{errors.portfolio_link}</div>}
+          </label>
 
-        <label>Hourly Rate:
-          <input type="text" name="hourly_rate" value={hourly_rate} onChange={handleChange} className="form-control" />
-          {errors.hourly_rate && <div className="text-danger">{errors.hourly_rate}</div>}
-        </label>
+          <label>Hourly Rate:
+            <input type="text" name="hourly_rate" value={hourly_rate} onChange={handleChange} className="form-control" />
+            {errors.hourly_rate && <div className="text-danger">{errors.hourly_rate}</div>}
+          </label>
 
-        <label>Location:
-          <input type="text" name="location" value={location} onChange={handleChange} className="form-control" />
-        </label>
+          <label>Location:
+            <input type="text" name="location" value={location} onChange={handleChange} className="form-control" />
+          </label>
 
-        <label>Availability Status:
-          <select name="availability_status" value={availability_status} onChange={handleChange} className="form-control">
-            <option value="Available">Available</option>
-            <option value="Busy">Busy</option>
-            <option value="On Leave">On Leave</option>
-          </select>
-        </label>
+          <label>Availability Status:
+            <select name="availability_status" value={availability_status} onChange={handleChange} className="form-control">
+              <option value="Available">Available</option>
+              <option value="Busy">Busy</option>
+              <option value="On Leave">On Leave</option>
+            </select>
+          </label>
 
-        <label>Profile Picture:
-          <input type="file" name="profile_picture" onChange={handleChange} className="form-control" />
-          {profile_picture && (
-            <img
-              src={URL.createObjectURL(profile_picture)}
-              alt="Profile Preview"
-              style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-            />
-          )}
-        </label>
-        <label>Skills:</label>
-        <Tabs defaultActiveKey="All" id="skills-tabs">
-          {Object.keys(categorizedSkills).map((category) => (
-            <Tab eventKey={category} title={category} key={category}>
-              <div className="skills-container">
-                {categorizedSkills[category].map((skill) => (
-                  <label key={skill.id} className={`mb-2 skill-item ${skills.includes(skill.id) ? "selected" : ""}`} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-                    <InputGroup.Checkbox
-                      checked={profileData.skills.includes(skill.id)}
-                      onChange={() => handleSkillChange(skill.id)}
-                    />
-                    <span style={{ marginLeft: "8px" }}>{skill.name}</span>
-                  </label>
-                ))}
-              </div>
-            </Tab>
-          ))}
-        </Tabs>
+          <label>Profile Picture:
+            <input type="file" name="profile_picture" onChange={handleChange} className="form-control" />
+            {profile_picture && (
+              <img
+                src={URL.createObjectURL(profile_picture)}
+                alt="Profile Preview"
+                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+              />
+            )}
+          </label>
+          <label>Skills:</label>
+          <Tabs defaultActiveKey="All" id="skills-tabs">
+            {Object.keys(categorizedSkills).map((category) => (
+              <Tab eventKey={category} title={category} key={category}>
+                <div className="skills-container">
+                  {categorizedSkills[category].map((skill) => (
+                    <label key={skill.id} className={`mb-2 skill-item ${skills.includes(skill.id) ? "selected" : ""}`} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+                      <InputGroup.Checkbox
+                        checked={profileData.skills.includes(skill.id)}
+                        onChange={() => handleSkillChange(skill.id)}
+                      />
+                      <span style={{ marginLeft: "8px" }}>{skill.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </Tab>
+            ))}
+          </Tabs>
 
 
 
-        {errors?.detail && <Alert variant="warning">{errors.detail}</Alert>}
+          {errors?.detail && <Alert variant="warning">{errors.detail}</Alert>}
 
-        <div>
-          <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button>
-          <Button type="submit" className={styles.saveButton} disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Changes"}
-          </Button>
-        </div>
-      </form>
+          <div>
+            <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button>
+            <Button type="submit" className={styles.saveButton} disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save Changes"}
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

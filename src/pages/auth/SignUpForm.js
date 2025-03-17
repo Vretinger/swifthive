@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/SignUpPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
@@ -91,8 +91,8 @@ const SignUpPage = () => {
                 setSuccess(true);
                 setErrors({});
                 
-                // Step 4: Redirect user to home page
-                navigate("/");
+                // Step 4: Redirect user to Edit profile page
+                navigate("/edit-profile");
             } else {
                 setErrors({ loginError: "Auto-login failed. Please sign in manually." });
                 navigate("/signin");
@@ -217,9 +217,9 @@ const SignUpPage = () => {
 
         {/* Link to sign-in */}
         <Container className="mt-3">
-          <Link className={styles.Link} to="/signin">
+          <a href="/signin" className={styles.Link}>
             Already have an account? <span>Sign in</span>
-          </Link>
+          </a>
         </Container>
       </div>
     </div>

@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosPublic from "../../api/axiosDefaults";
 import styles from '../../styles/FreelancerDetails.module.css';
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const FreelancerDetails = () => {
-    const CurrentUser = useCurrentUser();
-    const { id } = useParams(); // Get freelancer ID from URL
+    const { currentUser } = useCurrentUser();
     const navigate = useNavigate();
     const [freelancer, setFreelancer] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    console.log(CurrentUser)
 
     useEffect(() => {
         const fetchFreelancerDetails = async () => {
             try {
-                const response = await axiosPublic.get(`/api/accounts/freelancers/${id}/`);
+                const response = await axiosPublic.get(`/api/accounts/freelancers/${currentUser.pk}/`);
                 setFreelancer(response.data);
             } catch (error) {
                 console.error('Error fetching freelancer details:', error);
@@ -26,7 +24,7 @@ const FreelancerDetails = () => {
             }
         };
         fetchFreelancerDetails();
-    }, [id]);
+    }, [currentUser]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div className={styles.errorMessage}>{error}</div>;

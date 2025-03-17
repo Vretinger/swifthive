@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from '../../styles/SignUpPage.module.css';
+import styles from '../../styles/SignInPage.module.css';
 import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
-
 import {
   Form,
   Button,
@@ -58,9 +56,14 @@ const LoginPage = () => {
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('refresh_token', data.refresh_token);
-  
-      // Step 2: Redirect to a protected page (e.g., dashboard or profile)
-      navigate("/"); // Navigate to a protected page
+
+      console.log(data.bio);
+      if (data.bio === undefined) {
+        navigate("/edit-profile"); // Redirect to profile setup
+      } else {
+        navigate("/"); // Navigate to a protected page
+      }
+      
     } catch (error) {
       if (error.response) {
         console.error("Login error:", error.response.data); // This will give more details about the error
@@ -73,9 +76,9 @@ const LoginPage = () => {
   };
 
   return (
-    <Row className={styles.Row}>
-      <Col className="my-auto py-2 p-md-2" md={6}>
-        <Container className={`${appStyles.Content} p-4`}>
+    <Row className={styles.signInPage}>
+      <Col className={styles.signInContainer}>
+        <Container>
           <h1 className={styles.Header}>Login</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
@@ -115,7 +118,6 @@ const LoginPage = () => {
             ))}
 
             <Button
-              className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
               type="submit"
               disabled={loading} // Disable button during loading
             >

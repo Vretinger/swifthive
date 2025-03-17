@@ -1,0 +1,65 @@
+/* Center and style tabs */
+.NavTabs .nav-item .nav-link {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 0 5px;
+  padding: 10px 20px;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.NavTabs .nav-item .nav-link:hover {
+  background-color: #f8f9fa;
+}
+
+.NavTabs .nav-item .nav-link.active,
+.ActiveTab {
+  color: white !important;
+  font-weight: bold;
+  border: none;
+}
+
+/* General input styles */
+.Input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 15px 0;
+}
+
+/* Header styles */
+.Header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.signInPage a {
+  color: #122d2f !important;
+}
+
+.Button:hover {
+  background-color: #0056b3;
+}
+
+.signInPage {
+  position: relative;
+  height: 70vh;
+  background: linear-gradient(90deg, #122d2f, #abb9a4);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 80px;
+  width: 100%;
+}
+
+.signInContainer {
+  max-width: 500px !important;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #abb9a4;
+  border-radius: 10px;
+}
+
+
+

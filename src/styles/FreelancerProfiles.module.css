@@ -42,7 +42,7 @@
 }
 
 .viewProfileButton {
-    background-color: #007bff;
+    background-color: #AA6373 ;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -52,5 +52,5 @@
 }
 
 .viewProfileButton:hover {
-    background-color: #0056b3;
+    background-color: #894B5B ;
 }

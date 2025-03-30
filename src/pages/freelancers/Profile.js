@@ -74,7 +74,7 @@ const MyProfile = () => {
                     )}
                 </div>
 
-                <button className={styles.editButton} onClick={() => navigate("/edit-profile")}>Edit Profile</button> {/* 👈 Button for editing */}
+                <button className={styles.editButton} onClick={() => navigate("/edit-profile")}>Edit Profile</button>
             </div>
         </div>
     );

@@ -2,56 +2,84 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/Navbar.module.css';
 import logo from '../assets/images/HiveLogo.png';
 import { useCurrentUser } from '../contexts/CurrentUserContext';
-import { useState } from 'react';  // Import useState hook
-import LogoutModal from './LogoutModal.js'; 
+import { useState } from 'react';
+import LogoutModal from './LogoutModal.js';
 
 const Navbar = () => {
   const { currentUser, signOut } = useCurrentUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);  // Modal state
-
-  // Show modal when user clicks on "Log Out"
+  // Show logout confirmation modal
   const handleLogOutClick = (event) => {
-    event.preventDefault();  // Prevent immediate redirect
-    setIsModalOpen(true);  // Open the confirmation modal
+    event.preventDefault();
+    setIsModalOpen(true);
   };
 
-  // Handle the confirm action (log out the user)
+  // Confirm logout action
   const handleConfirmLogout = () => {
-    signOut();  // Call your sign-out function
-    setIsModalOpen(false);  // Close the modal after logout
+    signOut();
+    setIsModalOpen(false);
   };
 
-  // Handle the cancel action (close the modal)
+  // Cancel logout action
   const handleCancelLogout = () => {
-    setIsModalOpen(false);  // Just close the modal
+    setIsModalOpen(false);
   };
 
-  const loggedInNav = (
+  const freelancerNav = (
     <>
-      <Link to="/dashboard" className={`${styles['navbar-button']}`}>
+      <Link to="/dashboard" className={styles['navbar-button']}>
         Dashboard
       </Link>
-      <Link to="/projects" className={`${styles['navbar-button']}`}>
+      <Link to="/projects" className={styles['navbar-button']}>
         My Projects
       </Link>
-      <Link to="/profile" className={`${styles['navbar-button']}`}>
+      <Link to="/profile" className={styles['navbar-button']}>
         Profile
       </Link>
-      <Link to="/" className={`${styles['navbar-button']} ${styles['login-button']}`} onClick={handleLogOutClick}>
+      <Link 
+        to="/" 
+        className={`${styles['navbar-button']} ${styles['login-button']}`} 
+        onClick={handleLogOutClick}
+      >
         Log Out
       </Link>
     </>
-  )
+  );
+
+  const clientNav = (
+    <>
+      <Link to="/" className={styles['navbar-button']}>
+        Dashboard
+      </Link>
+      <Link to="/create-job" className={styles['navbar-button']}>
+        Post Job
+      </Link>
+      <Link to="/freelancers" className={styles['navbar-button']}>
+        Find Freelancers
+      </Link>
+      <Link to="/profile" className={styles['navbar-button']}>
+        Company Profile
+      </Link>
+      <Link 
+        to="/" 
+        className={`${styles['navbar-button']} ${styles['login-button']}`} 
+        onClick={handleLogOutClick}
+      >
+        Log Out
+      </Link>
+    </>
+  );
+
   const loggedOutNav = (
     <>
-      <Link to="/" className={`${styles['navbar-button']}`}>
+      <Link to="/" className={styles['navbar-button']}>
         Home
       </Link>
-      <Link to="/jobs" className={`${styles['navbar-button']}`}>
+      <Link to="/jobs" className={styles['navbar-button']}>
         Explore
       </Link>
-      <Link to="/pricing" className={`${styles['navbar-button']}`}>
+      <Link to="/pricing" className={styles['navbar-button']}>
         Pricing
       </Link>
       <Link to="/signin" className={`${styles['navbar-button']} ${styles['login-button']}`}>
@@ -62,7 +90,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Navbar */}
       <nav className={styles.navbar}>
         <div className={styles['navbar-left']}>
           <Link to="/" className={styles['navbar-link']}>
@@ -73,11 +100,11 @@ const Navbar = () => {
         </div>
 
         <div className={styles['navbar-right']}>
-          {currentUser ? loggedInNav : loggedOutNav}
+          {currentUser?.role === "freelancer" ? freelancerNav : 
+           currentUser?.role === "client" ? clientNav : loggedOutNav}
         </div>
       </nav>
 
-      {/* Show modal if it's open */}
       {isModalOpen && (
         <LogoutModal 
           onClose={handleCancelLogout} 

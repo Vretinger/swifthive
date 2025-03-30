@@ -3,6 +3,7 @@ import HeroSection from "../components/HeroSection";
 import FeatureButtons from "../components/FeatureButtons";
 import AboutIntro from "../components/AboutIntro";
 import FreelancerHome from "./ExploreJobs";
+import ClientDashboard from "../components/ClientDashboard";
 
 const Home = () => {
   const { currentUser } = useCurrentUser();
@@ -11,6 +12,8 @@ const Home = () => {
     <div>
       {currentUser?.role === "freelancer" ? (
         <FreelancerHome />
+      ) : currentUser?.role === "client" ? (
+        <ClientDashboard />
       ) : (
         <>
           <HeroSection />

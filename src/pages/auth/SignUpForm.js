@@ -92,7 +92,11 @@ const SignUpPage = () => {
                 setErrors({});
                 
                 // Step 4: Redirect user to Edit profile page
+                if (activeTab === "client") {
+                  navigate("/");
+              } else {
                 navigate("/edit-profile");
+              }
             } else {
                 setErrors({ loginError: "Auto-login failed. Please sign in manually." });
                 navigate("/signin");

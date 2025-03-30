@@ -1,80 +1,83 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosPublic from "../../api/axiosDefaults";
-import styles from '../../styles/FreelancerDetails.module.css';
+import styles from "../../styles/MyProfile.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-const FreelancerDetails = () => {
+const MyProfile = () => {
     const { currentUser } = useCurrentUser();
     const navigate = useNavigate();
-    const [freelancer, setFreelancer] = useState(null);
+    const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchFreelancerDetails = async () => {
+        if (!currentUser) return; // 🚀 Prevent running too early
+    
+        const fetchProfile = async () => {
             try {
                 const response = await axiosPublic.get(`/api/accounts/freelancers/${currentUser.pk}/`);
-                setFreelancer(response.data);
+                setProfile(response.data);
             } catch (error) {
-                console.error('Error fetching freelancer details:', error);
-                setError('Unable to load Freelancer details. Please try again later.');
+                console.error("Error fetching profile:", error);
+                setError("Unable to load your profile. Please try again later.");
             } finally {
                 setLoading(false);
             }
         };
-        fetchFreelancerDetails();
+    
+        fetchProfile();
     }, [currentUser]);
-
+    
+    if (!currentUser) return <div>Loading user data...</div>; // 👈 Prevent UI error
     if (loading) return <div>Loading...</div>;
-    if (error) return <div className={styles.errorMessage}>{error}</div>;
-    if (!freelancer) return <div>No freelancer found.</div>;
+    if (error) return <div>{error}</div>;
 
     return (
-        <div className={styles.freelancerDetails}>
-            <button onClick={() => navigate(-1)} className={styles.backButton}>← Back</button>
+        <div className={styles.profilePage}>
+            <div className={styles.profileContainer}>
+                <div className={styles.profileHeader}>
+                    <img 
+                        src={profile.profile_picture || "https://swifthive-api-bad383c6f380.herokuapp.com/media/default_profile.png"} 
+                        alt={`${currentUser.first_name} ${currentUser.last_name}`} 
+                        className={styles.profileImage}
+                    />
+                    <h1>My Profile</h1> {/* 👈 Always shows "My Profile" */}
+                    <p className={styles.role}><strong>Role:</strong> {currentUser.role || "Not specified"}</p>
+                    <p className={styles.location}><strong>Location:</strong> {profile.location || "Not specified"}</p>
+                    <p className={styles.availability}><strong>Status:</strong> {profile.availability_status || "Unknown"}</p>
+                </div>
 
-            <div className={styles.profileHeader}>
-                <img 
-                    src={freelancer.profile_picture || "https://swifthive-api-bad383c6f380.herokuapp.com/media/default_profile.png"} 
-                    alt={`${freelancer.user.first_name} ${freelancer.user.last_name}`} 
-                    className={styles.profileImage}
-                />
-                <h1>{freelancer.user.first_name} {freelancer.user.last_name}</h1>
-                <p className={styles.role}><strong>Role:</strong> {freelancer.user.role}</p>
-                <p className={styles.location}><strong>Location:</strong> {freelancer.location || "Not specified"}</p>
-                <p className={styles.availability}><strong>Status:</strong> {freelancer.availability_status}</p>
+                <div className={styles.detailsSection}>
+                    {profile.bio && <p><strong>Bio:</strong> {profile.bio}</p>}
+                    {profile.experience && <p><strong>Experience:</strong> {profile.experience} years</p>}
+                    {profile.hourly_rate && <p><strong>Hourly Rate:</strong> ${profile.hourly_rate}/hr</p>}
+
+                    {profile.skills?.length > 0 && (
+                        <div className={styles.skills}>
+                            <h3>Skills</h3>
+                            <ul>
+                                {profile.skills.map((skill, index) => (
+                                    <li key={index}>{skill}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {profile.portfolio_link && (
+                        <p>
+                            <strong>Portfolio:</strong> 
+                            <a href={profile.portfolio_link} target="_blank" rel="noopener noreferrer">
+                                View Portfolio
+                            </a>
+                        </p>
+                    )}
+                </div>
+
+                <button className={styles.editButton} onClick={() => navigate("/edit-profile")}>Edit Profile</button> {/* 👈 Button for editing */}
             </div>
-
-            <div className={styles.detailsSection}>
-                {freelancer.bio && <p><strong>Bio:</strong> {freelancer.bio}</p>}
-                {freelancer.experience && <p><strong>Experience:</strong> {freelancer.experience} years</p>}
-                {freelancer.hourly_rate && <p><strong>Hourly Rate:</strong> ${freelancer.hourly_rate}/hr</p>}
-                
-                {freelancer.skills && freelancer.skills.length > 0 && (
-                    <div className={styles.skills}>
-                        <h3>Skills</h3>
-                        <ul>
-                            {freelancer.skills.map((skill, index) => (
-                                <li key={index}>{skill}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {freelancer.portfolio_link && (
-                    <p>
-                        <strong>Portfolio:</strong> 
-                        <a href={freelancer.portfolio_link} target="_blank" rel="noopener noreferrer">
-                            View Portfolio
-                        </a>
-                    </p>
-                )}
-            </div>
-
-            <button className={styles.hireButton}>Hire {freelancer.user.first_name}</button>
         </div>
     );
 };
 
-export default FreelancerDetails;
+export default MyProfile;

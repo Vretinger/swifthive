@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "../../styles/SignUpPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
@@ -217,9 +217,9 @@ const SignUpPage = () => {
 
         {/* Link to sign-in */}
         <Container className="mt-3">
-          <a href="/signin" className={styles.Link}>
-            Already have an account? <span>Sign in</span>
-          </a>
+          <Link className={styles.Link} to="/signin">
+            Don't have an account? <span>Sign up</span>
+          </Link>
         </Container>
       </div>
     </div>

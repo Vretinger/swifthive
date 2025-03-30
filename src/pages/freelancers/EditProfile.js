@@ -13,6 +13,7 @@ const EditProfile = () => {
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Add loading state
 
   const [profileData, setProfileData] = useState({
     bio: "",
@@ -32,35 +33,31 @@ const EditProfile = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   useEffect(() => {
-    if (!currentUser || !id) return; // Ensure currentUser and id exist
+    if (!currentUser) return; // Ensure user is loaded
   
     const fetchProfileData = async () => {
-      if (currentUser?.profile_id?.toString() === id) {
-        try {
-          const { data } = await axiosReq.get(`/api/accounts/freelancers/${currentUser.pk}`);
-          console.log("Fetched data:", data); // Debugging
-          console.log("Skills:", data.skills); // Check if skills exist
-  
-          setProfileData({
-            bio: data.bio || "",
-            experience: data.experience || "",
-            portfolio_link: data.portfolio_link || "",
-            hourly_rate: data.hourly_rate || "",
-            location: data.location || "",
-            availability_status: data.availability_status || "Available",
-            skills: Array.isArray(data.skills) ? data.skills.map(skill => skill.id) : [], // Safe mapping
-          });
-        } catch (err) {
-          console.error("Error fetching profile data:", err);
-        }
-      } else {
-        console.warn("Unauthorized profile access, redirecting...");
-        navigate("/");
+      try {
+        setLoading(true); // Set loading state
+        const { data } = await axiosReq.get(`/api/accounts/freelancers/${currentUser.pk}/`);
+        setProfileData({
+          bio: data.bio || "",
+          experience: data.experience || "",
+          portfolio_link: data.portfolio_link || "",
+          hourly_rate: data.hourly_rate || "",
+          location: data.location || "",
+          availability_status: data.availability_status || "Available",
+          skills: Array.isArray(data.skills) ? data.skills.map(skill => skill.id) : [],
+        });
+      } catch (err) {
+        console.error("Error fetching profile data:", err);
+      } finally {
+        setLoading(false); // Set loading to false when fetch is done (whether successful or not)
       }
     };
   
     fetchProfileData();
-  }, [currentUser, id, navigate]);
+  }, [currentUser, id, navigate]); // Now the useEffect will run when these values change
+  
   
 
   const handleSkillChange = (skillId) => {
@@ -106,17 +103,20 @@ const EditProfile = () => {
     if (!experience) newErrors.experience = "Experience is required";
     if (!portfolio_link) newErrors.portfolio_link = "Portfolio Link is required";
     if (!hourly_rate || isNaN(hourly_rate)) newErrors.hourly_rate = "Please provide a valid hourly rate";
-    if (skills.length < 3) {
+/*     if (skills.length < 3) {
       newErrors.skills = "Please select at least 3 skills";
-    }
+    } */
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (event) => {
+    console.log("Submit button clicked"); // Add this for debugging
     event.preventDefault();
-    if (!validateForm()) return; // Don't submit if validation fails
-  
+    if (!validateForm()) {
+      console.log("Form validation failed"); 
+      return; // Don't submit if validation fails
+    }
     setIsSubmitting(true); // Set submitting state
   
     const token = localStorage.getItem("access_token");
@@ -135,6 +135,7 @@ const EditProfile = () => {
     }
   
     try {
+      console.log("Send info to API"); // Add this for debugging
       const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData, { headers });
       setCurrentUser((prevUser) => ({
         ...prevUser,
@@ -159,6 +160,9 @@ const EditProfile = () => {
 
   return (
     <div className={styles.editProfileContainer}>
+      {loading ? (
+        <div>Loading...</div> // You can replace this with a spinner or a more complex loading indicator
+      ) : (
       <div className={styles.editProfileCard}>
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit} className={styles.editProfileForm} encType="multipart/form-data">
@@ -234,6 +238,7 @@ const EditProfile = () => {
           </div>
         </form>
       </div>
+      )}
     </div>
   );
 };

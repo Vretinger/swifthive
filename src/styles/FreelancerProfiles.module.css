@@ -1,5 +1,6 @@
 .freelancersContainer {
     padding: 20px;
+    min-height: 72vh;
 }
 
 .freelancerGrid {

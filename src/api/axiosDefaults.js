@@ -1,20 +1,41 @@
+// ...your existing imports
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// Set the base URL for your Axios requests
+// Base URL
 axios.defaults.baseURL = "https://swifthive-api-bad383c6f380.herokuapp.com/";
 
 const axiosPublic = axios.create({
-    baseURL: 'https://swifthive-api-bad383c6f380.herokuapp.com/',  // Your public API URL
-    withCredentials: false,  // Disable credentials for this request
-  });
+  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
+  withCredentials: false,
+});
 
-// Include CSRF token in headers
+// CSRF Token
 axios.defaults.headers.common["X-CSRFToken"] = Cookies.get("csrftoken");
 
-// Include credentials for cross-origin requests
+// Include credentials
 axios.defaults.withCredentials = true;
 
-export const axiosReq = axios.create();
-export const axiosRes = axios.create();
+// Authenticated instance
+export const axiosReq = axios.create({
+  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
+});
+
+// Automatically attach the access token to each request
+axiosReq.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor (optional)
+export const axiosRes = axios.create({
+  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
+});
+
 export default axiosPublic;

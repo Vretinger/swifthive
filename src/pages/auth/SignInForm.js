@@ -23,7 +23,7 @@ const LoginPage = () => {
   });
   const { email, password } = formData;
 
-  const [errors] = useState({});
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false); // For showing loading state
 
   const navigate = useNavigate();
@@ -65,12 +65,19 @@ const LoginPage = () => {
       }
       
     } catch (error) {
-      if (error.response) {
-        console.error("Login error:", error.response.data); // This will give more details about the error
+      const message = error.response?.data?.detail || error.message;
+    
+      if (message === "User not found") {
+        setErrors({ non_field_errors: ["User not found. Please check your credentials."] });
+      } else if (error.response?.data) {
+        setErrors(error.response.data);
       } else {
-        console.error("Login error:", error.message); // For non-response errors
+        setErrors({ non_field_errors: ["An unexpected error occurred. Please try again."] });
       }
-    } finally {
+    
+      console.error("Error:", message);
+    }
+    finally {
       setLoading(false); // Set loading to false after request completes
     }
   };

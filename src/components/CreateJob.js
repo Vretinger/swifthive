@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../api/axiosDefaults";
+import { axiosReq } from "../api/axiosDefaults";
 import { useNavigate } from "react-router-dom";
 import styles from '../styles/CreateJob.module.css';
 
@@ -25,7 +25,7 @@ const CreateJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/job-listings/create/", job);
+      await axiosReq.post("/api/job-listings/create/", job);
       navigate("/manage-jobs"); // Redirect to manage jobs
     } catch (error) {
       console.error("Error creating job:", error.response?.data || error.message);

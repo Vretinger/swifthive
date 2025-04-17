@@ -15,6 +15,7 @@ import JobDetail from "./components/JobDetail";
 import CreateJob from "./components/CreateJob";
 import ManageJobs from "./components/ManageJobs";
 import EditJob from "./components/EditJob";
+import Apply from "./components/JobApplicationForm";
 import FreelancerProfiles from "./components/FreelancerProfiles";
 import FreelancerDetails from "./components/FreelancerDetails";
 
@@ -54,6 +55,7 @@ function App() {
               <Route path="/freelancers" element={<FreelancerProfiles />} />
               <Route path="/freelancer/:id" element={<FreelancerDetails />} />
               <Route path="/dashboard/" element={<FreelancerDashboard />} />
+              <Route path="/apply/:jobId" element={<Apply />} />
             </Routes>
           </Suspense>
         </Container>

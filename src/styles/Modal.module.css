@@ -1,0 +1,69 @@
+/* styles/Modal.module.css */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .modalButtons {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .confirmButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  
+  .cancelButton {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+
+  .previewBox {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin: 10px 0 20px;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    color: #333;
+    border-radius: 4px;
+  }
+  
+  

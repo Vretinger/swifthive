@@ -78,7 +78,7 @@ const CreateJob = () => {
         <label>Application Deadline</label>
         <input type="date" name="application_deadline" onChange={handleChange} required />
 
-        <button type="submit">Create Job</button>
+        <button className={styles.CreateJobButton} type="submit">Create Job</button>
       </form>
     </div>
   );

@@ -13,11 +13,12 @@ import FreelancerDashboard from "./pages/freelancers/FreelancerDashboard";
 import ExploreJobs from "./pages/ExploreJobs";
 import JobDetail from "./components/JobDetail";
 import CreateJob from "./components/CreateJob";
-import ManageJobs from "./components/ManageJobs";
+import ManageJobs from "./components/ManageJobListings";
 import EditJob from "./components/EditJob";
 import Apply from "./components/JobApplicationForm";
 import FreelancerProfiles from "./components/FreelancerProfiles";
 import FreelancerDetails from "./components/FreelancerDetails";
+import ApplicantProfile from "./components/ApplicantProfile";
 
 // Import CurrentUserProvider
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
@@ -50,12 +51,13 @@ function App() {
               <Route path="/jobs" element={<ExploreJobs />} />
               <Route path="/job/:jobId" element={<JobDetail />} />
               <Route path="/create-job" element={<CreateJob />} />
-              <Route path="/manage-jobs" element={<ManageJobs />} />
+              <Route path="/manage-job/:jobId" element={<ManageJobs />} />
               <Route path="/edit-job/:id" element={<EditJob />} />
               <Route path="/freelancers" element={<FreelancerProfiles />} />
               <Route path="/freelancer/:id" element={<FreelancerDetails />} />
               <Route path="/dashboard/" element={<FreelancerDashboard />} />
               <Route path="/apply/:jobId" element={<Apply />} />
+              <Route path="/applicant/:jobId/:freelancerId" element={<ApplicantProfile />} />
             </Routes>
           </Suspense>
         </Container>

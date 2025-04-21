@@ -1,0 +1,73 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .jobListingContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .jobDetails {
+    width: 60%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jobDetails h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .jobDetails p {
+    margin-bottom: 10px;
+  }
+  
+  .editButton {
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .editButton:hover {
+    background-color: #45a049;
+  }
+  
+  .applications {
+    width: 35%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .applicationCard {
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .applicationCard h3 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .applicationCard p {
+    margin-bottom: 10px;
+  }
+  
+  .loading, .errorMessage {
+    text-align: center;
+    margin-top: 20px;
+  }
+  

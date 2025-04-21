@@ -58,9 +58,6 @@ const Navbar = () => {
       <Link to="/freelancers" className={styles['navbar-button']}>
         Find Freelancers
       </Link>
-      <Link to="/profile" className={styles['navbar-button']}>
-        Company Profile
-      </Link>
       <Link 
         to="/" 
         className={`${styles['navbar-button']} ${styles['login-button']}`} 

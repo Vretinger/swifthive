@@ -8,7 +8,7 @@ import { useCurrentUser } from '../contexts/CurrentUserContext';
 const Footer = () => {
   const { currentUser, signOut } = useCurrentUser();
 
-  const loggedInFotL = (
+  const loggedInFreelancerFotL = (
     <>
       <Link to="/" className={styles.link}>
         <FaHome className={styles.icon} />
@@ -24,6 +24,24 @@ const Footer = () => {
       </Link>
     </>
   )
+
+  const loggedInClientFotL = (
+    <>
+      <Link to="/" className={styles.link}>
+        <FaHome className={styles.icon} />
+          Home
+      </Link>
+      <Link to="/" className={styles.link} onClick={signOut}>
+        <FaSignOutAlt className={styles.icon} />
+          Log Out
+      </Link>
+      <Link to="/freelancers" className={styles.link}>
+        <FaSearch className={styles.icon} />
+        Find Freelancers
+      </Link>
+    </>
+  )
+
   const loggedInFotR = (
     <>
       <Link to="/how-it-works" className={styles.link}>
@@ -91,7 +109,8 @@ const Footer = () => {
         {/* Links and Icons */}
         <div className={styles.linkContainer}>
           <div className={styles.linkColumn}>
-            {currentUser ? loggedInFotL : loggedOutFotL}
+          {currentUser?.role === "freelancer" ? loggedInFreelancerFotL : 
+           currentUser?.role === "client" ? loggedInClientFotL : loggedOutFotL}
           </div>
           <div className={styles.linkColumn}>
             {currentUser ? loggedInFotR : loggedOutFotR}

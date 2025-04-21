@@ -39,34 +39,47 @@ const LoginPage = () => {
     event.preventDefault();
   
     try {
-      setLoading(true); // Set loading to true when starting the request
+      setLoading(true);
   
-      // Make the login request
+      // Login request
       const { data } = await axios.post(
-        "/api/auth/login/", 
-        { email: email, password: password },
+        "/api/auth/login/",
+        { email, password },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
+  
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       localStorage.setItem("currentUser", JSON.stringify(data.user));
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-
-      console.log(data.bio);
-      if (data.bio === undefined) {
-        navigate("/edit-profile"); // Redirect to profile setup
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+  
+      // Check if user is freelancer
+      if (data.user.role === "freelancer") {
+        // Fetch profile data to check bio
+        const token = data.access_token;
+        const profileResponse = await axios.get(
+          `/api/accounts/freelancers/${data.user.pk}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        const profile = profileResponse.data;
+        if (!profile.bio || profile.bio.trim() === "") {
+          navigate("/edit-profile"); // If bio is empty, go to edit profile
+        } else {
+          navigate("/"); // Otherwise, go to main/protected page
+        }
       } else {
-        navigate("/"); // Navigate to a protected page
+        navigate("/"); // Non-freelancers go to home
       }
-      
     } catch (error) {
       const message = error.response?.data?.detail || error.message;
-    
       if (message === "User not found") {
         setErrors({ non_field_errors: ["User not found. Please check your credentials."] });
       } else if (error.response?.data) {
@@ -74,13 +87,12 @@ const LoginPage = () => {
       } else {
         setErrors({ non_field_errors: ["An unexpected error occurred. Please try again."] });
       }
-    
       console.error("Error:", message);
-    }
-    finally {
-      setLoading(false); // Set loading to false after request completes
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <Row className={styles.signInPage}>

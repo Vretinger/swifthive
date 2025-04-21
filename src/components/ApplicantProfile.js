@@ -36,15 +36,36 @@ const ApplicantProfile = () => {
     fetchData();
   }, [jobId, freelancerId]);
 
-  const handleAcceptSubmit = () => {
-    setIsAcceptModalOpen(false);
-    navigate(-1);
+  const handleAcceptSubmit = async () => {
+    try {
+      // Accept the application via API request
+      await axiosReq.patch(`/api/applications/applications/${application.id}/`, {
+        status: 'accepted',
+        message: message,
+      });
+
+      setIsAcceptModalOpen(false);
+      navigate(-1);  // Navigate back to the previous page
+    } catch (err) {
+      console.error("Error accepting application:", err);
+      setError("Unable to accept application.");
+    }
   };
 
-  const handleDeclineSubmit = () => {
-    console.log("Declined with reason:", declineReason);
-    setIsDeclineModalOpen(false);
-    navigate(-1);
+  const handleDeclineSubmit = async () => {
+    try {
+      // Decline the application via API request
+      await axiosReq.patch(`/api/applications/applications/${application.id}/`, {
+        status: 'declined',
+        decline_reason: declineReason,
+      });
+
+      setIsDeclineModalOpen(false);
+      navigate(-1);  // Navigate back to the previous page
+    } catch (err) {
+      console.error("Error declining application:", err);
+      setError("Unable to decline application.");
+    }
   };
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -108,10 +129,10 @@ const ApplicantProfile = () => {
       )}
 
       <div className={styles.buttonRow}>
-        <button 
+        <button
           className={styles.AcceptButton}
           onClick={() => setIsAcceptModalOpen(true)}
-          >
+        >
           Accept
         </button>
         <button

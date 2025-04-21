@@ -12,7 +12,7 @@ const ClientDashboard = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axiosReq.get("/api/job-listings/listings/");
+        const response = await axiosReq.get("/api/job-listings/listings/?page=1&page_size=10");
         console.log("Fetched jobs:", response.data); 
         const jobs = response.data.results;
         const active = jobs.filter(job => job.is_active);
@@ -33,14 +33,14 @@ const ClientDashboard = () => {
 
   if (loading) {
     return (
-    <div className={styles.dashboardPage}>
-      <div className={styles.dashboardContainer}>
-        <h2 className={styles.dashboardTitle}>Job Listings</h2>
-    <div className={styles.dashboardPage}><p>Loading jobs...</p></div>;
+      <div className={styles.dashboardPage}>
+        <div className={styles.dashboardContainer}>
+          <h2 className={styles.dashboardTitle}>Job Listings</h2>
+          <p>Loading jobs...</p>
+        </div>
       </div>
-    </div>
     );
-  }
+  }  
 
   return (
     <div className={styles.dashboardPage}>

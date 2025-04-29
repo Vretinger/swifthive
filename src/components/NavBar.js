@@ -28,11 +28,11 @@ const Navbar = () => {
 
   const freelancerNav = (
     <>
+      <Link to="/" className={styles['navbar-button']}>
+        Find Jobs
+      </Link>
       <Link to="/dashboard" className={styles['navbar-button']}>
         Dashboard
-      </Link>
-      <Link to="/projects" className={styles['navbar-button']}>
-        My Projects
       </Link>
       <Link to="/profile" className={styles['navbar-button']}>
         Profile

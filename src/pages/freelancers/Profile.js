@@ -50,7 +50,7 @@ const MyProfile = () => {
 
                 <div className={styles.detailsSection}>
                     {profile.bio && <p><strong>Bio:</strong> {profile.bio}</p>}
-                    {profile.experience && <p><strong>Experience:</strong> {profile.experience} years</p>}
+                    {profile.experience && <p><strong>Experience:</strong> {profile.experience}</p>}
                     {profile.hourly_rate && <p><strong>Hourly Rate:</strong> ${profile.hourly_rate}/hr</p>}
 
                     {profile.skills?.length > 0 && (

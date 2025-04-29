@@ -47,6 +47,7 @@ const EditProfile = () => {
           location: data.location || "",
           availability_status: data.availability_status || "Available",
           skills: Array.isArray(data.skills) ? data.skills.map(skill => skill.id) : [],
+          profile_picture: data.profile_picture || null,
         });
       } catch (err) {
         console.error("Error fetching profile data:", err);
@@ -75,9 +76,11 @@ const EditProfile = () => {
     const { name, value, files, type, multiple, options } = event.target;
   
     if (type === "file") {
+      const file = files[0];
+      console.log("Selected file:", file);  // ✅ add this
       setProfileData(prevData => ({
         ...prevData,
-        [name]: files[0],
+        [name]: file,
       }));
     } else if (multiple && name === "skills") {
       // For multi-select (skills), convert to integers
@@ -119,28 +122,38 @@ const EditProfile = () => {
     }
     setIsSubmitting(true); // Set submitting state
   
-    const token = localStorage.getItem("access_token");
-    const headers = { "Authorization": `Bearer ${token}` };
-  
     const formData = new FormData();
     for (const key in profileData) {
       if (key === "skills") {
-        // Make sure the skills are passed as an array of integers
         profileData.skills.forEach(skillId => {
-          formData.append("skills", skillId); // Append each skill as an individual key-value pair
+          formData.append("skills", skillId);
         });
-      } else if (profileData[key] !== null) {
+      } else if (key === "profile_picture" && profileData[key] instanceof File) {
+        formData.append("profile_picture", profileData[key]); // ✅ Explicitly handle File
+      } else if (profileData[key] !== null && profileData[key] !== undefined) {
         formData.append(key, profileData[key]);
       }
     }
+    
   
     try {
-      console.log("Send info to API"); // Add this for debugging
-      const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData, { headers });
-      setCurrentUser((prevUser) => ({
-        ...prevUser,
-        profile_image: response.data.profile_image,
-      }));
+      // Send the PUT request to update the profile
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+      }      
+      const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData);
+      console.log("Response after PUT:", response.data); 
+
+      setCurrentUser((prevUser) => {
+        const updatedUser = {
+          ...prevUser,
+          profile_image: response.data.profile_picture || prevUser.profile_image,
+        };
+      
+        console.log("Profile image updated:", updatedUser.profile_image); // Log after updating
+      
+        return updatedUser;
+      });
       navigate("/profile");
     } catch (err) {
       setErrors(err.response?.data || {});
@@ -201,7 +214,9 @@ const EditProfile = () => {
             <input type="file" name="profile_picture" onChange={handleChange} className="form-control" />
             {profile_picture && (
               <img
-                src={URL.createObjectURL(profile_picture)}
+                src={typeof profile_picture === 'string' 
+                  ? profile_picture 
+                  : URL.createObjectURL(profile_picture)}
                 alt="Profile Preview"
                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
               />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import DeclineModal from "../components/DeclineModal";
 import AcceptModal from "../components/AcceptModal";
-import axiosReq from "../api/axiosDefaults";
+import { axiosReq } from "../api/axiosDefaults";
 import styles from "../styles/ApplicantDetails.module.css";
 
 const ApplicantProfile = () => {

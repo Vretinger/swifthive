@@ -1,27 +1,29 @@
-// ...your existing imports
+// axiosDefaults.js
+
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// Base URL
-axios.defaults.baseURL = "https://swifthive-api-bad383c6f380.herokuapp.com/";
+// Base API URL
+const BASE_URL = "https://swifthive-api-bad383c6f380.herokuapp.com";
 
-const axiosPublic = axios.create({
-  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
-  withCredentials: false,
-});
-
-// CSRF Token
+// Configure the default global axios instance
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.withCredentials = true; // Send cookies (for CSRF)
 axios.defaults.headers.common["X-CSRFToken"] = Cookies.get("csrftoken");
 
-// Include credentials
-axios.defaults.withCredentials = true;
+// Public instance (no auth)
+const axiosPublic = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: false, // No cookies needed for public requests
+});
 
 // Authenticated instance
 export const axiosReq = axios.create({
-  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
+  baseURL: BASE_URL,
+  withCredentials: true, // Required for session cookies and CSRF
 });
 
-// Automatically attach the access token to each request
+// Attach access token to all authenticated requests
 axiosReq.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("access_token");
@@ -33,9 +35,10 @@ axiosReq.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor (optional)
+// Authenticated response instance (used with interceptors)
 export const axiosRes = axios.create({
-  baseURL: "https://swifthive-api-bad383c6f380.herokuapp.com/",
+  baseURL: BASE_URL,
+  withCredentials: true,
 });
 
 export default axiosPublic;

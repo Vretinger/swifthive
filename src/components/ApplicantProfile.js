@@ -39,7 +39,7 @@ const ApplicantProfile = () => {
   const handleAcceptSubmit = async () => {
     try {
       // Accept the application via API request
-      await axiosReq.patch(`/api/applications/applications/${application.id}/`, {
+      await axiosReq.patch(`/api/applications/8/`, {
         status: 'accepted',
         message: message,
       });

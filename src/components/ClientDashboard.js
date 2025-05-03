@@ -12,8 +12,7 @@ const ClientDashboard = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axiosReq.get("/api/job-listings/listings/?page=1&page_size=10");
-        console.log("Fetched jobs:", response.data); 
+        const response = await axiosReq.get("/api/job-listings/my-listings/");
         const jobs = response.data.results;
         const active = jobs.filter(job => job.is_active);
          const inactive = jobs.filter(job => !job.is_active);

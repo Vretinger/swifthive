@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../assets/images/HiveLogo.png';
-import { FaHome, FaSearch, FaUsers, FaQuestion, FaDollarSign, FaListUl, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaSearch, FaUsers, FaQuestion, FaDollarSign, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import styles from '../styles/Footer.module.css';
 import { Link } from 'react-router-dom'; 
 import { useCurrentUser } from '../contexts/CurrentUserContext';
@@ -52,10 +52,6 @@ const Footer = () => {
         <FaDollarSign className={styles.icon} />
           Pricing
       </Link>
-      <Link to="/categories" className={styles.link}>
-        <FaListUl className={styles.icon} />
-          Categories
-      </Link>
     </>
   );
 
@@ -88,10 +84,6 @@ const Footer = () => {
       <Link to="/pricing" className={styles.link}>
         <FaDollarSign className={styles.icon} />
           Pricing
-      </Link>
-      <Link to="/categories" className={styles.link}>
-        <FaListUl className={styles.icon} />
-          Categories
       </Link>
     </>
   );

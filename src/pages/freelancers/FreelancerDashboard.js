@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosReq } from "../../api/axiosDefaults";
 import { Link } from "react-router-dom";
-import styles from "../../styles/FreelancerDashboard.module.css"; // Create this CSS file
+import styles from "../../styles/FreelancerDashboard.module.css";
 
 const FreelancerApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -11,10 +11,8 @@ const FreelancerApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get("/api/applications/my/", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-        setApplications(response.data);
+        const response = await axiosReq.get("/api/applications/applications/my/");
+        setApplications(response.data.results);
       } catch (err) {
         setError("Failed to load applications.");
       } finally {
@@ -37,11 +35,14 @@ const FreelancerApplications = () => {
         <div className={styles.grid}>
           {applications.map((app) => (
             <div key={app.id} className={styles.card}>
-              <h3 className={styles.jobTitle}>{app.listing.title}</h3>
-              <p className={styles.company}>Company: {app.listing.Company?.name || "Unknown"}</p>
-              <p className={styles.status}>Status: <strong>{app.status}</strong></p>
-              <p className={styles.appliedDate}>Applied on: {new Date(app.applied_at).toLocaleDateString()}</p>
-              <Link to={`/job/${app.listing.id}`} className={styles.button}>View Job</Link>
+              <h3 className={styles.jobTitle}>{app.listing_title}</h3>
+              <p className={styles.company}><strong>Company:</strong> {app.company_name || "Unknown"}</p>
+              <p className={styles.category}><strong>Category:</strong> {app.category}</p>
+              <p className={styles.location}><strong>Location:</strong> {app.location}</p>
+              <p className={styles.description}>{app.short_description}</p>
+              <p className={styles.status}><strong>Status:</strong> {app.status}</p>
+              <p className={styles.appliedDate}><strong>Applied on:</strong> {new Date(app.applied_at).toLocaleDateString()}</p>
+              <Link to={`/job/${app.listing}`} className={styles.button}>View Job</Link>
             </div>
           ))}
         </div>

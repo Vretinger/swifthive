@@ -11,7 +11,7 @@ const FreelancerApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axiosReq.get("/api/applications/applications/my/");
+        const response = await axiosReq.get("/api/applications/my/");
         setApplications(response.data.results);
       } catch (err) {
         setError("Failed to load applications.");

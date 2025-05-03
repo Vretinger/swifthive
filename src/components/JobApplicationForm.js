@@ -20,7 +20,7 @@ const JobApplicationForm = ({ listingId }) => {
     formData.append('resume', resume);
 
     try {
-      await axiosReq.post('/api/applications/applications/apply/', formData, {
+      await axiosReq.post('/api/applications/apply/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

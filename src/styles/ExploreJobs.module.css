@@ -20,42 +20,67 @@ color: #f9f9f9;
 }
 
 .jobCard {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.2s ease-in-out;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
 }
 
 .jobCard:hover {
   transform: translateY(-5px);
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
 .jobTitle {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  color: #333 !important;
+  font-size: 1.5rem !important;
+  margin: 0;
+}
+
+.companyName {
+  font-size: 1rem;
+  color: #666;
+}
+
+.metaInfo p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.description {
+  margin-top: 0.75rem;
   color: #333;
 }
 
-.jobDetails {
-  font-size: 1rem;
-  color: #666;
+.cardFooter {
+  margin-top: 1rem;
 }
 
 .exploreButton {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-  font-size: 1rem;
-}
+  transition: background-color 0.2s ease;
 
-.exploreButton:hover {
-  background-color: #0056b3;
+  &:hover {
+    background-color: #0056b3;
+  }
 }
 
 .errorMessage,

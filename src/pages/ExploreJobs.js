@@ -43,18 +43,33 @@ const ExploreJobbs = () => {
       <div className={styles.jobListings}>
         {Array.isArray(jobListings) && jobListings.length > 0 ? (
           jobListings.map((listing) => (
-            <div key={listing.id} className={styles.jobCard} onClick={() => handleJobClick(listing.id)}>
-              <h3 className={styles.jobTitle}>{listing.title}</h3>
-              <p className={styles.jobDetails}><strong>Category:</strong> {listing.category}</p>
-              <p className={styles.jobDetails}><strong>Location:</strong> {listing.location}</p>
-              <p className={styles.jobDetails}>{listing.short_description}</p>
-              <button className={styles.exploreButton}>See More</button>
+            <div
+              key={listing.id}
+              className={styles.jobCard}
+              onClick={() => handleJobClick(listing.id)}
+            >
+              <div className={styles.header}>
+                <h2 className={styles.jobTitle}>{listing.title}</h2>
+                <span className={styles.companyName}>at {listing.company}</span>
+              </div>
+
+              <div className={styles.metaInfo}>
+                <p><strong>Category:</strong> {listing.category}</p>
+                <p><strong>Location:</strong> {listing.location}</p>
+              </div>
+
+              <p className={styles.description}>{listing.short_description}</p>
+
+              <div className={styles.cardFooter}>
+                <button className={styles.exploreButton}>See More</button>
+              </div>
             </div>
           ))
         ) : (
-          <div className={styles.noJobs}>No job listings available</div>
+          <p>No job listings available.</p>
         )}
       </div>
+
     </div>
   );
 };

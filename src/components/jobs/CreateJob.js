@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { axiosReq } from "../api/axiosDefaults";
+import { axiosReq } from "api/axios";
 import { useNavigate } from "react-router-dom";
-import styles from '../styles/CreateJob.module.css';
+import styles from 'styles/CreateJob.module.css';
 
 const CreateJob = () => {
   const [job, setJob] = useState({

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosPublic from "../api/axiosDefaults";
-import styles from '../styles/FreelancerDetails.module.css';
+import axiosPublic from "api/axios";
+import styles from "styles/FreelancerDetails.module.css";
+
 
 const FreelancerDetails = () => {
     const { id } = useParams(); // Get freelancer ID from URL

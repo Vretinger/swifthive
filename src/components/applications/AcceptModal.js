@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Modal.module.css";
+import styles from "styles/Modal.module.css";
 
 const NextStageModal = ({ onClose, onConfirm, message, setMessage, freelancerName, companyName }) => {
   const fallbackMessage = "We look forward to speaking with you.";

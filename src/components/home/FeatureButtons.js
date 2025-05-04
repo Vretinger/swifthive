@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../styles/FeatureButtons.module.css';
+import styles from 'styles/FeatureButtons.module.css';
 
 // Import images for the circles
-import image1 from '../assets/images/FindWork.png';
-import image2 from '../assets/images/FindTalent.png';
-import image3 from '../assets/images/HowItWorks.png';
-import image4 from '../assets/images/Pricing.png';
-import image5 from '../assets/images/Categories.png';
+import image1 from 'assets/images/FindWork.png';
+import image2 from 'assets/images/FindTalent.png';
+import image3 from 'assets/images/HowItWorks.png';
+import image4 from 'assets/images/Pricing.png';
+import image5 from 'assets/images/Categories.png';
 
 const FeatureButtons = () => {
   return (

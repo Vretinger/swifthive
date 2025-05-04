@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import styles from '../styles/Navbar.module.css';
-import logo from '../assets/images/HiveLogo.png';
-import { useCurrentUser } from '../contexts/CurrentUserContext';
-import { useState } from 'react';
-import LogoutModal from './LogoutModal.js';
+import styles from 'styles/Navbar.module.css';
+import logo from "assets/images/HiveLogo.png";
+import { useCurrentUser } from "contexts/CurrentUserContext";
+import { useState } from "react";
+import LogoutModal from "components/common/LogoutModal";
 
 const Navbar = () => {
   const { currentUser, signOut } = useCurrentUser();

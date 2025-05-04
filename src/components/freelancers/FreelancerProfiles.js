@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axiosPublic from "../api/axiosDefaults";
+import axiosPublic from "api/axios";
 import { useNavigate } from "react-router-dom";
-import styles from '../styles/FreelancerProfiles.module.css';
+import styles from 'styles/FreelancerProfiles.module.css';
 
 const FreelancerProfiles = () => {
     const [freelancers, setFreelancers] = useState([]);

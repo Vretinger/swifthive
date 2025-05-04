@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import styles from "../../styles/SignUpPage.module.css";
+import styles from "styles/SignUpPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
-import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useSetCurrentUser } from "contexts/CurrentUserContext";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

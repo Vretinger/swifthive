@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { axiosReq } from "../api/axiosDefaults";
+import { axiosReq } from "api/axios";
 import { useParams } from 'react-router-dom';
 
 const JobApplicationForm = ({ listingId }) => {

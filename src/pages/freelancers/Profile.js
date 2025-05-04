@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosPublic from "../../api/axiosDefaults";
-import styles from "../../styles/MyProfile.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import axiosPublic from "api/axios";
+import styles from "styles/MyProfile.module.css";
+import { useCurrentUser } from "contexts/CurrentUserContext";
 
 const MyProfile = () => {
     const { currentUser } = useCurrentUser();

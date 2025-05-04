@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axiosPublic from "../api/axiosDefaults";  // Import axiosPublic
+import axiosPublic from "api/axios"; 
 import { useNavigate } from "react-router-dom";
-import styles from '../styles/ExploreJobs.module.css';
+import styles from 'styles/ExploreJobs.module.css';
 
 const ExploreJobbs = () => {
   const [jobListings, setJobListings] = useState([]);

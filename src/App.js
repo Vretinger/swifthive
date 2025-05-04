@@ -1,33 +1,31 @@
-import React, { lazy, Suspense } from "react";
-import styles from "./App.module.css";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import Container from "react-bootstrap/Container";
-import { Routes, Route } from "react-router-dom";
-import "./api/axiosDefaults";
-import HowItWorks from "./pages/HowItWorks";
-import PricingPage from "./pages/PricingPage";
-import Profile from "./pages/freelancers/Profile";
-import EditProfile from "./pages/freelancers/EditProfile";
-import FreelancerDashboard from "./pages/freelancers/FreelancerDashboard";
-import ExploreJobs from "./pages/ExploreJobs";
-import JobDetail from "./components/JobDetail";
-import CreateJob from "./components/CreateJob";
-import ManageJobs from "./components/ManageJobListings";
-import EditJob from "./components/EditJob";
-import Apply from "./components/JobApplicationForm";
-import FreelancerProfiles from "./components/FreelancerProfiles";
-import FreelancerDetails from "./components/FreelancerDetails";
-import ApplicantProfile from "./components/ApplicantProfile";
-
-// Import CurrentUserProvider
-import { CurrentUserProvider } from "./contexts/CurrentUserContext";
+import React, { lazy, Suspense } from 'react';
+import styles from 'App.module.css';
+import NavBar from 'components/common/NavBar';
+import Footer from 'components/common/Footer';
+import Container from 'react-bootstrap/Container';
+import { Routes, Route } from 'react-router-dom';
+import 'api/axios';
+import HowItWorks from 'pages/HowItWorks';
+import PricingPage from 'pages/PricingPage';
+import Profile from 'pages/freelancers/Profile';
+import EditProfile from 'pages/freelancers/EditProfile';
+import FreelancerDashboard from 'pages/freelancers/FreelancerDashboard';
+import ExploreJobs from 'pages/ExploreJobs';
+import JobDetail from 'components/jobs/JobDetail';
+import CreateJob from 'components/jobs/CreateJob';
+import ManageJobs from 'components/jobs/ManageJobListings';
+import EditJob from 'components/jobs/EditJob';
+import Apply from 'components/applications/JobApplicationForm';
+import FreelancerProfiles from 'components/freelancers/FreelancerProfiles';
+import FreelancerDetails from 'components/freelancers/FreelancerDetails';
+import ApplicantProfile from 'components/applications/ApplicantProfile';
+import { CurrentUserProvider } from 'contexts/CurrentUserContext';
 
 // Lazy-loaded components for performance optimization
-const Home = lazy(() => import("./pages/Home"));
-const SignUpForm = lazy(() => import("./pages/auth/SignUpForm"));
-const SignInForm = lazy(() => import("./pages/auth/SignInForm"));
-const NotFound = () => <p>Page not found!</p>; // Simple fallback for unknown routes
+const Home = lazy(() => import('pages/Home'));
+const SignUpForm = lazy(() => import('pages/auth/SignUp'));
+const SignInForm = lazy(() => import('pages/auth/SignIn'));
+const NotFound = () => <p>Page not found!</p>;
 
 function App() {
   return (

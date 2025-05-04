@@ -1,9 +1,9 @@
-import { useCurrentUser } from "../contexts/CurrentUserContext";
-import HeroSection from "../components/HeroSection";
-import FeatureButtons from "../components/FeatureButtons";
-import AboutIntro from "../components/AboutIntro";
-import FreelancerHome from "./ExploreJobs";
-import ClientDashboard from "../components/ClientDashboard";
+import { useCurrentUser } from 'contexts/CurrentUserContext';
+import HeroSection from 'components/home/HeroSection';
+import FeatureButtons from 'components/home/FeatureButtons';
+import AboutIntro from 'components/home/AboutIntro';
+import FreelancerHome from 'pages/ExploreJobs';
+import ClientDashboard from 'components/clients/ClientDashboard';
 
 const Home = () => {
   const { currentUser } = useCurrentUser();

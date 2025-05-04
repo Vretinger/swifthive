@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link for routing
-import styles from '../styles/AboutIntro.module.css';
+import { Link } from 'react-router-dom'; 
+import styles from 'styles/AboutIntro.module.css';
 
 const AboutIntro = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq } from "api/axios";
 import { Link } from "react-router-dom";
-import styles from "../../styles/FreelancerDashboard.module.css";
+import styles from "styles/FreelancerDashboard.module.css";
 
 const FreelancerApplications = () => {
   const [applications, setApplications] = useState([]);

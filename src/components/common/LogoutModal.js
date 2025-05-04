@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/LogoutModal.module.css';  // Add appropriate styles for the modal
+import styles from 'styles/LogoutModal.module.css';
 
 const LogoutModal = ({ onClose, onConfirm }) => {
     return (

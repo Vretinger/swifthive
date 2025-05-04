@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/ClientDashboard.module.css";
+import styles from "styles/ClientDashboard.module.css";
 import { useNavigate } from "react-router-dom";
-import { axiosReq } from "../api/axiosDefaults";
+import { axiosReq } from "api/axios";
 
 const ClientDashboard = () => {
   const navigate = useNavigate();

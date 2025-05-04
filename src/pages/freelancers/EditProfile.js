@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from "../../styles/EditProfile.module.css";
-import { axiosReq } from "../../api/axiosDefaults";
+import styles from "styles/EditProfile.module.css";
+import { axiosReq } from "api/axios";
 import { Alert, Button } from 'react-bootstrap';
-import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "contexts/CurrentUserContext";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import InputGroup from 'react-bootstrap/InputGroup';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { axiosReq } from '../api/axiosDefaults';
-import styles from '../styles/ManageJobListings.module.css';
+import { axiosReq } from 'api/axios';
+import styles from 'styles/ManageJobListings.module.css';
 
 const ManageJobListings = () => {
   const { jobId } = useParams();
@@ -18,7 +18,7 @@ const ManageJobListings = () => {
       try {
         const [jobRes, appsRes] = await Promise.all([
           axiosReq.get(`/api/job-listings/my-detail/${jobId}/`),
-          axiosReq.get(`/api/applications/${jobId}`)
+          axiosReq.get(`/api/applications/list/${jobId}`)
         ]);
 
         const jobData = jobRes.data;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import DeclineModal from "../components/DeclineModal";
-import AcceptModal from "../components/AcceptModal";
-import { axiosReq } from "../api/axiosDefaults";
-import styles from "../styles/ApplicantDetails.module.css";
+import DeclineModal from "components/applications/DeclineModal";
+import AcceptModal from "components/applications/AcceptModal";
+import { axiosReq } from "api/axios";
+import styles from "styles/ApplicantDetails.module.css";
 
 const ApplicantProfile = () => {
   const { jobId, freelancerId } = useParams();
@@ -39,7 +39,7 @@ const ApplicantProfile = () => {
   const handleAcceptSubmit = async () => {
     try {
       // Accept the application via API request
-      await axiosReq.patch(`/api/applications/8/`, {
+      await axiosReq.patch(`/api/applications/update/${application.id}/`, {
         status: 'accepted',
         message: message,
       });
@@ -55,8 +55,8 @@ const ApplicantProfile = () => {
   const handleDeclineSubmit = async () => {
     try {
       // Decline the application via API request
-      await axiosReq.patch(`/api/applications/applications/${application.id}/`, {
-        status: 'declined',
+      await axiosReq.patch(`/api/applications/update/${application.id}/`, {
+        status: 'rejected',
         decline_reason: declineReason,
       });
 

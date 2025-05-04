@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axiosPublic from "api/axios";
+import axiosPublic, { axiosReq } from "api/axios";
 import { useCurrentUser } from "contexts/CurrentUserContext";
 import styles from 'styles/JobDetail.module.css';
 
@@ -10,36 +10,51 @@ const JobDetail = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { currentUser } = useCurrentUser(); // Check if user is logged in
+  const [hasApplied, setHasApplied] = useState(false);
+  const { currentUser } = useCurrentUser();
+
 
   useEffect(() => {
     const fetchJobDetail = async () => {
       if (!jobId) {
-        console.error("Missing jobId!");
+        setError("Missing job ID");
         setLoading(false);
         return;
       }
-
+  
       try {
         const response = await axiosPublic.get(`/api/job-listings/listings/${jobId}/`);
         setJob(response.data);
+      
+        if (currentUser.role === "freelancer") {
+          try {
+            const appliedRes = await axiosReq.get(`/api/applications/has-applied/${jobId}/`);
+            setHasApplied(appliedRes.data.has_applied);
+          } catch (err) {
+            console.warn("Could not check has-applied:", err.response?.status);
+          }
+        }
+      
       } catch (err) {
-        console.error("Error fetching job details:", err);
+        console.error("Error fetching job detail or has-applied status:", err);
         setError("Failed to load job details.");
       } finally {
         setLoading(false);
       }
     };
+  
+    if (currentUser !== null) {
+      fetchJobDetail();  // Only run when currentUser is ready
+    }
+  }, [jobId, currentUser]);
+  
+  
 
-    fetchJobDetail();
-  }, [jobId]);
-
-  // Handle Apply Button Click
   const handleApply = () => {
     if (currentUser?.role === "freelancer") {
-      navigate(`/apply/${jobId}`); // Redirect to application page
+      navigate(`/apply/${jobId}`);
     } else {
-      navigate("/signin"); // Redirect to login page
+      navigate("/signin");
     }
   };
 
@@ -68,15 +83,19 @@ const JobDetail = () => {
 
           {/* Buttons Container */}
           <div className={styles.buttonContainer}>
-            {/* Back to Job Listings Button (Bottom Left) */}
             <button onClick={() => navigate("/jobs")} className={styles.backButton}>
               ← Back to Job Listings
             </button>
 
-            {/* Apply Button (Bottom Right) */}
-            <button onClick={handleApply} className={styles.applyButton}>
-              Apply to Job →
-            </button>
+            {hasApplied ? (
+              <div className={styles.appliedBadge}>
+                ✅ You’ve already applied to this job
+              </div>
+            ) : (
+              <button className={styles.applyButton} onClick={handleApply}>
+                Apply Now
+              </button>
+            )}
           </div>
         </div>
       ) : (

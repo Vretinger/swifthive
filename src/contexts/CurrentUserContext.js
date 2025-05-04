@@ -14,21 +14,19 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
-  const signOut = () => {
-    // Clear user session
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('access_token');
+  const signOut = useCallback(() => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     setCurrentUser(null);
-
-    // Redirect
-    window.location.href = '/';
-  };
+    navigate("/signin");
+  }, [navigate]);
 
   const refreshAccessToken = useCallback(async () => {
     const refreshToken = localStorage.getItem("refresh_token");
     if (!refreshToken) {
       console.warn("Refresh token is missing.");
-      return null; // Don't throw an error, just return null
+      return null;
     }
 
     try {
@@ -42,11 +40,10 @@ export const CurrentUserProvider = ({ children }) => {
       console.error("Failed to refresh token", err);
       return null;
     }
-  }, []); // Empty dependency array ensures the function is only created once
+  }, []);
 
-  const handleMount = useCallback(async () => {
+  const tryRestoreSession = useCallback(async () => {
     try {
-      // Refresh the token and fetch user data
       const newAccessToken = await refreshAccessToken();
       if (newAccessToken) {
         const { data } = await axiosRes.get("/api/users/");
@@ -57,26 +54,21 @@ export const CurrentUserProvider = ({ children }) => {
       }
     } catch (err) {
       console.error("Failed to mount current user", err);
-      setCurrentUser(null);
-      // Clear only user-related data
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refresh_token");
-      localStorage.removeItem("currentUser");
+      signOut(); // Sign out if refresh or fetch fails
     }
-  }, [refreshAccessToken, setCurrentUser]); // handleMount depends on refreshAccessToken
+  }, [refreshAccessToken, signOut]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("currentUser");
     const accessToken = localStorage.getItem("access_token");
-    
 
     if (storedUser && accessToken) {
       setCurrentUser(JSON.parse(storedUser));
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     } else {
-      handleMount();
+      tryRestoreSession();
     }
-  }, [handleMount]);
+  }, [tryRestoreSession, signOut]);
 
   useMemo(() => {
     axiosReq.interceptors.request.use(
@@ -85,8 +77,7 @@ export const CurrentUserProvider = ({ children }) => {
           const newAccessToken = await refreshAccessToken();
           if (!newAccessToken) {
             console.warn("Token refresh failed during request.");
-            setCurrentUser(null);
-            navigate("/signin");
+            signOut();
           }
         }
         return config;
@@ -102,23 +93,22 @@ export const CurrentUserProvider = ({ children }) => {
             const newAccessToken = await refreshAccessToken();
             if (newAccessToken) {
               err.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-              return axios(err.config); // Retry original request
+              return axios(err.config);
             } else {
               throw new Error("Token refresh failed");
             }
-          } catch (err) {
-            console.error("Failed to retry request after token refresh", err);
-            setCurrentUser(null);
-            navigate("/signin");
+          } catch (error) {
+            console.error("Failed to retry request after token refresh", error);
+            signOut();
           }
         }
         return Promise.reject(err);
       }
     );
-  }, [navigate, refreshAccessToken]); // Add refreshAccessToken as a dependency
+  }, [refreshAccessToken, signOut]);
 
   return (
-    <CurrentUserContext.Provider value={{currentUser, signOut}}>
+    <CurrentUserContext.Provider value={{ currentUser, signOut }}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {children}
       </SetCurrentUserContext.Provider>

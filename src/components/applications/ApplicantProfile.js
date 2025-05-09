@@ -99,6 +99,12 @@ const ApplicantProfile = () => {
             <ul>{freelancer.skills.map((skill, i) => <li key={i}>{skill}</li>)}</ul>
           </div>
         )}
+        {freelancer.cover_letter && (
+          <div>
+            <strong>Cover letter:</strong>
+            <p>{freelancer.cover_letter}</p>
+          </div>
+        )}
         {freelancer.portfolio_link && (
           <p>
             <strong>Portfolio:</strong>{" "}
@@ -107,26 +113,22 @@ const ApplicantProfile = () => {
             </a>
           </p>
         )}
+
+        {application.resume_url && (
+        <p>
+          <strong>Resume: </strong>
+          <a
+            href={application.resume_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.resumeLink}
+          >
+            View Resume
+          </a>
+        </p>
+      )}
       </div>
 
-      {application && (
-        <div className={styles.applicationSection}>
-          {application.cover_letter && (
-            <div className={styles.coverLetter}>
-              <h3>Cover Letter</h3>
-              <p>{application.cover_letter}</p>
-            </div>
-          )}
-          {application.resume && (
-            <p>
-              <strong>Resume: </strong>
-              <a href={application.resume} target="_blank" rel="noopener noreferrer" className={styles.resumeLink}>
-                Download Resume
-              </a>
-            </p>
-          )}
-        </div>
-      )}
 
       <div className={styles.buttonRow}>
         <button

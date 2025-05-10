@@ -50,17 +50,30 @@ const Navbar = () => {
   }, [isMenuOpen]);
   
 
-  const generateLink = (to, label, logout = false) => (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        `${styles['navbar-button']} ${isActive ? styles['active-link'] : ''} ${logout ? styles['login-button'] : ''}`
-      }
-      onClick={logout ? handleLogOutClick : () => setIsMenuOpen(false)}
-    >
-      {label}
-    </NavLink>
-  );
+  const generateLink = (to, label, logout = false) => {
+    if (logout) {
+      return (
+        <button
+          onClick={handleLogOutClick}
+          className={`${styles['navbar-button']} ${styles['login-button']}`}
+        >
+          {label}
+        </button>
+      );
+    }
+  
+    return (
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          `${styles['navbar-button']} ${isActive ? styles['active-link'] : ''}`
+        }
+        onClick={() => setIsMenuOpen(false)}
+      >
+        {label}
+      </NavLink>
+    );
+  };
 
   const freelancerNav = (
     <>

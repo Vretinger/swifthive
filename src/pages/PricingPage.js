@@ -16,42 +16,44 @@ const PricingPage = () => {
             <Tab eventKey="Freelancer" title="Freelancer Plans" aria-label="Freelancer Plans">
                 <div className={styles.pricingSection}>
                     <h3 className={styles.heading}>Freelancer Plans</h3>
-                    <div className="row">
-                        {/* Freelancer Plans */}
-                        <div className="col-12 col-md-4">
-                            <div className={styles.pricingCard}>
-                                <div className={styles.pricingCardHeader}>Free</div>
-                                <div className={styles.pricingCardPrice}>$0</div>
-                                <ul className={styles.featuresList}>
-                                    <li>Access to basic features</li>
-                                    <li>Limited job applications</li>
-                                    <li>Basic portfolio management</li>
-                                </ul>
-                                <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Start Free</Link>
+                    <div className="container-fluid">
+                        <div className="row">
+                            {/* Freelancer Plans */}
+                            <div className="col-12 col-md-4">
+                                <div className={styles.pricingCard}>
+                                    <div className={styles.pricingCardHeader}>Free</div>
+                                    <div className={styles.pricingCardPrice}>$0</div>
+                                    <ul className={styles.featuresList}>
+                                        <li>Access to basic features</li>
+                                        <li>Limited job applications</li>
+                                        <li>Basic portfolio management</li>
+                                    </ul>
+                                    <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Start Free</Link>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-12 col-md-4">
-                            <div className={styles.pricingCard}>
-                                <div className={styles.pricingCardHeader}>Basic</div>
-                                <div className={styles.pricingCardPrice}>$19/month</div>
-                                <ul className={styles.featuresList}>
-                                    <li>Access to all freelancer features</li>
-                                    <li>Unlimited job applications</li>
-                                    <li>Priority portfolio visibility</li>
-                                </ul>
-                                <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Get Started</Link>
+                            <div className="col-12 col-md-4">
+                                <div className={styles.pricingCard}>
+                                    <div className={styles.pricingCardHeader}>Basic</div>
+                                    <div className={styles.pricingCardPrice}>$19/month</div>
+                                    <ul className={styles.featuresList}>
+                                        <li>Access to all freelancer features</li>
+                                        <li>Unlimited job applications</li>
+                                        <li>Priority portfolio visibility</li>
+                                    </ul>
+                                    <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Get Started</Link>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-12 col-md-4">
-                            <div className={styles.pricingCard}>
-                                <div className={styles.pricingCardHeader}>Premium</div>
-                                <div className={styles.pricingCardPrice}>$49/month</div>
-                                <ul className={styles.featuresList}>
-                                    <li>Access to all features</li>
-                                    <li>Featured profile listing</li>
-                                    <li>24/7 support and coaching</li>
-                                </ul>
-                                <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Start Premium</Link>
+                            <div className="col-12 col-md-4">
+                                <div className={styles.pricingCard}>
+                                    <div className={styles.pricingCardHeader}>Premium</div>
+                                    <div className={styles.pricingCardPrice}>$49/month</div>
+                                    <ul className={styles.featuresList}>
+                                        <li>Access to all features</li>
+                                        <li>Featured profile listing</li>
+                                        <li>24/7 support and coaching</li>
+                                    </ul>
+                                    <Link to="/signup?tab=freelancer" className={styles.ctaButton}>Start Premium</Link>
+                                </div>
                             </div>
                         </div>
                     </div>

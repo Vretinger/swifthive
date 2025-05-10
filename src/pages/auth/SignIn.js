@@ -94,68 +94,70 @@ const LoginPage = () => {
   
 
   return (
-    <Row className={styles.signInPage}>
-      <Col className={styles.signInContainer}>
-        <div>
-          <h1 className={styles.Header}>Login</h1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="email">
-              <Form.Label className="d-none">Email</Form.Label>
-              <Form.Control
-                className={styles.Input}
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            {errors.email?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+    <div className="container-fluid">
+      <Row className={styles.signInPage}>
+        <Col className={styles.signInContainer}>
+          <div>
+            <h1 className={styles.Header}>Login</h1>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="email">
+                <Form.Label className="d-none">Email</Form.Label>
+                <Form.Control
+                  className={styles.Input}
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              {errors.email?.map((message, idx) => (
+                <Alert key={idx} variant="warning">
+                  {message}
+                </Alert>
+              ))}
 
-            <Form.Group controlId="password">
-              <Form.Label className="d-none">Password</Form.Label>
-              <Form.Control
-                className={styles.Input}
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            {errors.password?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
+              <Form.Group controlId="password">
+                <Form.Label className="d-none">Password</Form.Label>
+                <Form.Control
+                  className={styles.Input}
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+              {errors.password?.map((message, idx) => (
+                <Alert key={idx} variant="warning">
+                  {message}
+                </Alert>
+              ))}
 
-            <Button
-              type="submit"
-              disabled={loading} // Disable button during loading
-            >
-              {loading ? "Logging In..." : "Log In"}
-            </Button>
-            {errors.non_field_errors?.map((message, idx) => (
-              <Alert key={idx} variant="warning" className="mt-3">
-                {message}
-              </Alert>
-            ))}
-          </Form>
-        </div>
+              <Button
+                type="submit"
+                disabled={loading} // Disable button during loading
+              >
+                {loading ? "Logging In..." : "Log In"}
+              </Button>
+              {errors.non_field_errors?.map((message, idx) => (
+                <Alert key={idx} variant="warning" className="mt-3">
+                  {message}
+                </Alert>
+              ))}
+            </Form>
+          </div>
 
-        <div className={`mt-3 ${appStyles.Content}`}>
-          <Link className={styles.Link} to="/signup">
-            Don't have an account? <span>Sign up</span>
-          </Link>
-        </div>
-      </Col>
-    </Row>
+          <div className={`mt-3 ${appStyles.Content}`}>
+            <Link className={styles.Link} to="/signup">
+              Don't have an account? <span>Sign up</span>
+            </Link>
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

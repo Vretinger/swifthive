@@ -28,9 +28,9 @@
   
   .pricingTiers {
     display: flex;
-    justify-content: space-between; /* Ensure cards are spaced apart */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 20px; /* Add space between cards */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
   }
   
   .pricingCard {
@@ -82,19 +82,7 @@
   .ctaButton:hover {
     background-color: #0056b3;
   }
-  
-  
-  @media (max-width: 768px) {
-    .pricingCard {
-      width: 100%;
-    }
-  
-    .ctaButton {
-      width: 100%;
-      padding: 12px 0;
-    }
-  }
-  
+    
   .faqsSection {
     background-color: #6aa09b;
     padding: 60px 20px;
@@ -122,4 +110,25 @@
   
   .faqAnswer {
     color: #494949;
+  }
+
+    
+  @media (max-width: 768px) {
+    .pricingCard {
+      width: 100%;
+    }
+
+    .pricingSection {
+      margin-bottom: 60px;
+    }
+
+    .pricingCard {
+      margin: auto auto;
+      margin-bottom: 50px;
+    }
+  
+    .ctaButton {
+      width: 100%;
+      padding: 12px 0;
+    }
   }

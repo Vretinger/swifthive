@@ -39,9 +39,11 @@ const JobApplicationForm = () => {
       setResume(null);
       setUseProfileResume(false);
 
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
+      navigate('/', {
+        state: {
+          toast: { message: 'Application submitted! Redirecting...', type: 'success' }
+        }
+      });
 
     } catch (error) {
       console.error(error);

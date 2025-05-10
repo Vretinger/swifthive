@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosPublic from "api/axios";
 import { useNavigate } from "react-router-dom";
 import styles from 'styles/freelancers/FreelancerProfiles.module.css';
+import LoadingSpinner from "components/LoadingSpinner";
 
 const FreelancerProfiles = () => {
     const [freelancers, setFreelancers] = useState([]);
@@ -31,7 +32,7 @@ const FreelancerProfiles = () => {
     return (
         <div className={styles.freelancersContainer}>
             <h1>Freelancers</h1>
-            {loading && <div>Loading...</div>}
+            {loading && <LoadingSpinner size="lg" text="Loading freelancer details..." />}
             {error && <div className={styles.errorMessage}>{error}</div>}
             {!loading && !error && freelancers.length === 0 && (
                 <div className={styles.noFreelancers}>No freelancers available</div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "styles/auth/SignUpPage.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Tabs, Tab, Form, Button, Alert, Container } from "react-bootstrap";
+import { Tabs, Tab, Form, Button, Alert } from "react-bootstrap";
 import { useSetCurrentUser } from "contexts/CurrentUserContext";
 
 const SignUpPage = () => {
@@ -220,11 +220,11 @@ const SignUpPage = () => {
         </Form>
 
         {/* Link to sign-in */}
-        <Container className="mt-3">
+        <div className="mt-3">
           <Link className={styles.Link} to="/signin">
             Don't have an account? <span>Sign up</span>
           </Link>
-        </Container>
+        </div>
       </div>
     </div>
   );

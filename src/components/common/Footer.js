@@ -14,10 +14,6 @@ const Footer = () => {
         <FaHome className={styles.icon} />
           Home
       </Link>
-      <Link to="/" className={styles.link} onClick={signOut}>
-        <FaSignOutAlt className={styles.icon} />
-          Log Out
-      </Link>
       <Link to="/jobs" className={styles.link}>
         <FaSearch className={styles.icon} />
           Find Work
@@ -30,10 +26,6 @@ const Footer = () => {
       <Link to="/" className={styles.link}>
         <FaHome className={styles.icon} />
           Home
-      </Link>
-      <Link to="/" className={styles.link} onClick={signOut}>
-        <FaSignOutAlt className={styles.icon} />
-          Log Out
       </Link>
       <Link to="/freelancers" className={styles.link}>
         <FaSearch className={styles.icon} />
@@ -48,9 +40,9 @@ const Footer = () => {
         <FaQuestion className={styles.icon} />
           How it Works
       </Link>
-      <Link to="/pricing" className={styles.link}>
-        <FaDollarSign className={styles.icon} />
-          Pricing
+      <Link to="/" className={styles.link} onClick={signOut}>
+        <FaSignOutAlt className={styles.icon} />
+          Log Out
       </Link>
     </>
   );

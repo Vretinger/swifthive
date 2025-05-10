@@ -12,6 +12,8 @@ const ManageJobListings = () => {
   const [freelancers, setFreelancers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
 
   useEffect(() => {
     const fetchJobAndApplications = async () => {
@@ -108,6 +110,16 @@ const ManageJobListings = () => {
           </div>
         </div>
       )}
+      {showDeleteConfirm && (
+        <div className={styles.ModalOverlay}>
+          <div className={styles.ConfirmModal}>
+            <p>Are you sure you want to delete this job listing? This action cannot be undone.</p>
+            <button onClick={handleDelete}>Yes, delete it</button>
+            <button onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
 
   
       <div className={styles.container}>
@@ -143,7 +155,7 @@ const ManageJobListings = () => {
               {!job.is_active && (
                 <button
                   type="button"
-                  onClick={handleDelete}
+                  onClick={() => setShowDeleteConfirm(true)}
                   className={styles.deleteButton}
                 >
                   Delete Job

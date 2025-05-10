@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic from "api/axios";
 import styles from "styles/freelancers/FreelancerDetails.module.css";
+import LoadingSpinner from "components/LoadingSpinner";
 
 
 const FreelancerDetails = () => {
@@ -26,9 +27,19 @@ const FreelancerDetails = () => {
         fetchFreelancerDetails();
     }, [id]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div className={styles.errorMessage}>{error}</div>;
-    if (!freelancer) return <div>No freelancer found.</div>;
+    if (loading) {
+        return <LoadingSpinner size="lg" text="Loading freelancer details..." />;
+      }
+      
+      if (error) {
+        return <div className={styles.errorMessage}>{error}</div>;
+      }
+      
+      if (!freelancer) {
+        return <div>No freelancer found.</div>;
+      }
+      
+    
 
     return (
         <div className={styles.freelancerDetails}>
@@ -72,7 +83,7 @@ const FreelancerDetails = () => {
                 )}
             </div>
 
-            <button className={styles.hireButton}>Hire {freelancer.user.first_name}</button>
+            <button className={styles.hireButton}>Contact {freelancer.user.first_name}</button>
         </div>
     );
 };

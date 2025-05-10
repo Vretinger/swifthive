@@ -2,12 +2,10 @@
 .profilePage {
     font-family: 'Arial', sans-serif;
     padding: 20px;
-    background-color: #3D5B59;
 }
 
 .profileContainer {
     max-width: 800px;
-    min-height: 70vh;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;

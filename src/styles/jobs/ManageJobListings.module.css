@@ -1,73 +1,206 @@
 .container {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-  }
-  
-  .jobListingContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .jobDetails {
-    width: 60%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .jobDetails h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .jobDetails p {
-    margin-bottom: 10px;
-  }
-  
-  .editButton {
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .editButton:hover {
-    background-color: #45a049;
-  }
-  
-  .applications {
-    width: 35%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .applicationCard {
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .applicationCard h3 {
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .applicationCard p {
-    margin-bottom: 10px;
-  }
-  
-  .loading, .errorMessage {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 72vh;
+}
+
+.loading, .errorMessage {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 2rem;
+}
+
+.jobListingContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Job Details */
+.jobDetails {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0,0,0,0.03);
+}
+
+.jobDetails h1 {
+  margin-bottom: 0.5rem;
+}
+
+.jobDetails h3 {
+  margin-bottom: 1rem;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+}
+
+.editButton,
+.deactivateButton,
+.deleteButton {
+  margin-right: 1rem;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.deactivateButton {
+  background-color: #ffc107;
+  color: black;
+}
+
+.deactivateButton:hover {
+  background-color: #e0a800;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+/* Modal overlay */
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.ConfirmModal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal text */
+.ConfirmModal p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Confirm and Cancel buttons */
+.ConfirmModal button {
+  padding: 10px 16px;
+  margin: 0 8px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Confirm (Yes) button styling */
+.ConfirmModal button:first-of-type {
+  background-color: #d9534f; /* Bootstrap red-ish */
+  color: white;
+}
+
+.ConfirmModal button:first-of-type:hover {
+  background-color: #c9302c;
+}
+
+/* Cancel button styling */
+.ConfirmModal button:last-of-type {
+  background-color: #6c757d; /* Bootstrap grey-ish */
+  color: white;
+}
+
+.ConfirmModal button:last-of-type:hover {
+  background-color: #5a6268;
+}
+
+
+/* Applications */
+.applications {
+  margin-top: 2rem;
+}
+
+.freelancerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.profileCard {
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profileCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.profileImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  margin: 0.2rem 0;
+  font-weight: bold;
+}
+
+.location, .availability, .portfolio {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.viewProfileButton {
+  margin-top: 0.8rem;
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.viewProfileButton:hover {
+  background-color: #218838;
+}

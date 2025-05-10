@@ -100,5 +100,3 @@ const EditJob = () => {
 };
 
 export default EditJob;
-// This component allows the user to edit an existing job listing. It fetches the job data using the job ID from the URL parameters, populates the form with the current job details, and allows the user to update and save changes.
-// The form includes fields for job title, description, category, location, salary range, employment type, work type, and application deadline. The styles are reused from the CreateJob component for consistency.

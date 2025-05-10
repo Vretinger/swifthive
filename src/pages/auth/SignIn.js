@@ -7,7 +7,6 @@ import {
   Button,
   Col,
   Row,
-  Container,
   Alert,
 } from "react-bootstrap";
 import axios from "axios";
@@ -97,7 +96,7 @@ const LoginPage = () => {
   return (
     <Row className={styles.signInPage}>
       <Col className={styles.signInContainer}>
-        <Container>
+        <div>
           <h1 className={styles.Header}>Login</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
@@ -148,13 +147,13 @@ const LoginPage = () => {
               </Alert>
             ))}
           </Form>
-        </Container>
+        </div>
 
-        <Container className={`mt-3 ${appStyles.Content}`}>
+        <div className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signup">
             Don't have an account? <span>Sign up</span>
           </Link>
-        </Container>
+        </div>
       </Col>
     </Row>
   );

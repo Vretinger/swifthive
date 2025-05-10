@@ -26,7 +26,7 @@ const CreateJob = () => {
     e.preventDefault();
     try {
       await axiosReq.post("/api/job-listings/create/", job);
-      navigate("/manage-jobs"); // Redirect to manage jobs
+      navigate("/");
     } catch (error) {
       console.error("Error creating job:", error.response?.data || error.message);
     }

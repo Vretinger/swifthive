@@ -2,13 +2,14 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    min-height: 78vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
   
   .title {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: #333;
+    color: #fff;
     text-align: center;
   }
   

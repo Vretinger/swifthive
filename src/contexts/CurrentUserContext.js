@@ -128,7 +128,7 @@ export const CurrentUserProvider = ({ children }) => {
     <CurrentUserContext.Provider value={{ currentUser, signOut, loading }}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {loading ? (
-          <LoadingSpinner size="lg" text="Please wait, restoring your session..." /> // Show spinner while loading
+          <LoadingSpinner size="lg" text="Please wait, restoring your session..." />
         ) : (
           children
         )}

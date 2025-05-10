@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from "styles/EditProfile.module.css";
+import styles from "styles/freelancers/EditProfile.module.css";
 import { axiosReq } from "api/axios";
 import { Alert, Button } from 'react-bootstrap';
 import { useCurrentUser, useSetCurrentUser } from "contexts/CurrentUserContext";

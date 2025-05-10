@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "styles/ClientDashboard.module.css";
+import styles from "styles/clients/ClientDashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { axiosReq } from "api/axios";
 

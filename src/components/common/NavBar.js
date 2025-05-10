@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from 'styles/Navbar.module.css';
+import styles from 'styles/common/Navbar.module.css';
 import logo from "assets/images/HiveLogo.png";
 import { useCurrentUser } from "contexts/CurrentUserContext";
 import { useState } from "react";

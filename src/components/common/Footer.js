@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from 'assets/images/HiveLogo.png';
 import { FaHome, FaSearch, FaUsers, FaQuestion, FaDollarSign, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-import styles from 'styles/Footer.module.css';
+import styles from 'styles/common/Footer.module.css';
 import { Link } from 'react-router-dom'; 
 import { useCurrentUser } from 'contexts/CurrentUserContext';
 

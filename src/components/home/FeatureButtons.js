@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from 'styles/FeatureButtons.module.css';
+import styles from 'styles/home/FeatureButtons.module.css';
 
 // Import images for the circles
 import image1 from 'assets/images/FindWork.png';

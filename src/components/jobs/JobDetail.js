@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic, { axiosReq } from "api/axios";
 import { useCurrentUser } from "contexts/CurrentUserContext";
-import styles from 'styles/JobDetail.module.css';
+import styles from 'styles/jobs/JobDetail.module.css';
 
 const JobDetail = () => {
   const { jobId } = useParams();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { axiosReq } from 'api/axios';
-import styles from 'styles/ManageJobListings.module.css';
+import styles from 'styles/jobs/ManageJobListings.module.css';
 
 const ManageJobListings = () => {
   const { jobId } = useParams();

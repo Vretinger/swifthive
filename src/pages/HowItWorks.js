@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from 'styles/HowItWorks.module.css';
+import styles from 'styles/home/HowItWorks.module.css';
 
 const HowItWorks = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from 'styles/SignInPage.module.css';
+import styles from 'styles/auth/SignInPage.module.css';
 import appStyles from 'App.module.css';
 import {
   Form,

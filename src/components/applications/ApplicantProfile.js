@@ -3,7 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import DeclineModal from "components/applications/DeclineModal";
 import AcceptModal from "components/applications/AcceptModal";
 import { axiosReq } from "api/axios";
-import styles from "styles/ApplicantDetails.module.css";
+import styles from "styles/applications/ApplicantDetails.module.css";
 
 const ApplicantProfile = () => {
   const { jobId, freelancerId } = useParams();

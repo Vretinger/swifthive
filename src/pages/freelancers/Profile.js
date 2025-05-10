@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosPublic from "api/axios";
-import styles from "styles/MyProfile.module.css";
+import styles from "styles/freelancers/MyProfile.module.css";
 import { useCurrentUser } from "contexts/CurrentUserContext";
 
 const MyProfile = () => {

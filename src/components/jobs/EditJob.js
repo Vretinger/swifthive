@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { axiosReq } from "api/axios";
-import styles from 'styles/CreateJob.module.css'; // Reusing the CreateJob styles
+import styles from 'styles/jobs/EditJob.module.css';
 
 const EditJob = () => {
   const { id } = useParams();

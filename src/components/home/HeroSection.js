@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from 'styles/HeroSection.module.css';
+import styles from 'styles/home/HeroSection.module.css';
 import heroImage from 'assets/images/WorkingBackground.png';
 
 const HeroSection = () => {

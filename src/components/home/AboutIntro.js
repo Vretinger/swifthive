@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
-import styles from 'styles/AboutIntro.module.css';
+import styles from 'styles/home/AboutIntro.module.css';
 
 const AboutIntro = () => {
   return (

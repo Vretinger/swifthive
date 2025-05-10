@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic from "api/axios";
-import styles from "styles/FreelancerDetails.module.css";
+import styles from "styles/freelancers/FreelancerDetails.module.css";
 
 
 const FreelancerDetails = () => {

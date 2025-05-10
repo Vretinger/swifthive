@@ -46,12 +46,14 @@ const FeatureButtons = () => {
             <span className={styles.buttonText}>Pricing</span>
           </button>
         </Link>
-        <button className={styles.featureButton}>
-          <div className={styles.circle}>
-            <img src={image5} alt="Feature 5" className={styles.circleImage} />
-          </div>
-          <span className={styles.buttonText}>Categories</span>
-        </button>
+        <Link to="/category" className={styles.buttonText}>
+          <button className={styles.featureButton}>
+            <div className={styles.circle}>
+              <img src={image5} alt="Feature 5" className={styles.circleImage} />
+            </div>
+            <span className={styles.buttonText}>Categories</span>
+          </button>
+        </Link>
       </div>
     </div>
   );

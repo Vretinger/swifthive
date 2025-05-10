@@ -25,8 +25,8 @@ const JobDetail = () => {
       try {
         const response = await axiosPublic.get(`/api/job-listings/listings/${jobId}/`);
         setJob(response.data);
-      
-        if (currentUser.role === "freelancer") {
+  
+        if (currentUser?.role === "freelancer") {
           try {
             const appliedRes = await axiosReq.get(`/api/applications/has-applied/${jobId}/`);
             setHasApplied(appliedRes.data.has_applied);
@@ -34,7 +34,7 @@ const JobDetail = () => {
             console.warn("Could not check has-applied:", err.response?.status);
           }
         }
-      
+  
       } catch (err) {
         console.error("Error fetching job detail or has-applied status:", err);
         setError("Failed to load job details.");
@@ -43,10 +43,10 @@ const JobDetail = () => {
       }
     };
   
-    if (currentUser !== null) {
-      fetchJobDetail();  // Only run when currentUser is ready
-    }
+    
+    fetchJobDetail();
   }, [jobId, currentUser]);
+  
   
   
 

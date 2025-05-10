@@ -9,6 +9,7 @@ import ProtectedRoute from 'components/routing/ProtectedRoute';
 import 'api/axios';
 import HowItWorks from 'pages/HowItWorks';
 import PricingPage from 'pages/PricingPage';
+import CategoriesInfo from 'pages/CategoriesInfo';
 import Profile from 'pages/freelancers/Profile';
 import EditProfile from 'pages/freelancers/EditProfile';
 import FreelancerDashboard from 'pages/freelancers/FreelancerDashboard';
@@ -47,6 +48,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/category" element={<CategoriesInfo />} />
             <Route path="/freelancers" element={<FreelancerProfiles />} />
             <Route path="/freelancer/:id" element={<FreelancerDetails />} />
             <Route path="/job/:jobId" element={<JobDetail />} />

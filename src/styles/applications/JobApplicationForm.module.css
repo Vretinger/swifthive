@@ -1,0 +1,126 @@
+.Pagecontainer {
+    min-height: 72vh;
+}
+
+.container {
+    max-width: 40rem;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2d3748;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .label {
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+  }
+  
+  .textarea {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #4a5568;
+    resize: vertical;
+    transition: border-color 0.3s;
+  }
+  
+  .textarea:focus {
+    border-color: #667eea;
+    outline: none;
+  }
+  
+  .checkboxLabel {
+    padding-left: 5px;
+    color: #4a5568;
+  }
+  
+  .checkboxInput {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s;
+  }
+  
+  .checkboxInput:checked {
+    background-color: #667eea;
+  }
+  
+  .fileInput {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+    background-color: #edf2f7;
+    transition: background-color 0.3s;
+  }
+  
+  .fileInput:hover {
+    background-color: #cbd5e0;
+  }
+  
+  .submitButton {
+    background-color: #667eea;
+    width: 100%;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+  }
+  
+  .submitButton:hover {
+    background-color: #5a67d8;
+  }
+  
+  .message {
+    text-align: center;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+  
+  .successMessage {
+    color: #48bb78;
+  }
+  
+  .errorMessage {
+    color: #f56565;
+  }
+  
+  .popupMessage {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: none;
+    transition: opacity 0.3s;
+  }
+  
+  .popupMessage.show {
+    display: block;
+    opacity: 1;
+  }
+  

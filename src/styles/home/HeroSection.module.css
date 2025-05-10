@@ -1,65 +1,117 @@
 .heroSection {
-    position: relative;
-    height: 50vh;
-    background: linear-gradient(90deg, #122d2f, #abb9a4);
-    display: flex;
-    justify-content: flex-start; /* Aligns text to the left */
-    align-items: center; /* Aligns text to the top */
-    padding: 0 80px; /* Adjusted padding for more space on the left */
-    width: 100%;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .heroContent {
-    max-width: 600px; /* Limit the width of the text content */
-  }
-  
-  .heroContent h1 {
-    font-size: 6rem;  /* Increase the font size for the heading */
-    color: white;
-    font-weight: bold;
-    margin-bottom: 20px;
-    line-height: 1.1;
-  }
-  
-  .heroContent p {
-    font-size: 2rem;  /* Increase the font size for the paragraph */
-    color: white;
-    line-height: 1.5;
-  }
-  
-  .heroContent p br {
-    margin-bottom: 10px;  /* Add some space between the lines */
-  }
-  
-  .hiveText {
-    color: #ffcc00; /* Yellow color for "Hive" */
-  }
-  
-  .heroImage {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 80%; /* Set the image height to 80% of the hero section */
-    max-height: 40vh;
-    object-fit: contain; /* Ensure proper scaling */
-    z-index: 1; /* Place the image behind the text */
-  }
-  
-  .signup-button {
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-    color: #122d2f;
-    margin-top: 20px;
-    font-size: 1.5rem;
-    background-color: #ffcc00;
-    width: 35%;
-    padding: 10px;
-    border-radius: 10px;
+  position: relative;
+  height: 50vh;
+  background: linear-gradient(90deg, #122d2f, #abb9a4);
+  display: flex;
+  justify-content: flex-start; /* Aligns text to the left */
+  align-items: center; /* Aligns text to the top */
+  padding: 0 80px; /* Adjusted padding for more space on the left */
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+.heroContent {
+  max-width: 600px; /* Limit the width of the text content */
+}
+
+.heroContent h1 {
+  font-size: 6rem; /* Increase the font size for the heading */
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.heroContent p {
+  font-size: 2rem; /* Increase the font size for the paragraph */
+  color: white;
+  line-height: 1.5;
+}
+
+.heroContent p br {
+  margin-bottom: 10px; /* Add some space between the lines */
+}
+
+.hiveText {
+  color: #ffcc00; /* Yellow color for "Hive" */
+}
+
+.heroImage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 80%; /* Set the image height to 80% of the hero section */
+  max-height: 40vh;
+  object-fit: contain; /* Ensure proper scaling */
+  z-index: 1; /* Place the image behind the text */
+}
+
+.signup-button {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: #122d2f;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  background-color: #ffcc00;
+  width: 35%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.signup-button:hover {
+  background-color: #b38f00;
+  color: #1C2728;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 60vh; /* Slightly adjust the height for smaller screens */
+    padding: 0 20px; /* Adjust the padding */
+    flex-direction: column; /* Stack content and image vertically */
+    justify-content: center; /* Vertically center content */
   }
 
-  .signup-button:hover {
-    background-color: #b38f00;
-    color: #1C2728;
+  .heroContent {
+    max-width: 90%; /* Allow more space for text */
+    text-align: center; /* Center-align text */
   }
+
+  .heroContent h1 {
+    font-size: 3rem; /* Adjust the font size for smaller screens */
+  }
+
+  .heroContent p {
+    font-size: 1.5rem; /* Adjust the font size for smaller screens */
+  }
+
+  .signup-button {
+    width: 60%; /* Make the button wider on smaller screens */
+    font-size: 1.2rem; /* Adjust the button font size */
+    margin: 20px auto; /* Center the button horizontally */
+    display: block; /* Ensure block-level display for centering */
+  }
+
+  .heroImage {
+    display: none; /* Hide the image on smaller screens */
+  }
+}
+
+/* Very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .heroContent h1 {
+    font-size: 2.5rem; /* Further reduce font size */
+  }
+
+  .heroContent p {
+    font-size: 1.2rem; /* Reduce paragraph font size */
+  }
+
+  .signup-button {
+    width: 80%; /* Make the button almost full width */
+    font-size: 1rem; /* Smaller font size for the button */
+    padding: 8px; /* Adjust padding */
+    margin: 20px auto; /* Ensure centering on very small screens */
+  }
+}

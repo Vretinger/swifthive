@@ -1,111 +1,132 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from 'styles/common/Navbar.module.css';
 import logo from "assets/images/HiveLogo.png";
 import { useCurrentUser } from "contexts/CurrentUserContext";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import LogoutModal from "components/common/LogoutModal";
 
 const Navbar = () => {
   const { currentUser, signOut } = useCurrentUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  // Show logout confirmation modal
+
   const handleLogOutClick = (event) => {
     event.preventDefault();
     setIsModalOpen(true);
   };
 
-  // Confirm logout action
   const handleConfirmLogout = () => {
     signOut();
     setIsModalOpen(false);
+    setIsMenuOpen(false);
   };
 
-  // Cancel logout action
   const handleCancelLogout = () => {
     setIsModalOpen(false);
   };
 
+  const handleToggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+  
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
+  
+
+  const generateLink = (to, label, logout = false) => (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `${styles['navbar-button']} ${isActive ? styles['active-link'] : ''} ${logout ? styles['login-button'] : ''}`
+      }
+      onClick={logout ? handleLogOutClick : () => setIsMenuOpen(false)}
+    >
+      {label}
+    </NavLink>
+  );
+
   const freelancerNav = (
     <>
-      <Link to="/" className={styles['navbar-button']}>
-        Find Jobs
-      </Link>
-      <Link to="/dashboard" className={styles['navbar-button']}>
-        Dashboard
-      </Link>
-      <Link to="/profile" className={styles['navbar-button']}>
-        Profile
-      </Link>
-      <Link 
-        to="/" 
-        className={`${styles['navbar-button']} ${styles['login-button']}`} 
-        onClick={handleLogOutClick}
-      >
-        Log Out
-      </Link>
+      {generateLink("/", "Find Jobs")}
+      {generateLink("/dashboard", "Dashboard")}
+      {generateLink("/profile", "Profile")}
+      {generateLink("/", "Log Out", true)}
     </>
   );
 
   const clientNav = (
     <>
-      <Link to="/" className={styles['navbar-button']}>
-        Dashboard
-      </Link>
-      <Link to="/create-job" className={styles['navbar-button']}>
-        Post Job
-      </Link>
-      <Link to="/freelancers" className={styles['navbar-button']}>
-        Find Freelancers
-      </Link>
-      <Link 
-        to="/" 
-        className={`${styles['navbar-button']} ${styles['login-button']}`} 
-        onClick={handleLogOutClick}
-      >
-        Log Out
-      </Link>
+      {generateLink("/", "Dashboard")}
+      {generateLink("/create-job", "Post Job")}
+      {generateLink("/freelancers", "Find Freelancers")}
+      {generateLink("/", "Log Out", true)}
     </>
   );
 
   const loggedOutNav = (
     <>
-      <Link to="/" className={styles['navbar-button']}>
-        Home
-      </Link>
-      <Link to="/jobs" className={styles['navbar-button']}>
-        Explore
-      </Link>
-      <Link to="/pricing" className={styles['navbar-button']}>
-        Pricing
-      </Link>
-      <Link to="/signin" className={`${styles['navbar-button']} ${styles['login-button']}`}>
-        Log in
-      </Link>
+      {generateLink("/", "Home")}
+      {generateLink("/jobs", "Explore")}
+      {generateLink("/pricing", "Pricing")}
+      {generateLink("/signin", "Log in", false)}
     </>
   );
+
+  const navItems =
+    currentUser?.role === "freelancer"
+      ? freelancerNav
+      : currentUser?.role === "client"
+      ? clientNav
+      : loggedOutNav;
 
   return (
     <>
       <nav className={styles.navbar}>
         <div className={styles['navbar-left']}>
-          <Link to="/" className={styles['navbar-link']}>
+          <NavLink to="/" className={styles['navbar-link']}>
             <img src={logo} alt="Logo" className={styles['navbar-logo']} />
             <span className={styles['navbar-text']}>Swift</span>
             <span className={styles.hiveText}>Hive</span>
-          </Link>
+          </NavLink>
         </div>
 
         <div className={styles['navbar-right']}>
-          {currentUser?.role === "freelancer" ? freelancerNav : 
-           currentUser?.role === "client" ? clientNav : loggedOutNav}
+          <div className={styles.desktopOnly}>{navItems}</div>
+
+          <button className={styles.hamburger} onClick={handleToggleMenu}>
+            ☰
+          </button>
+
+          {isMenuOpen && (
+            <div className={styles.dropdownMenu} ref={dropdownRef}>
+              {navItems}
+            </div>
+          )}
+
         </div>
       </nav>
 
       {isModalOpen && (
-        <LogoutModal 
-          onClose={handleCancelLogout} 
-          onConfirm={handleConfirmLogout} 
+        <LogoutModal
+          onClose={handleCancelLogout}
+          onConfirm={handleConfirmLogout}
         />
       )}
     </>

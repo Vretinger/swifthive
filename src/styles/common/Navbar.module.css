@@ -68,3 +68,45 @@
     color: #1C2728;
   }
   
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    background-color: #1C2728;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1000;
+    border: 1px solid #333;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .active-link {
+    font-weight: bold;
+    background-color: #2e3b3c;
+  }
+  
+  /* Responsive behavior */
+  @media (max-width: 768px) {
+    .desktopOnly {
+      display: none;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  
+    .dropdownMenu a {
+      margin-bottom: 10px;
+    }
+  }
+  

@@ -3,7 +3,9 @@ import styles from 'App.module.css';
 import NavBar from 'components/common/NavBar';
 import Footer from 'components/common/Footer';
 import Container from 'react-bootstrap/Container';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useCurrentUser } from 'contexts/CurrentUserContext';
+import ProtectedRoute from 'components/routing/ProtectedRoute';
 import 'api/axios';
 import HowItWorks from 'pages/HowItWorks';
 import PricingPage from 'pages/PricingPage';
@@ -23,6 +25,10 @@ import { CurrentUserProvider } from 'contexts/CurrentUserContext';
 
 // Lazy-loaded components for performance optimization
 const Home = lazy(() => import('pages/Home'));
+const GuestRoute = ({ children }) => {
+  const { currentUser } = useCurrentUser();
+  return currentUser ? <Navigate to="/" replace /> : children;
+};
 const SignUpForm = lazy(() => import('pages/auth/SignUp'));
 const SignInForm = lazy(() => import('pages/auth/SignIn'));
 const NotFound = () => <p>Page not found!</p>;
@@ -37,26 +43,111 @@ function App() {
         {/* Main Content */}
         <Container className={styles.Main}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/signin" element={<SignInForm />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/edit-profile" element={<EditProfile />} />
-              <Route path="/how-it-works" element={<HowItWorks />} />
-              <Route path="/pricing" element={<PricingPage />} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/jobs" element={<ExploreJobs />} />
-              <Route path="/job/:jobId" element={<JobDetail />} />
-              <Route path="/create-job" element={<CreateJob />} />
-              <Route path="/manage-job/:jobId" element={<ManageJobs />} />
-              <Route path="/edit-job/:id" element={<EditJob />} />
-              <Route path="/freelancers" element={<FreelancerProfiles />} />
-              <Route path="/freelancer/:id" element={<FreelancerDetails />} />
-              <Route path="/dashboard/" element={<FreelancerDashboard />} />
-              <Route path="/apply/:jobId" element={<Apply />} />
-              <Route path="/applicant/:jobId/:freelancerId" element={<ApplicantProfile />} />
-            </Routes>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/freelancers" element={<FreelancerProfiles />} />
+            <Route path="/freelancer/:id" element={<FreelancerDetails />} />
+            <Route path="/job/:jobId" element={<JobDetail />} />
+            <Route path="/jobs" element={<ExploreJobs />} />
+            <Route path="*" element={<NotFound />} />
+
+            {/* Guest Routes */}
+            <Route
+              path="/signin"
+              element={
+                <GuestRoute>
+                  <SignInForm />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <GuestRoute>
+                  <SignUpForm />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="/pricing"
+              element={
+                <GuestRoute>
+                  <PricingPage />
+                </GuestRoute>
+              }
+            />
+
+            {/* Protected Routes: Freelancer */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute roles={["freelancer"]}>
+                  <FreelancerDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute roles={["freelancer"]}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-profile"
+              element={
+                <ProtectedRoute roles={["freelancer"]}>
+                  <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/apply/:jobId"
+              element={
+                <ProtectedRoute roles={["freelancer"]}>
+                  <Apply />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/applicant/:jobId/:freelancerId"
+              element={
+                <ProtectedRoute roles={["client"]}>
+                  <ApplicantProfile />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Protected Routes: Client */}
+            <Route
+              path="/create-job"
+              element={
+                <ProtectedRoute roles={["client"]}>
+                  <CreateJob />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/manage-job/:jobId"
+              element={
+                <ProtectedRoute roles={["client"]}>
+                  <ManageJobs />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-job/:id"
+              element={
+                <ProtectedRoute roles={["client"]}>
+                  <EditJob />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+
           </Suspense>
         </Container>
 

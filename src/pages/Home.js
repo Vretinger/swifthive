@@ -8,20 +8,21 @@ import ClientDashboard from 'components/clients/ClientDashboard';
 const Home = () => {
   const { currentUser } = useCurrentUser();
 
+  if (currentUser?.role === "freelancer") {
+    return <FreelancerHome />;
+  }
+
+  if (currentUser?.role === "client") {
+    return <ClientDashboard />;
+  }
+
+  // Public home page
   return (
-    <div>
-      {currentUser?.role === "freelancer" ? (
-        <FreelancerHome />
-      ) : currentUser?.role === "client" ? (
-        <ClientDashboard />
-      ) : (
-        <>
-          <HeroSection />
-          <FeatureButtons />
-          <AboutIntro />
-        </>
-      )}
-    </div>
+    <>
+      <HeroSection />
+      <FeatureButtons />
+      <AboutIntro />
+    </>
   );
 };
 

@@ -1,8 +1,9 @@
-import { useCallback, createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "api/axios";
 import { useNavigate } from "react-router";
 import { shouldRefreshToken } from "utils/helpers";
+import LoadingSpinner from "components/LoadingSpinner";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -13,6 +14,8 @@ export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
 
   const signOut = useCallback(() => {
     localStorage.removeItem("currentUser");
@@ -54,38 +57,45 @@ export const CurrentUserProvider = ({ children }) => {
       }
     } catch (err) {
       console.error("Failed to mount current user", err);
-      signOut(); // Sign out if refresh or fetch fails
+      signOut();
     }
   }, [refreshAccessToken, signOut]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("currentUser");
     const accessToken = localStorage.getItem("access_token");
-
+    const refreshToken = localStorage.getItem("refresh_token");
+  
     if (storedUser && accessToken) {
       setCurrentUser(JSON.parse(storedUser));
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      setLoading(false);
+    } else if (refreshToken) {
+      tryRestoreSession().finally(() => setLoading(false));
     } else {
-      tryRestoreSession();
+      setLoading(false);
     }
-  }, [tryRestoreSession, signOut]);
+  }, [tryRestoreSession]);
+  
 
-  useMemo(() => {
-    axiosReq.interceptors.request.use(
+  useEffect(() => {
+    const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         if (shouldRefreshToken()) {
           const newAccessToken = await refreshAccessToken();
           if (!newAccessToken) {
             console.warn("Token refresh failed during request.");
             signOut();
+          } else {
+            config.headers["Authorization"] = `Bearer ${newAccessToken}`;
           }
         }
         return config;
       },
       (err) => Promise.reject(err)
     );
-
-    axiosRes.interceptors.response.use(
+  
+    const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
         if (err.response?.status === 401 || err.response?.status === 403) {
@@ -105,12 +115,23 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       }
     );
+  
+    // Cleanup interceptors on unmount
+    return () => {
+      axiosReq.interceptors.request.eject(requestInterceptor);
+      axiosRes.interceptors.response.eject(responseInterceptor);
+    };
   }, [refreshAccessToken, signOut]);
+  
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, signOut }}>
+    <CurrentUserContext.Provider value={{ currentUser, signOut, loading }}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
-        {children}
+        {loading ? (
+          <LoadingSpinner size="lg" text="Please wait, restoring your session..." /> // Show spinner while loading
+        ) : (
+          children
+        )}
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
   );

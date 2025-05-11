@@ -32,8 +32,8 @@ const FreelancerProfiles = () => {
     }, []); // Empty dependency array means this effect runs only once, when the component mounts
 
     // Navigate to the individual freelancer profile page when clicked
-    const handleFreelancerClick = (freelancerId) => {
-        navigate(`/freelancer/${freelancerId}`); // Navigate to the freelancer's details page
+    const handleFreelancerClick = (freelancer) => {
+        navigate(`/freelancer/${freelancer.user.id}`); // Navigate to the freelancer's details page using user_id
     };
 
     return (
@@ -64,7 +64,7 @@ const FreelancerProfiles = () => {
                         <div 
                             key={freelancer.id} 
                             className={styles.profileCard} 
-                            onClick={() => handleFreelancerClick(freelancer.id)} // Click to navigate to the freelancer profile
+                            onClick={() => handleFreelancerClick(freelancer)} // Click to navigate to the freelancer profile
                         >
                             {/* Freelancer profile picture, with fallback to default image if not available */}
                             <img 

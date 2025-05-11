@@ -1,117 +1,130 @@
 /* General Styles */
+/* Styles for the profile page layout */
 .profilePage {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
+    font-family: 'Arial', sans-serif; /* Sets the font family to Arial */
+    padding: 20px; /* Adds padding inside the profile page */
 }
 
+/* Container for the profile section */
 .profileContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Limits the maximum width of the container to 800px */
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 20px; /* Adds padding inside the container */
+    background-color: #fff; /* Sets the background color to white */
+    border-radius: 8px; /* Rounds the corners of the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow around the container */
 }
 
 /* Profile Header */
 .profileHeader {
-    text-align: center;
-    margin-bottom: 20px;
+    text-align: center; /* Centers the header text */
+    margin-bottom: 20px; /* Adds space below the header */
 }
 
+/* Styling for the profile image */
 .profileImage {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #3498db;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 120px; /* Sets the width of the profile image */
+    height: 120px; /* Sets the height of the profile image */
+    border-radius: 50%; /* Makes the image circular */
+    border: 4px solid #3498db; /* Adds a blue border around the image */
+    margin-bottom: 20px; /* Adds space below the image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow to the image */
 }
 
+/* Styling for the profile name */
 .profileHeader h1 {
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 2.5rem; /* Sets the font size of the name */
+    color: #333; /* Sets the text color to a dark gray */
 }
 
+/* Styling for the role, location, and availability text */
 .role, .location, .availability {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 5px 0;
+    font-size: 1.2rem; /* Sets the font size */
+    color: #555; /* Sets the text color to a medium gray */
+    margin: 5px 0; /* Adds vertical margin between items */
 }
 
 /* Details Section */
 .detailsSection {
-    margin-top: 30px;
-    font-size: 1.1rem;
-    color: #333;
+    margin-top: 30px; /* Adds space above the details section */
+    font-size: 1.1rem; /* Sets the font size */
+    color: #333; /* Sets the text color to dark gray */
 }
 
 .detailsSection p {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Adds space below each paragraph */
 }
 
+/* Skills list styling */
 .skills ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none; /* Removes the default list bullets */
+    padding: 0; /* Removes padding */
 }
 
 .skills li {
-    background-color: #ecf0f1;
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 4px;
+    background-color: #ecf0f1; /* Sets a light gray background color */
+    padding: 8px; /* Adds padding inside each skill item */
+    margin: 5px 0; /* Adds vertical space between items */
+    border-radius: 4px; /* Rounds the corners of the skill items */
 }
 
+/* Styling for the skills section heading */
 .skills h3 {
-    font-size: 1.3rem;
-    color: #2980b9;
-    margin-bottom: 10px;
+    font-size: 1.3rem; /* Sets the font size */
+    color: #2980b9; /* Sets the color to a blue shade */
+    margin-bottom: 10px; /* Adds space below the heading */
 }
 
-/* Portfolio Link */
+/* Portfolio Link Styling */
 .detailsSection a {
-    color: #2980b9;
-    text-decoration: none;
+    color: #2980b9; /* Sets the text color to blue */
+    text-decoration: none; /* Removes underline from links */
 }
 
+/* Hover effect for the portfolio link */
 .detailsSection a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Underlines the link when hovered */
 }
 
 /* Edit Profile Button */
 .editButton {
-    background-color: #2ecc71;
-    color: white;
-    padding: 12px 30px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-    margin-top: 30px;
+    background-color: #2ecc71; /* Sets a green background color */
+    color: white; /* Sets the text color to white */
+    padding: 12px 30px; /* Adds padding inside the button */
+    font-size: 16px; /* Sets the font size */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    border-radius: 4px; /* Rounds the corners of the button */
+    width: 100%; /* Makes the button take full width */
+    margin-top: 30px; /* Adds space above the button */
 }
 
+/* Hover effect for the edit button */
 .editButton:hover {
-    background-color: #27ae60;
+    background-color: #27ae60; /* Changes the background color to a darker green on hover */
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    /* Adjusts the profile container padding for smaller screens */
     .profileContainer {
-        padding: 15px;
+        padding: 15px; /* Reduces padding */
     }
 
+    /* Adjusts the font size of the profile header on smaller screens */
     .profileHeader h1 {
-        font-size: 2rem;
+        font-size: 2rem; /* Reduces the font size */
     }
 
+    /* Resizes the profile image for smaller screens */
     .profileImage {
-        width: 100px;
-        height: 100px;
+        width: 100px; /* Reduces the image width */
+        height: 100px; /* Reduces the image height */
     }
 
+    /* Adjusts button sizes for smaller screens */
     .backButton, .editButton {
-        font-size: 14px;
-        padding: 8px 16px;
+        font-size: 14px; /* Reduces the font size */
+        padding: 8px 16px; /* Reduces padding */
     }
 }

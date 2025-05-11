@@ -1,65 +1,76 @@
+/* About Intro Section */
 .aboutIntro {
-    background-color: #2F4745; /* Dark background similar to your FeatureButtons */
-    padding: 60px 20px;
-    text-align: center;
-    color: #fff; /* White text color for better contrast */
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .textContainer {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
+  background-color: #2F4745; /* Dark background similar to your FeatureButtons */
+  padding: 60px 20px; /* Adds padding inside the section */
+  text-align: center; /* Centers the text within the section */
+  color: #fff; /* White text color for better contrast against dark background */
+}
+
+/* Container that holds the content */
+.container {
+  max-width: 1200px; /* Limits the maximum width to 1200px */
+  margin: 0 auto; /* Centers the container horizontally */
+}
+
+/* Container for the text content */
+.textContainer {
+  max-width: 800px; /* Limits the text container width to 800px */
+  margin: 0 auto; /* Centers the text container horizontally */
+}
+
+/* Styling for the heading */
+.heading {
+  font-size: 3rem; /* Large font size for the heading */
+  color: #ffd700; /* Yellow color for the text, matching buttons and accents */
+  margin-bottom: 20px; /* Adds space below the heading */
+  font-weight: bold; /* Makes the heading bold */
+}
+
+/* Styling for the description text */
+.description {
+  font-size: 1.5rem; /* Adjusted font size for better readability */
+  line-height: 1.6; /* Sets line height for better text spacing */
+  margin-bottom: 30px; /* Adds space below the description */
+}
+
+/* Container for the call-to-action (CTA) buttons */
+.ctaContainer {
+  display: flex; /* Uses flexbox for the button container */
+  justify-content: center; /* Centers the buttons horizontally */
+  gap: 20px; /* Adds space between the buttons */
+}
+
+/* Styling for the CTA button */
+.ctaButton {
+  background-color: #ffcc00; /* Yellow button color */
+  color: #122d2f; /* Dark text color to match your Hero section */
+  padding: 12px 30px; /* Adds padding inside the button */
+  font-size: 1.2rem; /* Sets the button text size */
+  border-radius: 5px; /* Rounds the corners of the button */
+  text-decoration: none; /* Removes underline from the link */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Adds smooth transition effects for background and text color */
+}
+
+/* Hover effect for CTA button */
+.ctaButton:hover {
+  background-color: #b38f00; /* Changes button background color on hover */
+  color: #fff; /* Changes text color to white on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjusts the heading size for smaller screens */
   .heading {
-    font-size: 3rem; /* Adjusted to fit your overall design */
-    color: #ffd700; /* Yellow color to match buttons and accents */
-    margin-bottom: 20px;
-    font-weight: bold;
+      font-size: 2rem; /* Reduces font size for smaller screens */
   }
-  
+
+  /* Adjusts the description font size for smaller screens */
   .description {
-    font-size: 1.5rem; /* Adjusted font size for better readability */
-    line-height: 1.6;
-    margin-bottom: 30px;
+      font-size: 1.2rem; /* Reduces font size for better readability */
   }
-  
-  .ctaContainer {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
+
+  /* Adjusts the button text size for smaller screens */
   .ctaButton {
-    background-color: #ffcc00; /* Yellow button color */
-    color: #122d2f; /* Text color matching your Hero section */
-    padding: 12px 30px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 1rem; /* Makes the button text smaller */
   }
-  
-  .ctaButton:hover {
-    background-color: #b38f00; /* Hover effect */
-    color: #fff; /* White text on hover */
-  }
-  
-  @media (max-width: 768px) {
-    .heading {
-      font-size: 2rem; /* Smaller heading on smaller screens */
-    }
-  
-    .description {
-      font-size: 1.2rem; /* Adjusted for readability */
-    }
-  
-    .ctaButton {
-      font-size: 1rem; /* Smaller button text */
-    }
-  }
-  
+}

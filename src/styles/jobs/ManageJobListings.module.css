@@ -1,206 +1,223 @@
+/* General container for the page with padding and font settings */
 .container {
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 72vh;
+  padding: 2rem; /* Adds space around the content */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sets a clean font */
+  min-height: 72vh; /* Ensures the container takes at least 72% of the viewport height */
 }
 
+/* Styling for loading and error messages */
 .loading, .errorMessage {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #555;
-  margin-top: 2rem;
+  text-align: center; /* Centers the text */
+  font-size: 1.2rem; /* Sets font size */
+  color: #555; /* Sets a gray color for text */
+  margin-top: 2rem; /* Adds space above */
 }
 
+/* Container for the list of job details */
 .jobListingContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: flex; /* Uses flexbox layout */
+  flex-direction: column; /* Stacks the items vertically */
+  gap: 2rem; /* Adds space between each job listing */
 }
 
-/* Job Details */
+/* Job detail card styling */
 .jobDetails {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0,0,0,0.03);
+  background-color: #fff; /* White background */
+  padding: 1.5rem; /* Adds padding inside the card */
+  border-radius: 8px; /* Rounds the corners */
+  border: 1px solid #ddd; /* Adds a light gray border */
+  box-shadow: 0 0 10px rgba(0,0,0,0.03); /* Adds a subtle shadow around the card */
 }
 
+/* Heading styles within job details */
 .jobDetails h1 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem; /* Adds space below the heading */
 }
 
 .jobDetails h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /* Adds space below the subheading */
 }
 
+/* Styles for active and inactive job statuses */
 .active {
-  color: green;
+  color: green; /* Sets green color for active status */
 }
 
 .inactive {
-  color: red;
+  color: red; /* Sets red color for inactive status */
 }
 
+/* Styling for the buttons (Edit, Deactivate, Delete) */
 .editButton,
 .deactivateButton,
 .deleteButton {
-  margin-right: 1rem;
-  margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  margin-right: 1rem; /* Adds space between buttons */
+  margin-top: 1rem; /* Adds space above buttons */
+  padding: 0.6rem 1.2rem; /* Sets padding inside buttons */
+  font-size: 0.9rem; /* Reduces the font size */
+  border: none; /* Removes the default border */
+  border-radius: 5px; /* Rounds the corners */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
 }
 
+/* Edit button styling */
 .editButton {
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
 }
 
 .editButton:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
+/* Deactivate button styling */
 .deactivateButton {
-  background-color: #ffc107;
-  color: black;
+  background-color: #ffc107; /* Yellow background */
+  color: black; /* Black text */
 }
 
 .deactivateButton:hover {
-  background-color: #e0a800;
+  background-color: #e0a800; /* Darker yellow on hover */
 }
 
+/* Delete button styling */
 .deleteButton {
-  background-color: #dc3545;
-  color: white;
+  background-color: #dc3545; /* Red background */
+  color: white; /* White text */
 }
 
 .deleteButton:hover {
-  background-color: #c82333;
+  background-color: #c82333; /* Darker red on hover */
 }
 
-/* Modal overlay */
+/* Modal overlay background that darkens the screen */
 .ModalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  position: fixed; /* Sticks the overlay to the top of the screen */
+  top: 0; /* Aligns it to the top */
+  left: 0; /* Aligns it to the left */
+  width: 100vw; /* Takes up the entire width of the viewport */
+  height: 100vh; /* Takes up the entire height of the viewport */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  display: flex; /* Uses flexbox to center the modal */
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  z-index: 1000; /* Ensures it's on top of other elements */
 }
 
-/* Modal box */
+/* Modal box styling */
 .ConfirmModal {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #fff; /* White background */
+  padding: 2rem; /* Padding inside the modal */
+  border-radius: 12px; /* Rounded corners */
+  width: 90%; /* Takes up 90% of the width */
+  max-width: 400px; /* Maximum width of 400px */
+  text-align: center; /* Centers the text */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
 }
 
-/* Modal text */
+/* Text inside the modal */
 .ConfirmModal p {
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-  color: #333;
+  margin-bottom: 1.5rem; /* Adds space below the text */
+  font-size: 1.1rem; /* Sets font size */
+  color: #333; /* Dark gray color */
 }
 
-/* Confirm and Cancel buttons */
+/* Confirm and Cancel button styling inside the modal */
 .ConfirmModal button {
-  padding: 10px 16px;
-  margin: 0 8px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease-in-out;
+  padding: 10px 16px; /* Adds padding inside the button */
+  margin: 0 8px; /* Adds space between the buttons */
+  border: none; /* Removes the border */
+  border-radius: 8px; /* Rounds the corners */
+  font-weight: bold; /* Makes the font bold */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  font-size: 1rem; /* Sets font size */
+  transition: background-color 0.2s ease-in-out; /* Smooth background color transition */
 }
 
 /* Confirm (Yes) button styling */
 .ConfirmModal button:first-of-type {
-  background-color: #d9534f; /* Bootstrap red-ish */
-  color: white;
+  background-color: #d9534f; /* Red background */
+  color: white; /* White text */
 }
 
 .ConfirmModal button:first-of-type:hover {
-  background-color: #c9302c;
+  background-color: #c9302c; /* Darker red on hover */
 }
 
 /* Cancel button styling */
 .ConfirmModal button:last-of-type {
-  background-color: #6c757d; /* Bootstrap grey-ish */
-  color: white;
+  background-color: #6c757d; /* Gray background */
+  color: white; /* White text */
 }
 
 .ConfirmModal button:last-of-type:hover {
-  background-color: #5a6268;
+  background-color: #5a6268; /* Darker gray on hover */
 }
 
 
-/* Applications */
+/* Applications Section */
 .applications {
-  margin-top: 2rem;
+  margin-top: 2rem; /* Adds space at the top */
 }
 
+/* Grid for freelancer profile cards */
 .freelancerGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  display: grid; /* Uses grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Creates flexible columns */
+  gap: 1.5rem; /* Adds space between each profile card */
 }
 
+/* Profile card styles */
 .profileCard {
-  background-color: #fafafa;
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  background-color: #fafafa; /* Light gray background */
+  padding: 1rem; /* Padding inside the card */
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #e0e0e0; /* Light gray border */
+  text-align: center; /* Centers the text inside the card */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  transition: transform 0.2s ease; /* Smooth hover effect */
 }
 
+/* Hover effect for profile card */
 .profileCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transform: translateY(-4px); /* Slightly lifts the card */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Adds a shadow on hover */
 }
 
+/* Profile image style */
 .profileImage {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 0.5rem;
+  width: 80px; /* Sets width of image */
+  height: 80px; /* Sets height of image */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover; /* Ensures the image covers the area */
+  margin-bottom: 0.5rem; /* Adds space below the image */
 }
 
+/* Name styling inside the profile card */
 .name {
-  margin: 0.2rem 0;
-  font-weight: bold;
+  margin: 0.2rem 0; /* Adds small margin */
+  font-weight: bold; /* Makes the name bold */
 }
 
+/* Styling for location, availability, and portfolio details */
 .location, .availability, .portfolio {
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 0.9rem; /* Sets smaller font size */
+  color: #555; /* Gray color */
 }
 
+/* View Profile button styling */
 .viewProfileButton {
-  margin-top: 0.8rem;
-  background-color: #28a745;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
+  margin-top: 0.8rem; /* Adds space at the top */
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  padding: 0.5rem 1rem; /* Adds padding inside the button */
+  border: none; /* Removes border */
+  border-radius: 4px; /* Rounds the corners */
+  font-size: 0.85rem; /* Sets font size */
+  cursor: pointer; /* Changes cursor on hover */
 }
 
+/* Hover effect for the View Profile button */
 .viewProfileButton:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker green on hover */
 }

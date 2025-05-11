@@ -1,99 +1,112 @@
+/* Hero Section Styling */
 .heroSection {
-  position: relative;
-  height: 50vh;
-  background: linear-gradient(90deg, #122d2f, #abb9a4);
-  display: flex;
-  justify-content: flex-start; /* Aligns text to the left */
-  align-items: center; /* Aligns text to the top */
-  padding: 0 80px; /* Adjusted padding for more space on the left */
-  width: 100%;
-  font-family: 'Arial', sans-serif;
+  position: relative; /* Positioning for child elements */
+  height: 50vh; /* Sets the height to 50% of the viewport height */
+  background: linear-gradient(90deg, #122d2f, #abb9a4); /* Creates a gradient background */
+  display: flex; /* Uses flexbox layout */
+  justify-content: flex-start; /* Aligns content to the left */
+  align-items: center; /* Vertically aligns content to the center */
+  padding: 0 80px; /* Adds padding to the left and right */
+  width: 100%; /* Full width */
+  font-family: 'Arial', sans-serif; /* Sets the font for the section */
 }
 
+/* Hero Content Styling */
 .heroContent {
-  max-width: 600px; /* Limit the width of the text content */
+  max-width: 600px; /* Limits the width of the content */
 }
 
+/* Hero Heading Styling */
 .heroContent h1 {
-  font-size: 6rem; /* Increase the font size for the heading */
-  color: white;
-  font-weight: bold;
-  margin-bottom: 20px;
-  line-height: 1.1;
+  font-size: 6rem; /* Large font size for the heading */
+  color: white; /* White text color for contrast */
+  font-weight: bold; /* Makes the heading bold */
+  margin-bottom: 20px; /* Adds space below the heading */
+  line-height: 1.1; /* Adjusts line height for compactness */
 }
 
+/* Hero Paragraph Styling */
 .heroContent p {
-  font-size: 2rem; /* Increase the font size for the paragraph */
-  color: white;
-  line-height: 1.5;
+  font-size: 2rem; /* Sets the font size of the paragraph */
+  color: white; /* White text color for readability */
+  line-height: 1.5; /* Sets line-height for better readability */
 }
 
+/* Styling for line breaks in the paragraph */
 .heroContent p br {
-  margin-bottom: 10px; /* Add some space between the lines */
+  margin-bottom: 10px; /* Adds space between line breaks */
 }
 
+/* Styling for the "Hive" word in the paragraph */
 .hiveText {
-  color: #ffcc00; /* Yellow color for "Hive" */
+  color: #ffcc00; /* Yellow color for "Hive" text */
 }
 
+/* Hero Image Styling */
 .heroImage {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 80%; /* Set the image height to 80% of the hero section */
-  max-height: 40vh;
-  object-fit: contain; /* Ensure proper scaling */
-  z-index: 1; /* Place the image behind the text */
+  position: absolute; /* Positions the image absolutely within the section */
+  bottom: 0; /* Aligns the image to the bottom */
+  right: 0; /* Aligns the image to the right */
+  height: 80%; /* Sets the height of the image to 80% of the hero section */
+  max-height: 40vh; /* Limits the max height to 40% of the viewport height */
+  object-fit: contain; /* Ensures the image maintains its aspect ratio */
+  z-index: 1; /* Places the image behind the text */
 }
 
+/* Signup Button Styling */
 .signup-button {
-  display: flex;
-  justify-content: center;
-  text-decoration: none;
-  color: #122d2f;
-  margin-top: 20px;
-  font-size: 1.5rem;
-  background-color: #ffcc00;
-  width: 35%;
-  padding: 10px;
-  border-radius: 10px;
+  display: flex; /* Uses flexbox to align the button */
+  justify-content: center; /* Centers the button content */
+  text-decoration: none; /* Removes underline from links */
+  color: #122d2f; /* Dark text color */
+  margin-top: 20px; /* Adds space above the button */
+  font-size: 1.5rem; /* Sets the font size of the button text */
+  background-color: #ffcc00; /* Yellow background for the button */
+  width: 35%; /* Sets the width of the button */
+  padding: 10px; /* Adds padding inside the button */
+  border-radius: 10px; /* Rounds the corners of the button */
 }
 
+/* Hover effect for the signup button */
 .signup-button:hover {
-  background-color: #b38f00;
-  color: #1C2728;
+  background-color: #b38f00; /* Changes background color on hover */
+  color: #1C2728; /* Changes text color on hover */
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+  /* Adjustments for smaller screen sizes */
   .heroSection {
-    height: 60vh; /* Slightly adjust the height for smaller screens */
-    padding: 0 20px; /* Adjust the padding */
-    flex-direction: column; /* Stack content and image vertically */
-    justify-content: center; /* Vertically center content */
+    height: 60vh; /* Adjusts height for smaller screens */
+    padding: 0 20px; /* Reduces padding */
+    flex-direction: column; /* Stacks content and image vertically */
+    justify-content: center; /* Vertically centers the content */
   }
 
   .heroContent {
-    max-width: 90%; /* Allow more space for text */
-    text-align: center; /* Center-align text */
+    max-width: 90%; /* Allows more space for text */
+    text-align: center; /* Centers the text */
   }
 
+  /* Reduces font size for smaller screens */
   .heroContent h1 {
-    font-size: 3rem; /* Adjust the font size for smaller screens */
+    font-size: 3rem; /* Smaller heading font size */
   }
 
   .heroContent p {
-    font-size: 1.5rem; /* Adjust the font size for smaller screens */
+    font-size: 1.5rem; /* Smaller paragraph font size */
   }
 
+  /* Adjusts button size and layout */
   .signup-button {
-    width: 60%; /* Make the button wider on smaller screens */
-    font-size: 1.2rem; /* Adjust the button font size */
-    margin: 20px auto; /* Center the button horizontally */
-    display: block; /* Ensure block-level display for centering */
+    width: 60%; /* Makes the button wider on smaller screens */
+    font-size: 1.2rem; /* Adjusts the button font size */
+    margin: 20px auto; /* Centers the button horizontally */
+    display: block; /* Ensures block-level display */
   }
 
+  /* Hides the hero image on smaller screens */
   .heroImage {
-    display: none; /* Hide the image on smaller screens */
+    display: none; /* Hides the image on mobile devices */
   }
 }

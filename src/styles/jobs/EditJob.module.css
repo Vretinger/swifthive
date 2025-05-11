@@ -1,69 +1,77 @@
+/* Styling for the job creation form container */
 .createJob {
-    max-width: 700px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .createJob h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    margin: 12px 0 6px;
-    font-weight: 600;
-    color: #444;
-  }
-  
-  input[type="text"],
-  input[type="date"],
-  select,
-  textarea {
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #fdfdfd;
-    transition: border 0.2s ease-in-out;
-  }
-  
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: none;
-    border-color: #0070f3;
-  }
-  
-  textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-  
-  .CreateJobButton {
-    margin-top: 2rem;
-    padding: 12px;
-    background-color: #0070f3;
-    color: #fff;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .CreateJobButton:hover {
-    background-color: #005fca;
-  }
-  
+  max-width: 700px; /* Sets a maximum width for the form */
+  margin: 3rem auto; /* Centers the form with a top/bottom margin of 3rem */
+  padding: 2rem; /* Adds padding inside the form */
+  background-color: #ffffff; /* Sets a white background for the form */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Adds a soft shadow for depth */
+  border-radius: 12px; /* Rounds the corners of the form */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sets the font family */
+}
+
+/* Styling for the heading (h1) inside the job creation form */
+.createJob h1 {
+  text-align: center; /* Centers the heading text */
+  margin-bottom: 2rem; /* Adds space below the heading */
+  font-size: 2rem; /* Sets the font size of the heading */
+  color: #333; /* Sets the text color to dark gray */
+}
+
+/* Styling for the form container, using flex layout */
+form {
+  display: flex; /* Enables flexbox layout */
+  flex-direction: column; /* Stacks form elements vertically */
+}
+
+/* Styling for form labels */
+label {
+  margin: 12px 0 6px; /* Adds margin before and after the label */
+  font-weight: 600; /* Makes the label text bold */
+  color: #444; /* Sets a dark gray color for the label */
+}
+
+/* Styling for form input fields, date picker, select dropdown, and textarea */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  padding: 10px 12px; /* Adds padding inside the form elements */
+  border: 1px solid #ccc; /* Light gray border for the form elements */
+  border-radius: 8px; /* Rounds the corners of the form elements */
+  font-size: 1rem; /* Sets a default font size */
+  background-color: #fdfdfd; /* Sets a light background color */
+  transition: border 0.2s ease-in-out; /* Adds a smooth border color transition */
+}
+
+/* Focus state for input fields, select dropdown, and textarea */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none; /* Removes the default focus outline */
+  border-color: #0070f3; /* Changes the border color to blue when focused */
+}
+
+/* Styling for the textarea */
+textarea {
+  min-height: 120px; /* Sets a minimum height for the textarea */
+  resize: vertical; /* Allows the textarea to be resized vertically */
+}
+
+/* Styling for the 'Create Job' button */
+.CreateJobButton {
+  margin-top: 2rem; /* Adds top margin for spacing */
+  padding: 12px; /* Adds padding inside the button */
+  background-color: #0070f3; /* Sets the background color to blue */
+  color: #fff; /* White text color */
+  font-weight: bold; /* Makes the button text bold */
+  font-size: 1rem; /* Sets the font size */
+  border: none; /* Removes the default border */
+  border-radius: 8px; /* Rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Hover effect for the 'Create Job' button */
+.CreateJobButton:hover {
+  background-color: #005fca; /* Darkens the button background on hover */
+}

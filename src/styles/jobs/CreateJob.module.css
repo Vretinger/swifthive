@@ -1,62 +1,70 @@
+/* Styling for the job creation form container */
 .createJob {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #72A98F;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Limits the maximum width of the form */
+  margin: 50px auto; /* Centers the form horizontally and adds top margin */
+  padding: 30px; /* Adds padding inside the form */
+  background: #72A98F; /* Sets the background color to a soft green */
+  border-radius: 12px; /* Rounds the corners of the form */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+}
+
+/* Styling for the main heading (h1) in the job creation form */
+h1 {
+  font-size: 24px; /* Sets the font size of the heading */
+  margin-bottom: 20px; /* Adds space below the heading */
+  color: #333; /* Sets the text color to dark gray */
+}
+
+/* Styling for the form, setting up a column layout */
+form {
+  display: flex; /* Enables flexbox layout */
+  flex-direction: column; /* Stacks form elements vertically */
+}
+
+/* Styling for input fields, textarea, and select dropdown */
+input,
+textarea,
+select {
+  width: 100%; /* Ensures the form elements take full width */
+  padding: 12px; /* Adds padding inside the form elements */
+  margin-bottom: 15px; /* Adds space below each form element */
+  border: 1px solid #ccc; /* Light gray border for the elements */
+  border-radius: 8px; /* Rounds the corners of the form elements */
+  font-size: 16px; /* Sets the font size for the form elements */
+}
+
+/* Styling for textarea, allowing resizing vertically */
+textarea {
+  height: 120px; /* Sets a fixed height for the textarea */
+  resize: vertical; /* Allows the textarea to be resized vertically */
+}
+
+/* Styling for select dropdown */
+select {
+  cursor: pointer; /* Changes the cursor to a pointer when hovered over */
+}
+
+/* Styling for the 'Create Job' button */
+.CreateJobButton {
+  background: #FFCC00; /* Sets the background color to yellow */
+  color: black; /* Black text color */
+  padding: 12px; /* Adds padding inside the button */
+  font-size: 18px; /* Sets the font size of the button text */
+  border: none; /* Removes the border from the button */
+  border-radius: 8px; /* Rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer on hover */
+  transition: 0.3s; /* Adds a smooth transition effect for hover state */
+}
+
+/* Hover effect for the 'Create Job' button */
+.CreateJobButton:hover {
+  background: #D4A900; /* Changes background to a darker yellow on hover */
+}
+
+/* Media query for screens smaller than 768px (mobile view) */
+@media (max-width: 768px) {
+  .createJob {
+    width: 90%; /* Makes the form width 90% of the container */
+    padding: 20px; /* Reduces the padding inside the form */
   }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  input,
-  textarea,
-  select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-  
-  textarea {
-    height: 120px;
-    resize: vertical;
-  }
-  
-  select {
-    cursor: pointer;
-  }
-  
-  .CreateJobButton {
-    background: #FFCC00;
-    color: black;
-    padding: 12px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .CreateJobButton:hover {
-    background: #D4A900;
-  }
-  
-  @media (max-width: 768px) {
-    .createJob {
-      width: 90%;
-      padding: 20px;
-    }
-  }
-  
+}

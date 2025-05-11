@@ -1,44 +1,48 @@
+/* Toast notification container: Positioned fixed at the top of the screen */
 .toast {
-    position: fixed;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    z-index: 1000;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    animation: fadein 0.3s ease-out, fadeout 0.3s ease-in 2.7s;
+  position: fixed; /* Keeps the toast fixed at the top of the screen */
+  top: 2rem; /* Adds space from the top of the screen */
+  left: 50%; /* Centers the toast horizontally */
+  transform: translateX(-50%); /* Adjusts to ensure the toast is perfectly centered */
+  padding: 1rem 1.5rem; /* Adds padding inside the toast for spacing */
+  border-radius: 8px; /* Rounds the corners of the toast */
+  color: white; /* Sets the text color to white */
+  font-weight: 500; /* Makes the font weight slightly bold */
+  z-index: 1000; /* Ensures the toast appears above other elements */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow around the toast */
+  animation: fadein 0.3s ease-out, fadeout 0.3s ease-in 2.7s; /* Animates the toast (fade in and fade out) */
+}
+
+/* Success toast: Green background for success messages */
+.success {
+  background-color: #38a169; /* Green color indicating success */
+}
+
+/* Error toast: Red background for error messages */
+.error {
+  background-color: #e53e3e; /* Red color indicating error */
+}
+
+/* Fade-in animation: Makes the toast appear with a smooth transition */
+@keyframes fadein {
+  from {
+    opacity: 0; /* Starts with full transparency */
+    transform: translateY(20px); /* Starts slightly below the view */
   }
-  
-  .success {
-    background-color: #38a169; /* Green */
+  to {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Moves to its original position */
   }
-  
-  .error {
-    background-color: #e53e3e; /* Red */
+}
+
+/* Fade-out animation: Makes the toast disappear with a smooth transition */
+@keyframes fadeout {
+  from {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* At its original position */
   }
-  
-  @keyframes fadein {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  to {
+    opacity: 0; /* Fully transparent */
+    transform: translateY(20px); /* Moves slightly down as it disappears */
   }
-  
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-  }
-  
+}

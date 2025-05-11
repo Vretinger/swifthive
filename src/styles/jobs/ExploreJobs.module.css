@@ -1,91 +1,102 @@
+/* Section for exploring jobs */
 .exploreJobbs {
-  text-align: center;
-  padding: 20px;
-  min-height: 78vh;
-  background-color: #395754;
+  text-align: center; /* Centers the content inside this section */
+  padding: 20px; /* Adds padding around the content */
+  min-height: 78vh; /* Sets the minimum height of the section to 78% of the viewport height */
+  background-color: #395754; /* Sets the background color to a dark teal */
 }
 
+/* Styling for the section title */
 .exploreJobbs h2 {
-font-size: 2rem;
-font-weight: bold;
-color: #f9f9f9;
+  font-size: 2rem; /* Sets the font size of the title */
+  font-weight: bold; /* Makes the title bold */
+  color: #f9f9f9; /* Sets the title text color to almost white */
 }
 
+/* Job listings grid layout */
 .jobListings {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  display: grid; /* Uses grid layout for the job listings */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Creates a responsive grid, where each column is at least 300px wide */
+  gap: 20px; /* Sets the gap between grid items */
+  justify-content: center; /* Centers the grid items horizontally */
+  padding: 20px; /* Adds padding around the grid */
 }
 
+/* Individual job card styling */
 .jobCard {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  transition: box-shadow 0.2s ease;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+  background: #fff; /* Sets a white background for each job card */
+  border: 1px solid #ddd; /* Adds a light gray border around the card */
+  padding: 1.5rem; /* Adds padding inside the card */
+  margin-bottom: 1rem; /* Adds space below each card */
+  border-radius: 8px; /* Rounds the corners of the card */
+  transition: box-shadow 0.2s ease; /* Adds a smooth transition effect for the box-shadow */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the card */
 }
 
+/* Hover effect for job card: adds a shadow */
 .jobCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Moves the card up slightly when hovered */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adds a soft shadow to the card when hovered */
 }
 
+/* Header inside each job card */
 .header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
+  display: flex; /* Uses flexbox layout */
+  flex-direction: column; /* Stacks elements vertically */
+  margin-bottom: 0.5rem; /* Adds space below the header */
 }
 
+/* Job title styling */
 .jobTitle {
-  color: #333 !important;
-  font-size: 1.5rem !important;
-  margin: 0;
+  color: #333 !important; /* Sets the job title text color to dark gray */
+  font-size: 1.5rem !important; /* Sets the font size for the title */
+  margin: 0; /* Removes default margin */
 }
 
+/* Company name styling */
 .companyName {
-  font-size: 1rem;
-  color: #666;
+  font-size: 1rem; /* Sets font size */
+  color: #666; /* Sets a lighter gray color */
 }
 
+/* Meta information (location, date, etc.) */
 .metaInfo p {
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
+  margin: 0.25rem 0; /* Adds space between each meta info item */
+  font-size: 0.95rem; /* Sets a smaller font size */
 }
 
+/* Description styling */
 .description {
-  margin-top: 0.75rem;
-  color: #333;
+  margin-top: 0.75rem; /* Adds space above the description */
+  color: #333; /* Sets text color to dark gray */
 }
 
+/* Footer area inside job card */
 .cardFooter {
-  margin-top: 1rem;
+  margin-top: 1rem; /* Adds space above the footer */
 }
 
+/* Button to explore a job */
 .exploreButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
+  background-color: #007bff; /* Sets the background color to blue */
+  color: white; /* White text color */
+  border: none; /* Removes border */
+  padding: 0.6rem 1rem; /* Adds padding inside the button */
+  border-radius: 4px; /* Rounds the corners of the button */
+  font-weight: bold; /* Makes the text bold */
+  cursor: pointer; /* Changes cursor to pointer */
+  transition: background-color 0.2s ease; /* Smooth transition effect for background color */
 }
 
+/* Hover effect for explore button */
+.exploreButton:hover {
+  background-color: #0056b3; /* Darkens the button background on hover */
+}
+
+/* Styling for error message or no jobs available */
 .errorMessage,
 .noJobs {
-  color: #ff4d4d;
-  font-size: 1.2rem;
-  margin-top: 20px;
+  color: #ff4d4d; /* Sets text color to red */
+  font-size: 1.2rem; /* Increases the font size */
+  margin-top: 20px; /* Adds space above the error message */
 }

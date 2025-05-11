@@ -1,106 +1,122 @@
+/* "How It Works" Section Styling */
 .howItWorks {
-    background-color: #e5f9f0; /* Soft green background */
-    padding: 69.5px 20px; /* Ample space for content */
-  }
-  
-  .container {
-    max-width: 1200px;
-    min-height: 72vh;
-    margin: 0 auto;
-    text-align: center;
-    padding: 0 20px;
-  }
-  
-  .heading {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 30px;
-    color: #333; /* Dark text for contrast */
-  }
-  
-  .description {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    color: #555; /* Lighter gray for descriptions */
-  }
-  
-  .stepsContainer {
-    display: flex;
-    justify-content: space-around;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  
+  background-color: #e5f9f0; /* Soft green background for the section */
+  padding: 69.5px 20px; /* Adds ample space (padding) for content */
+}
+
+/* Container that holds all content in this section */
+.container {
+  max-width: 1200px; /* Maximum width of the container */
+  min-height: 72vh; /* Ensures container is at least 72% of the viewport height */
+  margin: 0 auto; /* Centers the container horizontally */
+  text-align: center; /* Centers the text inside */
+  padding: 0 20px; /* Adds padding on the left and right */
+}
+
+/* Heading styling within the "How It Works" section */
+.heading {
+  font-size: 2.5rem; /* Large font size for the heading */
+  font-weight: 600; /* Bold weight for the heading */
+  margin-bottom: 30px; /* Space below the heading */
+  color: #333; /* Dark color for text to ensure readability */
+}
+
+/* Description text styling */
+.description {
+  font-size: 1.2rem; /* Moderate font size for the description */
+  margin-bottom: 40px; /* Adds space below the description */
+  color: #555; /* Lighter gray text color for description */
+}
+
+/* Container for the steps, uses flexbox for layout */
+.stepsContainer {
+  display: flex; /* Enables flexbox layout */
+  justify-content: space-around; /* Distributes items evenly with space around them */
+  gap: 40px; /* Adds space between items */
+  flex-wrap: wrap; /* Allows wrapping of items to new lines on smaller screens */
+  margin-bottom: 40px; /* Adds space below the steps */
+}
+
+/* Individual step box styling */
+.steps {
+  background-color: #fff; /* White background for each step */
+  padding: 30px; /* Adds padding inside the step box */
+  border-radius: 8px; /* Rounds the corners of the step box */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Adds a light shadow for depth */
+  width: 45%; /* Sets width to 45% of container width */
+  max-width: 450px; /* Limits the maximum width of the step box */
+}
+
+/* Heading styling within each step */
+.stepHeading {
+  font-size: 1.8rem; /* Font size for step headings */
+  font-weight: 500; /* Medium font weight for the step heading */
+  margin-bottom: 20px; /* Adds space below the step heading */
+  color: #007bff; /* Blue accent color for step headings */
+}
+
+/* Styling for individual step content */
+.step {
+  margin-bottom: 20px; /* Adds space below each step */
+  text-align: left; /* Aligns step text to the left */
+}
+
+/* Subheading (h4) for each step */
+.step h4 {
+  font-size: 1.4rem; /* Sets the font size for subheadings */
+  font-weight: bold; /* Makes the subheading bold */
+  color: #333; /* Dark text color for subheadings */
+}
+
+/* Paragraph styling for step descriptions */
+.step p {
+  font-size: 1.1rem; /* Sets the font size for step descriptions */
+  color: #666; /* Soft gray color for description text */
+}
+
+/* Container for the call-to-action (CTA) section */
+.ctaContainer {
+  margin-top: 40px; /* Adds space above the CTA section */
+  text-align: center; /* Centers the CTA text */
+}
+
+/* Text styling for the call-to-action section */
+.ctaText {
+  font-size: 1.3rem; /* Sets font size for the CTA text */
+  margin-bottom: 20px; /* Adds space below the CTA text */
+  color: #333; /* Dark color for the CTA text */
+}
+
+/* Button styling for the CTA button */
+.ctaButton {
+  display: inline-block; /* Makes the button behave like an inline block */
+  margin: 10px; /* Adds margin around the button */
+  padding: 14px 30px; /* Adds padding inside the button */
+  font-size: 1.1rem; /* Sets font size for the button text */
+  background-color: #007bff; /* Primary brand color for button background */
+  color: #fff; /* White color for button text */
+  border-radius: 5px; /* Rounds the corners of the button */
+  text-decoration: none; /* Removes underline from links */
+  transition: background-color 0.3s ease; /* Adds smooth transition effect for background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds light shadow to the button */
+}
+
+/* Hover effect for CTA button */
+.ctaButton:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Mobile responsiveness: Adjust styles for screens with width up to 768px */
+@media (max-width: 768px) {
+  /* Adjusts the width of each step on smaller screens */
   .steps {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    width: 45%;
-    max-width: 450px;
+    width: 100%; /* Makes the steps take up full width */
+    margin-bottom: 20px; /* Adds space below each step */
   }
-  
-  .stepHeading {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-bottom: 20px;
-    color: #007bff; /* Use a blue accent color for the headings */
-  }
-  
-  .step {
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  .step h4 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #333; /* Dark text for step headings */
-  }
-  
-  .step p {
-    font-size: 1.1rem;
-    color: #666; /* Soft gray for descriptions */
-  }
-  
-  .ctaContainer {
-    margin-top: 40px;
-    text-align: center;
-  }
-  
-  .ctaText {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    color: #333; /* Dark text for call-to-action */
-  }
-  
+
+  /* Makes the CTA button responsive on smaller screens */
   .ctaButton {
-    display: inline-block;
-    margin: 10px;
-    padding: 14px 30px;
-    font-size: 1.1rem;
-    background-color: #007bff; /* Primary brand color */
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Makes the button take up full width */
+    padding: 12px 0; /* Adjusts padding for a more comfortable size */
   }
-  
-  .ctaButton:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
-  }
-  
-  @media (max-width: 768px) {
-    .steps {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  
-    .ctaButton {
-      width: 100%;
-      padding: 12px 0;
-    }
-  }
-  
+}

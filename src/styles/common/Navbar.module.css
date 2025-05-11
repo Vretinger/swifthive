@@ -1,112 +1,124 @@
+/* Navbar container styling */
 .navbar {
-    background-color: #1C2728; /* Navbar background */
-    height: 60px; /* Adjust height as needed */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px; /* Add some horizontal padding */
-    color: white; /* Navbar text color */
-    font-family: 'Arial', sans-serif;
+  background-color: #1C2728; /* Navbar background color */
+  height: 60px; /* Set a fixed height for the navbar */
+  display: flex; /* Use flexbox to align elements */
+  align-items: center; /* Vertically center the items */
+  justify-content: space-between; /* Distribute items with space in-between */
+  padding: 0 20px; /* Add horizontal padding */
+  color: white; /* Text color for the navbar */
+  font-family: 'Arial', sans-serif; /* Set font family */
+}
+
+/* Styling for navbar links */
+.navbar-link {
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit color from the navbar parent */
+  display: flex; /* Make the link behave like a flex item */
+  align-items: center; /* Vertically align the items (logo/text) */
+  justify-content: center; /* Horizontally center the content */
+  padding: 0; /* Remove padding from link */
+  cursor: pointer; /* Change cursor to pointer when hovered */
+}
+
+/* Left side content of the navbar */
+.navbar-left {
+  display: flex; /* Use flexbox for left side elements */
+  align-items: center; /* Vertically center the elements */
+}
+
+/* Styling for the logo inside the navbar */
+.navbar-logo {
+  height: 40px; /* Set logo size */
+  margin-right: 10px; /* Space between the logo and text */
+}
+
+/* Styling for the text inside the navbar */
+.navbar-text {
+  font-size: 2rem; /* Set the font size for text */
+  font-weight: bold; /* Make the text bold */
+}
+
+/* Special styling for the 'Hive' text */
+.hiveText {
+  font-size: 2rem; /* Set the font size */
+  font-weight: bold; /* Make it bold */
+  color: #ffcc00; /* Change the text color to yellow */
+}
+
+/* Right side content of the navbar (buttons) */
+.navbar-right {
+  display: flex; /* Use flexbox to align the buttons */
+  gap: 15px; /* Space between the buttons */
+}
+
+/* Button styles in the navbar */
+.navbar-button {
+  text-decoration: none; /* Remove underline from buttons */
+  background-color: transparent; /* Make background transparent */
+  border: none; /* Remove border */
+  color: white; /* Text color of the button */
+  padding: 8px 12px; /* Add padding around the text */
+  border-radius: 5px; /* Round the corners */
+  font-size: 18px; /* Set font size */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: all 0.3s ease-in-out; /* Smooth transition for background color change */
+}
+
+/* Custom styles for the login button */
+.login-button {
+  color: #1C2728; /* Text color */
+  background-color: #ffcc00; /* Yellow background */
+  border-radius: 10px; /* Round the corners more for the login button */
+}
+
+/* Button hover effect */
+.navbar-button:hover {
+  background-color: #b38f00; /* Change background to a darker yellow */
+  color: #1C2728; /* Change text color to navbar background */
+}
+
+/* Hamburger menu (for mobile) styling */
+.hamburger {
+  display: none; /* Hide the hamburger by default */
+  font-size: 24px; /* Set font size for the hamburger icon */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  color: white; /* Set the hamburger icon color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Dropdown menu styling */
+.dropdownMenu {
+  display: flex; /* Use flexbox for the dropdown items */
+  flex-direction: column; /* Stack the dropdown items vertically */
+  background-color: #1C2728; /* Set background color */
+  position: absolute; /* Position it absolutely below the navbar */
+  top: 60px; /* Position the dropdown below the navbar */
+  right: 20px; /* Align it to the right */
+  z-index: 1000; /* Ensure the dropdown is on top */
+  border: 1px solid #333; /* Add border around dropdown */
+  padding: 10px; /* Add padding inside the dropdown */
+  border-radius: 8px; /* Round the corners */
+}
+
+/* Active link style */
+.active-link {
+  font-weight: bold; /* Make active link bold */
+  background-color: #2e3b3c; /* Darken the background of active link */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .desktopOnly {
+      display: none; /* Hide elements marked as desktopOnly on mobile */
   }
 
-  .navbar-link {
-    text-decoration: none;  /* Remove underline */
-    color: inherit;  /* Inherit the text color from the parent */
-    display: flex;  /* Make the link behave like a flex item */
-    align-items: center;  /* Align text and logo vertically */
-    justify-content: center;  /* Align text and logo horizontally */
-    padding: 0;  /* Remove any default padding from the link */
-    cursor: pointer;  /* Make it visually clickable */
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo {
-    height: 40px; /* Adjust logo size */
-    margin-right: 10px; /* Space between logo and text */
-  }
-  
-  .navbar-text {
-    font-size: 2rem; /* Adjust text size */
-    font-weight: bold;
-  }
-
-  .hiveText {
-    font-size: 2rem; /* Adjust text size */
-    font-weight: bold;
-    color: #ffcc00;
-  }
-  
-  .navbar-right {
-    display: flex;
-    gap: 15px; /* Space between buttons */
-  }
-  
-  .navbar-button {
-    text-decoration: none;
-    background-color: transparent;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .login-button {
-    color: #1C2728;
-    background-color: #ffcc00;
-    border-radius: 10px;
-  }
-  
-  .navbar-button:hover {
-    background-color: #b38f00;
-    color: #1C2728;
-  }
-  
   .hamburger {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+      display: block; /* Show the hamburger icon on mobile */
   }
-  
-  .dropdownMenu {
-    display: flex;
-    flex-direction: column;
-    background-color: #1C2728;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    z-index: 1000;
-    border: 1px solid #333;
-    padding: 10px;
-    border-radius: 8px;
+
+  .dropdownMenu a {
+      margin-bottom: 10px; /* Add spacing between dropdown links */
   }
-  
-  .active-link {
-    font-weight: bold;
-    background-color: #2e3b3c;
-  }
-  
-  /* Responsive behavior */
-  @media (max-width: 768px) {
-    .desktopOnly {
-      display: none;
-    }
-  
-    .hamburger {
-      display: block;
-    }
-  
-    .dropdownMenu a {
-      margin-bottom: 10px;
-    }
-  }
-  
+}

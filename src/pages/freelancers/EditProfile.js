@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
-import styles from "styles/freelancers/EditProfile.module.css";
-import { axiosReq } from "api/axios";
-import { Alert, Button } from 'react-bootstrap';
-import { useCurrentUser, useSetCurrentUser } from "contexts/CurrentUserContext";
+import { useParams, useNavigate } from 'react-router-dom'; // Import hooks for routing
+import styles from "styles/freelancers/EditProfile.module.css"; // Import custom CSS
+import { axiosReq } from "api/axios"; // Import Axios request utility
+import { Alert, Button } from 'react-bootstrap'; // Import necessary components from React Bootstrap
+import { useCurrentUser, useSetCurrentUser } from "contexts/CurrentUserContext"; // Import context for current user management
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const EditProfile = () => {
-  const { currentUser } = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // Add loading state
+  const { currentUser } = useCurrentUser(); // Get current user from context
+  const setCurrentUser = useSetCurrentUser(); // Function to update current user context
+  const { id } = useParams(); // Get URL parameter (id) for the freelancer profile
+  const navigate = useNavigate(); // Function to navigate between routes
+  const [loading, setLoading] = useState(true); // State to track loading status
 
+  // Profile data state to store and update form fields
   const [profileData, setProfileData] = useState({
     bio: "",
     experience: "",
@@ -26,19 +27,22 @@ const EditProfile = () => {
     skills: [],
   });
 
+  // Destructure profile data
   const { bio, experience, portfolio_link, hourly_rate, location, availability_status, skills, profile_picture } = profileData;
 
-  const [errors, setErrors] = useState({});
-  const [allSkills] = useState([]); // Store available skills
+  const [errors, setErrors] = useState({}); // State for form validation errors
+  const [allSkills] = useState([]); // Placeholder for all available skills
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
+  // Fetch user profile data once the component mounts or when `currentUser`, `id`, or `navigate` change
   useEffect(() => {
-    if (!currentUser) return; // Ensure user is loaded
-  
+    if (!currentUser) return; // Ensure user is loaded before fetching profile
+
     const fetchProfileData = async () => {
       try {
         setLoading(true); // Set loading state
         const { data } = await axiosReq.get(`/api/accounts/freelancers/${currentUser.pk}/`);
+        // Set profile data after fetching
         setProfileData({
           bio: data.bio || "",
           experience: data.experience || "",
@@ -52,116 +56,113 @@ const EditProfile = () => {
       } catch (err) {
         console.error("Error fetching profile data:", err);
       } finally {
-        setLoading(false); // Set loading to false when fetch is done (whether successful or not)
+        setLoading(false); // Set loading to false after fetching
       }
     };
-  
-    fetchProfileData();
-  }, [currentUser, id, navigate]); // Now the useEffect will run when these values change
-  
-  
 
+    fetchProfileData(); // Call the fetch function
+  }, [currentUser, id, navigate]); // Dependency array: re-run if any of these change
+
+  // Handle skill selection (toggle skills)
   const handleSkillChange = (skillId) => {
     setProfileData((prevData) => {
       const updatedSkills = prevData.skills.includes(skillId)
-        ? prevData.skills.filter((id) => id !== skillId) // Remove if already selected
-        : [...prevData.skills, skillId]; // Add if not selected
-  
-      return { ...prevData, skills: updatedSkills };
+        ? prevData.skills.filter((id) => id !== skillId) // Remove skill if already selected
+        : [...prevData.skills, skillId]; // Add skill if not selected
+
+      return { ...prevData, skills: updatedSkills }; // Update state with new skill list
     });
   };
-  
 
+  // Handle form field changes
   const handleChange = (event) => {
     const { name, value, files, type, multiple, options } = event.target;
-  
+
     if (type === "file") {
+      // Handle file input (profile picture)
       const file = files[0];
-      console.log("Selected file:", file);  // ✅ add this
       setProfileData(prevData => ({
         ...prevData,
-        [name]: file,
+        [name]: file, // Update the profile picture field
       }));
     } else if (multiple && name === "skills") {
-      // For multi-select (skills), convert to integers
+      // Handle multiple skills selection
       const selectedValues = Array.from(options)
         .filter(option => option.selected)
-        .map(option => parseInt(option.value, 10)); // Ensure integers are used
-  
+        .map(option => parseInt(option.value, 10)); // Convert to integers
+
       setProfileData(prevData => ({
         ...prevData,
-        [name]: selectedValues,
+        [name]: selectedValues, // Update the skills array
       }));
     } else {
       setProfileData(prevData => ({
         ...prevData,
-        [name]: value,
+        [name]: value, // Update any other form field
       }));
     }
   };
 
+  // Form validation logic
   const validateForm = () => {
     const newErrors = {};
+    // Check if bio, experience, portfolio link, and hourly rate are provided
     if (!bio) newErrors.bio = "Bio is required";
     if (!experience) newErrors.experience = "Experience is required";
     if (!portfolio_link) newErrors.portfolio_link = "Portfolio Link is required";
     if (!hourly_rate || isNaN(hourly_rate)) newErrors.hourly_rate = "Please provide a valid hourly rate";
-/*     if (skills.length < 3) {
-      newErrors.skills = "Please select at least 3 skills";
-    } */
+    // Update errors state
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
+  // Handle form submission
   const handleSubmit = async (event) => {
-    console.log("Submit button clicked"); // Add this for debugging
-    event.preventDefault();
-    if (!validateForm()) {
-      console.log("Form validation failed"); 
-      return; // Don't submit if validation fails
-    }
-    setIsSubmitting(true); // Set submitting state
-  
+    event.preventDefault(); // Prevent default form submission
+    if (!validateForm()) return; // Exit if form validation fails
+    setIsSubmitting(true); // Set submitting state to true
+
     const formData = new FormData();
+    // Prepare form data (append fields to FormData object)
     for (const key in profileData) {
       if (key === "skills") {
+        // Append multiple skills
         profileData.skills.forEach(skillId => {
           formData.append("skills", skillId);
         });
       } else if (key === "profile_picture" && profileData[key] instanceof File) {
-        formData.append("profile_picture", profileData[key]); // ✅ Explicitly handle File
+        formData.append("profile_picture", profileData[key]); // Handle profile picture
       } else if (profileData[key] !== null && profileData[key] !== undefined) {
-        formData.append(key, profileData[key]);
+        formData.append(key, profileData[key]); // Append other fields
       }
     }
-    
-  
+
     try {
-      // Send the PUT request to update the profile
+      // Log form data for debugging purposes
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
-      }      
-      const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData);
-      console.log("Response after PUT:", response.data); 
+      }
 
+      // Send PUT request to update the freelancer's profile
+      const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData);
+      console.log("Response after PUT:", response.data);
+
+      // Update the current user's profile image in context
       setCurrentUser((prevUser) => {
         const updatedUser = {
           ...prevUser,
           profile_image: response.data.profile_picture || prevUser.profile_image,
         };
-      
-        console.log("Profile image updated:", updatedUser.profile_image); // Log after updating
-      
         return updatedUser;
       });
-      navigate("/profile");
+
+      navigate("/profile"); // Navigate to the profile page after update
     } catch (err) {
-      setErrors(err.response?.data || {});
+      setErrors(err.response?.data || {}); // Handle errors
     } finally {
       setIsSubmitting(false); // Reset submitting state
     }
   };
-  
 
   // Group skills by category name
   const categorizedSkills = allSkills.reduce((categories, skill) => {
@@ -174,16 +175,16 @@ const EditProfile = () => {
   return (
     <div className={styles.editProfileContainer}>
       {loading ? (
-        <div>Loading...</div> // You can replace this with a spinner or a more complex loading indicator
+        <div>Loading...</div> // Show loading message while profile data is being fetched
       ) : (
       <div className={styles.editProfileCard}>
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit} className={styles.editProfileForm} encType="multipart/form-data">
           <label>Bio:
             <textarea name="bio" value={bio} onChange={handleChange} className="form-control" />
-            {errors.bio && <div className="text-danger">{errors.bio}</div>}
+            {errors.bio && <div className="text-danger">{errors.bio}</div>} {/* Show validation error if any */}
           </label>
-        <label>Experience:
+          <label>Experience:
             <textarea name="experience" value={experience} onChange={handleChange} className="form-control" />
             {errors.experience && <div className="text-danger">{errors.experience}</div>}
           </label>
@@ -216,7 +217,7 @@ const EditProfile = () => {
               <img
                 src={typeof profile_picture === 'string' 
                   ? profile_picture 
-                  : URL.createObjectURL(profile_picture)}
+                  : URL.createObjectURL(profile_picture)} // Display profile picture preview
                 alt="Profile Preview"
                 style={{ width: '150px', height: '150px', objectFit: 'cover' }}
               />
@@ -230,8 +231,8 @@ const EditProfile = () => {
                   {categorizedSkills[category].map((skill) => (
                     <label key={skill.id} className={`mb-2 skill-item ${skills.includes(skill.id) ? "selected" : ""}`} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
                       <InputGroup.Checkbox
-                        checked={profileData.skills.includes(skill.id)}
-                        onChange={() => handleSkillChange(skill.id)}
+                        checked={profileData.skills.includes(skill.id)} // Check if skill is selected
+                        onChange={() => handleSkillChange(skill.id)} // Toggle skill selection
                       />
                       <span style={{ marginLeft: "8px" }}>{skill.name}</span>
                     </label>
@@ -241,14 +242,12 @@ const EditProfile = () => {
             ))}
           </Tabs>
 
-
-
-          {errors?.detail && <Alert variant="warning">{errors.detail}</Alert>}
+          {errors?.detail && <Alert variant="warning">{errors.detail}</Alert>} {/* Display general errors */}
 
           <div>
-            <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button>
+            <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button> {/* Cancel button */}
             <Button type="submit" className={styles.saveButton} disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : "Save Changes"}
+              {isSubmitting ? "Saving..." : "Save Changes"} {/* Show loading text when submitting */}
             </Button>
           </div>
         </form>

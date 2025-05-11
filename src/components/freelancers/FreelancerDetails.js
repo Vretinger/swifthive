@@ -4,7 +4,6 @@ import axiosPublic from "api/axios";
 import styles from "styles/freelancers/FreelancerDetails.module.css";
 import LoadingSpinner from "components/LoadingSpinner";
 
-
 const FreelancerDetails = () => {
     const { id } = useParams(); // Get freelancer ID from URL
     const navigate = useNavigate();
@@ -19,7 +18,7 @@ const FreelancerDetails = () => {
                 setFreelancer(response.data);
             } catch (error) {
                 console.error('Error fetching freelancer details:', error);
-                setError('Unable to load Freelancer details. Please try again later.');
+                setError('Unable to load freelancer details. Please try again later.');
             } finally {
                 setLoading(false);
             }
@@ -29,17 +28,15 @@ const FreelancerDetails = () => {
 
     if (loading) {
         return <LoadingSpinner size="lg" text="Loading freelancer details..." />;
-      }
-      
-      if (error) {
+    }
+
+    if (error) {
         return <div className={styles.errorMessage}>{error}</div>;
-      }
-      
-      if (!freelancer) {
+    }
+
+    if (!freelancer) {
         return <div>No freelancer found.</div>;
-      }
-      
-    
+    }
 
     return (
         <div className={styles.freelancerDetails}>

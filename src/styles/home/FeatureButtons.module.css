@@ -1,125 +1,155 @@
+/* Main Section for Feature Buttons */
 .featureButtonsSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: auto;
-  width: 100%;
-  background-color: #2F4745;
+  display: flex; /* Uses flexbox to organize the section */
+  flex-direction: column; /* Aligns the items vertically */
+  align-items: center; /* Centers the items horizontally */
+  justify-content: flex-start; /* Aligns items to the top */
+  height: auto; /* Allows the height to adjust based on content */
+  width: 100%; /* Ensures full-width section */
+  background-color: #2F4745; /* Dark background color for the section */
 }
 
+/* Banner */
 .banner {
-  width: 100%;
-  background-color: #3D5B59;
-  color: #ffffff;
-  text-align: left;
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 20px 40px;
+  width: 100%; /* Full width for the banner */
+  background-color: #3D5B59; /* Slightly lighter dark color for the banner */
+  color: #ffffff; /* White text for contrast */
+  text-align: left; /* Aligns the text to the left */
+  font-size: 2rem; /* Large font size */
+  font-weight: bold; /* Bold text */
+  padding: 20px 40px; /* Padding around the banner */
 }
 
+/* Feature Buttons Container */
 .featureButtonsContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
-  gap: 30px; /* Space between buttons */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   width: 100%;
-  height: auto;
-  padding: 40px 0;
-  justify-items: center; /* Centers the buttons */
+  height: 100%;
+  padding: 70px 0;
+  gap: 40px; /* Space between buttons */
 }
 
+/* Individual Feature Button */
 .featureButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-align: center;
+  display: flex; /* Flexbox for easy alignment */
+  flex-direction: column; /* Aligns children vertically */
+  justify-content: flex-start; /* Aligns the content to the top */
+  border: none; /* No border around the button */
+  background: none; /* No background color */
+  cursor: pointer; /* Pointer cursor for interaction */
+  text-align: center; /* Centers the text inside */
 }
 
+/* Circle Element for Buttons */
 .circle {
-  position: relative;
-  width: 170px;
-  height: 175px;
-  border-radius: 50%;
-  background-color: #abb9a4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  overflow: hidden;
+  position: relative; /* Position relative for inner elements */
+  width: 170px; /* Fixed size for the circle */
+  height: 175px; /* Fixed height */
+  border-radius: 50%; /* Makes it a perfect circle */
+  background-color: #abb9a4; /* Light grayish-green background */
+  display: flex; /* Flexbox to center the content */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  margin-bottom: 30px; /* Adds space below the circle */
+  overflow: hidden; /* Prevents overflow outside the circle */
 }
 
+/* Hover Effect for Circle */
 .featureButton:hover .circle {
-  filter: brightness(0.6);
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
+  filter: brightness(0.6); /* Darkens the circle on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background change */
 }
 
+/* Specific Circle Color */
 .yellowCircle .circle {
-  background-color: #ffd700;
+  background-color: #ffd700; /* Yellow background for the circle */
 }
 
+/* Image inside Circle */
 .circleImage {
-  width: 50%;
-  height: 50%;
-  object-fit: contain;
+  width: 50%; /* Scales the image */
+  height: 50%; /* Maintains aspect ratio */
+  object-fit: contain; /* Ensures the image fits inside the circle */
 }
 
+/* Image for 'Find Talent' Button */
 .circleImageFindTalent {
-  width: 85%;
+  width: 85%; /* Larger image inside the circle */
   height: 85%;
-  object-fit: contain;
+  object-fit: contain; /* Keeps the image's aspect ratio */
 }
 
+/* Image for 'Find Work' Button with Rotation */
 .circleImageFindWork {
   width: 85%;
   height: 85%;
   object-fit: contain;
-  transform: translateY(-5%) rotate(-45deg);
+  transform: translateY(-5%) rotate(-45deg); /* Slightly shifts and rotates the image */
 }
 
+/* Button Text */
 .buttonText {
-  font-size: 2rem;
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
+  align-items: center; /* Centers items horizontally */
+  font-size: 2rem; /* Large text for the button */
+  color: #ffffff; /* White text for contrast */
+  font-weight: bold; /* Bold text */
+  text-decoration: none; /* Removes underline */
 }
 
-/* Responsive for smaller screens */
-@media (max-width: 768px) {
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 1050px) {
+
+  .featureButton {
+    display: flex; /* Ensures the button content is aligned properly */
+    flex-direction: column; /* Aligns the icon and text vertically */
+    align-items: center; /* Centers content horizontally within the button */
+    justify-content: center; /* Vertically centers the content */
+    background: none; /* No background color */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    text-align: center; /* Centers text */
+  }
+
   .featureButtonsSection {
-    height: auto;
+    height: auto; /* Adjusts height for smaller screens */
   }
 
-  /* Use grid for layout */
+  /* Grid Layout Adjustments */
   .featureButtonsContainer {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 20px; /* Reduced space between buttons */
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Keeps 2 columns for mobile */
+    gap: 50px; /* Reduces space between buttons */
+    width: 50%;
+    align-items: center; /* Centers items in the grid */
   }
 
-  /* Adjust the size of the circles */
+  /* Adjust Circle Sizes */
   .circle {
-    width: 120px;
+    width: 120px; /* Smaller circle on mobile */
     height: 120px;
   }
 
-  /* Adjust the text size */
+  /* Adjust Button Text Size */
   .buttonText {
-    font-size: 1.5rem;
+    display: flex;
+    justify-content: center; /* Horizontally centers the button */
+    align-items: center; /* Vertically centers the button */
+    width: 100%; /* Ensures the container takes up the full width */
+    font-size: 1.2rem; /* Large text for the button */
   }
 
-  /* Adjust the image size for specific buttons */
-  .circleImageFindTalent {
-    width: 75%;
-    height: 75%;
-  }
-
+  /* Adjust Image Sizes */
+  .circleImageFindTalent,
   .circleImageFindWork {
-    width: 75%;
+    width: 75%; /* Slightly smaller images for mobile */
     height: 75%;
-    transform: translateY(-5%) rotate(-45deg);
+  }
+
+  /* Keep Rotation for 'Find Work' Button */
+  .circleImageFindWork {
+    transform: translateY(-5%) rotate(-45deg); /* Keeps the rotation */
   }
 }

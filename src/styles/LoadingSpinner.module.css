@@ -1,40 +1,45 @@
+/* Container for the spinner, centers it vertically and horizontally */
 .spinnerContainer {
-    display: flex;
-    min-height: 72vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+  display: flex; /* Enables flexbox layout */
+  min-height: 72vh; /* Ensures the container takes at least 72% of the viewport height */
+  flex-direction: column; /* Stacks the elements vertically */
+  align-items: center; /* Centers content horizontally */
+  justify-content: center; /* Centers content vertically */
+  padding: 20px; /* Adds padding around the container */
+}
+
+/* Spinner styling: a circular loading indicator */
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1); /* Light gray border for the spinner */
+  border-left-color: #09f; /* Blue color for the left part of the circle */
+  border-radius: 50%; /* Makes the spinner a perfect circle */
+  width: 40px; /* Sets the width of the spinner */
+  height: 40px; /* Sets the height of the spinner */
+  animation: spin 1s linear infinite; /* Applies the spinning animation */
+}
+
+/* Medium-sized spinner (same size as the default spinner) */
+.md {
+  width: 40px; /* Sets the width of the spinner */
+  height: 40px; /* Sets the height of the spinner */
+}
+
+/* Large spinner with double the size of the default spinner */
+.lg {
+  width: 80px; /* Sets the width of the spinner */
+  height: 80px; /* Sets the height of the spinner */
+}
+
+/* Text displayed below the spinner while loading */
+.loadingText {
+  margin-top: 10px; /* Adds space above the loading text */
+  font-size: 25px; /* Sets the font size of the text */
+  color: #1b1b1b; /* Sets the text color to dark gray */
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg); /* Rotates the spinner 360 degrees to create the spinning effect */
   }
-  
-  .spinner {
-    border: 8px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #09f;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-  }
-  
-  .md {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .lg {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .loadingText {
-    margin-top: 10px;
-    font-size: 25px;
-    color: #1b1b1b;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+}

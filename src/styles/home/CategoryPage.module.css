@@ -1,34 +1,38 @@
+/* Info Container Styles */
 .infoContainer {
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    cursor: default;
-  }
-  
-  .categoryH1 {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-  }
-  
-  .categoryP {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #34495e;
-    margin-bottom: 1rem;
-  }
-  
-  .categoryList {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .categoryList li {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-  
+  max-width: 800px; /* Limits the width of the container to 800px */
+  margin: 4rem auto; /* Adds margin above and below (4rem), centers horizontally */
+  padding: 2rem; /* Adds padding inside the container for spacing */
+  background: #fff; /* White background for the container */
+  border-radius: 12px; /* Rounded corners for a smooth look */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Light shadow for depth */
+  cursor: default; /* Ensures the cursor is default when hovering */
+}
+
+/* Category Heading */
+.categoryH1 {
+  font-size: 2.2rem; /* Large font size for the heading */
+  margin-bottom: 1.5rem; /* Adds spacing below the heading */
+  color: #2c3e50; /* Dark gray color for the heading */
+}
+
+/* Category Paragraph */
+.categoryP {
+  font-size: 1.1rem; /* Slightly larger than default font size for readability */
+  line-height: 1.6; /* Increases line height for better readability */
+  color: #34495e; /* Medium gray color for the paragraph */
+  margin-bottom: 1rem; /* Adds spacing below the paragraph */
+}
+
+/* Category List */
+.categoryList {
+  list-style: disc; /* Uses a disc (bullet) style for the list */
+  padding-left: 1.5rem; /* Adds padding on the left to offset the bullets */
+  margin-bottom: 1.5rem; /* Adds margin below the list */
+}
+
+/* Category List Items */
+.categoryList li {
+  font-size: 1rem; /* Default font size for list items */
+  margin-bottom: 0.5rem; /* Adds spacing between each list item */
+}

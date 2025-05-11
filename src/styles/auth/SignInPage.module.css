@@ -1,4 +1,4 @@
-/* Center and style tabs */
+/* Tabs navigation: rounded, lightly bordered, and subtle hover effects */
 .NavTabs .nav-item .nav-link {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -12,6 +12,7 @@
   background-color: #f8f9fa;
 }
 
+/* Active tab state or manually applied ActiveTab class: bolder, white text */
 .NavTabs .nav-item .nav-link.active,
 .ActiveTab {
   color: white !important;
@@ -19,7 +20,7 @@
   border: none;
 }
 
-/* General input styles */
+/* Input field style: soft border and spacing */
 .Input {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -27,21 +28,24 @@
   margin: 15px 0;
 }
 
-/* Header styles */
+/* Header for sign-in or title sections */
 .Header {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
+/* Style links on the sign-in page (override with !important) */
 .signInPage a {
   color: #122d2f !important;
 }
 
+/* Hover state for a generic button */
 .Button:hover {
   background-color: #0056b3;
 }
 
+/* Background and layout for sign-in page */
 .signInPage {
   position: relative;
   height: 78vh;
@@ -51,6 +55,7 @@
   align-items: center;
 }
 
+/* Container for the sign-in form: centered, styled box */
 .signInContainer {
   max-width: 500px !important;
   margin: 0 auto;
@@ -58,6 +63,3 @@
   background-color: #abb9a4;
   border-radius: 10px;
 }
-
-
-

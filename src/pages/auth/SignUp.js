@@ -1,118 +1,120 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import styles from "styles/auth/SignUpPage.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Tabs, Tab, Form, Button, Alert } from "react-bootstrap";
-import { useSetCurrentUser } from "contexts/CurrentUserContext";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Import necessary hooks from react-router-dom
+import styles from "styles/auth/SignUpPage.module.css"; // Import CSS module for styling
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap for UI components
+import { Tabs, Tab, Form, Button, Alert } from "react-bootstrap"; // Import Bootstrap components
+import { useSetCurrentUser } from "contexts/CurrentUserContext"; // Custom hook for managing user context
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  
+  const navigate = useNavigate(); // Initialize navigate hook for routing
+  const location = useLocation(); // Initialize location hook to access the current URL
+
   // Extract query parameter from the URL to set the initial active tab
   const urlParams = new URLSearchParams(location.search);
   const initialTab = urlParams.get("tab") || "freelancer"; // Default to "freelancer"
-  const setCurrentUser = useSetCurrentUser();
-  const [activeTab, setActiveTab] = useState(initialTab);
+  
+  const setCurrentUser = useSetCurrentUser(); // Hook to set the current user
+  const [activeTab, setActiveTab] = useState(initialTab); // State to track the active tab
   const [formData, setFormData] = useState({
     email: "",
     password1: "",
     password2: "",
     company: "", // Only for clients
-    first_name: "", // New field
-    last_name: "", // New field
+    first_name: "", // New field for first name
+    last_name: "", // New field for last name
   });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState({}); // State to track errors during submission
+  const [loading, setLoading] = useState(false); // State to manage loading state
+  const [success, setSuccess] = useState(false); // State to manage success state
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value, // Update the corresponding field in the formData state
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
 
     const data = new FormData();
     data.append("email", formData.email);
     data.append("password1", formData.password1);
     data.append("password2", formData.password2);
-    data.append("role", activeTab);
+    data.append("role", activeTab); // Set role based on the active tab
     data.append("first_name", formData.first_name);
     data.append("last_name", formData.last_name);
     if (activeTab === "client") {
-        data.append("company", formData.company);
+      data.append("company", formData.company); // Only append company for clients
     }
 
-    setLoading(true);
-    setErrors({});
+    setLoading(true); // Set loading to true while submitting
+    setErrors({}); // Reset errors
 
     try {
-        // Step 1: Register the user
-        const response = await fetch(
-            "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
-            {
-                method: "POST",
-                body: data,
-            }
+      // Step 1: Register the user
+      const response = await fetch(
+        "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Step 2: Auto-login after successful registration
+        const loginResponse = await fetch(
+          "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/login/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password1, // Use the same password for login
+            }),
+          }
         );
 
-        const result = await response.json();
+        const loginResult = await loginResponse.json();
 
-        if (response.ok) {
-            // Step 2: Auto-login after successful registration
-            const loginResponse = await fetch(
-                "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/login/",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email: formData.email,
-                        password: formData.password1, // Use the same password for login
-                    }),
-                }
-            );
+        if (loginResponse.ok) {
+          // Step 3: Store correct user data and tokens
+          setCurrentUser(loginResult.user); // Set user data in the context
+          localStorage.setItem("currentUser", JSON.stringify(loginResult.user)); // Store user in local storage
+          localStorage.setItem('access_token', loginResult.access_token); // Store access token
+          localStorage.setItem('refresh_token', loginResult.refresh_token); // Store refresh token
 
-            const loginResult = await loginResponse.json();
-
-            if (loginResponse.ok) {
-                // Step 3: Store correct user data and tokens
-                setCurrentUser(loginResult.user);
-                localStorage.setItem("currentUser", JSON.stringify(loginResult.user));
-                localStorage.setItem('access_token', loginResult.access_token);
-                localStorage.setItem('refresh_token', loginResult.refresh_token);
-
-                setSuccess(true);
-                setErrors({});
-                
-                // Step 4: Redirect user to Edit profile page
-                if (activeTab === "client") {
-                  navigate("/");
-              } else {
-                navigate("/edit-profile");
-              }
-            } else {
-                setErrors({ loginError: "Auto-login failed. Please sign in manually." });
-                navigate("/signin");
-            }
+          setSuccess(true); // Set success to true
+          setErrors({}); // Clear errors
+          
+          // Step 4: Redirect user to the appropriate page based on role
+          if (activeTab === "client") {
+            navigate("/"); // Redirect client to the homepage
+          } else {
+            navigate("/edit-profile"); // Redirect freelancer to the edit profile page
+          }
         } else {
-            setErrors(result);
-            setSuccess(false);
+          setErrors({ loginError: "Auto-login failed. Please sign in manually." });
+          navigate("/signin"); // If login fails, redirect to sign-in page
         }
+      } else {
+        setErrors(result); // Set registration errors
+        setSuccess(false); // Set success to false if registration fails
+      }
     } catch (error) {
-        setErrors({ non_field_errors: ["Network error. Please try again."] });
-        setSuccess(false);
+      setErrors({ non_field_errors: ["Network error. Please try again."] }); // Handle network errors
+      setSuccess(false); // Set success to false on network error
     } finally {
-        setLoading(false);
+      setLoading(false); // Set loading to false after the process is completed
     }
-};
-
+  };
 
   return (
     <div className={styles.signupPage}>
@@ -131,10 +133,11 @@ const SignUpPage = () => {
           </Alert>
         )}
 
+        {/* Form for registration */}
         <Form onSubmit={handleSubmit}>
           <Tabs
             activeKey={activeTab}
-            onSelect={(k) => setActiveTab(k)}
+            onSelect={(k) => setActiveTab(k)} // Switch active tab on selection
             id="signup-tabs"
             className="mb-4"
           >

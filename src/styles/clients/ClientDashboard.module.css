@@ -1,101 +1,171 @@
+/* Dashboard Page */
 .dashboardPage {
-    padding: 50px;
-    min-height: 72vh;
+  padding: 50px;
+  min-height: 72vh;
 }
 
-
+/* Dashboard Container */
 .dashboardContainer {
-    min-height: 50vh;
-    background-color: #72A98F;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 40px auto;
+  min-height: 50vh;
+  background-color: #72A98F;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+/* Dashboard Title */
+.dashboardTitle {
+  font-size: 2rem;
+  color: #f9f9f9;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Job Sections */
+.jobSection {
+  margin-bottom: 30px;
+}
+
+.jobSection h3 {
+  color: #f9f9f9;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* Grid of Jobs */
+.jobGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+/* Job Card */
+.jobCard {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.jobCard:hover {
+  transform: translateY(-5px);
+}
+
+.inactive {
+  opacity: 0.6;
+}
+
+/* Job Card Content */
+.jobTitle {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.jobDetails {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Action Buttons */
+.manageButton {
+  background-color: #AA6373;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.manageButton:hover {
+  background-color: #894B5B;
+}
+
+.newJobButton {
+  display: block;
+  margin: 30px auto;
+  background-color: #FFCC00;
+  color: black;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.newJobButton:hover {
+  background-color: #D4A900;
+}
+
+/* Mobile Responsiveness */
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+  .dashboardPage {
+    padding: 20px; /* Reduce padding on smaller screens */
   }
-  
+
+  .dashboardContainer {
+    padding: 15px; /* Reduce padding on smaller screens */
+  }
+
   .dashboardTitle {
-    font-size: 2rem;
-    color: #f9f9f9;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.6rem; /* Adjust title size */
   }
-  
-  .jobSection {
-    margin-bottom: 30px;
-  }
-  
-  .jobSection h3 {
-    color: #f9f9f9;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
+
   .jobGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* More compact grid on small screens */
+    gap: 10px; /* Reduce gap */
   }
-  
+
   .jobCard {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
+    padding: 12px; /* Reduce padding in job cards */
   }
-  
-  .jobCard:hover {
-    transform: translateY(-5px);
+
+  .manageButton, .newJobButton {
+    font-size: 0.9rem; /* Slightly smaller buttons */
+    padding: 10px 15px; /* Adjust button padding */
   }
-  
-  .inactive {
-    opacity: 0.6;
-  }
-  
-  .jobTitle {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .jobDetails {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .manageButton {
-    background-color: #AA6373;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-    margin-top: 10px;
-  }
-  
-  .manageButton:hover {
-    background-color: #894B5B;
-  }
-  
+
   .newJobButton {
-    display: block;
-    margin: 30px auto;
-    background-color: #FFCC00;
-    color: black;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
+    margin-top: 20px; /* Reduce top margin for buttons */
   }
-  
-  .newJobButton:hover {
-    background-color: #D4A900;
+}
+
+/* For screens smaller than 480px */
+@media (max-width: 480px) {
+  .dashboardPage {
+    padding: 10px; /* Further reduce padding */
   }
-  
+
+  .dashboardContainer {
+    padding: 10px; /* Further reduce padding */
+  }
+
+  .dashboardTitle {
+    font-size: 1.4rem; /* Further reduce title size */
+  }
+
+  .jobGrid {
+    grid-template-columns: 1fr; /* Stack job cards vertically */
+    gap: 8px; /* Further reduce gap */
+  }
+
+  .manageButton, .newJobButton {
+    font-size: 0.85rem; /* Further reduce button font size */
+    padding: 8px 12px; /* Adjust button padding */
+  }
+
+  .newJobButton {
+    margin-top: 15px; /* Reduce top margin for buttons */
+  }
+}

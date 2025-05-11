@@ -1,126 +1,144 @@
+/* Container that takes up most of the page height for layout consistency */
 .Pagecontainer {
-    min-height: 72vh;
+  min-height: 72vh;
 }
 
+/* Main centered form container with styling */
 .container {
-    max-width: 40rem;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
-  }
-  
-  .title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #2d3748;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .label {
-    font-weight: 500;
-    color: #4a5568;
-    margin-bottom: 0.5rem;
-  }
-  
-  .textarea {
-    width: 100%;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 1rem;
-    font-size: 1rem;
-    color: #4a5568;
-    resize: vertical;
-    transition: border-color 0.3s;
-  }
-  
-  .textarea:focus {
-    border-color: #667eea;
-    outline: none;
-  }
-  
-  .checkboxLabel {
-    padding-left: 5px;
-    color: #4a5568;
-  }
-  
-  .checkboxInput {
-    width: 1.25rem;
-    height: 1.25rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s;
-  }
-  
-  .checkboxInput:checked {
-    background-color: #667eea;
-  }
-  
-  .fileInput {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    border: 1px solid #e2e8f0;
-    background-color: #edf2f7;
-    transition: background-color 0.3s;
-  }
-  
-  .fileInput:hover {
-    background-color: #cbd5e0;
-  }
-  
-  .submitButton {
-    background-color: #667eea;
-    width: 100%;
-    color: white;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    transition: background-color 0.3s;
-  }
-  
-  .submitButton:hover {
-    background-color: #5a67d8;
-  }
-  
-  .message {
-    text-align: center;
-    font-weight: 500;
-    margin-top: 1rem;
-  }
-  
-  .successMessage {
-    color: #48bb78;
-  }
-  
-  .errorMessage {
-    color: #f56565;
-  }
-  
-  .popupMessage {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 0.75rem;
-    border-radius: 8px;
-    display: none;
-    transition: opacity 0.3s;
-  }
-  
-  .popupMessage.show {
-    display: block;
-    opacity: 1;
-  }
-  
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+/* Title styling for forms/pages */
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Flex column layout for form fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Label styling above form inputs */
+.label {
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+/* Styling for textareas */
+.textarea {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #4a5568;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+
+/* Highlight textarea border on focus */
+.textarea:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+/* Label next to checkboxes */
+.checkboxLabel {
+  padding-left: 5px;
+  color: #4a5568;
+}
+
+/* Styling checkboxes themselves */
+.checkboxInput {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+/* Checkbox fill color when checked */
+.checkboxInput:checked {
+  background-color: #667eea;
+}
+
+/* File upload input styling */
+.fileInput {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: #edf2f7;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for file input */
+.fileInput:hover {
+  background-color: #cbd5e0;
+}
+
+/* Submit button styling */
+.submitButton {
+  background-color: #667eea;
+  width: 100%;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+/* Submit button hover state */
+.submitButton:hover {
+  background-color: #5a67d8;
+}
+
+/* General message styling (e.g. form status) */
+.message {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+/* Success message color */
+.successMessage {
+  color: #48bb78;
+}
+
+/* Error message color */
+.errorMessage {
+  color: #f56565;
+}
+
+/* Popup-style floating message box */
+.popupMessage {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  display: none;
+  transition: opacity 0.3s;
+}
+
+/* Make popup visible */
+.popupMessage.show {
+  display: block;
+  opacity: 1;
+}

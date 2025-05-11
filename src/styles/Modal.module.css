@@ -1,69 +1,73 @@
-/* styles/Modal.module.css */
+/* Modal Overlay: Full-screen dark background that covers the entire screen */
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-  
-  .modalContent {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-  }
-  
-  .modalButtons {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .confirmButton {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    cursor: pointer;
-  }
-  
-  .cancelButton {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 25px;
-    cursor: pointer;
-  }
-  
-  .textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    resize: vertical;
-  }
+  position: fixed; /* Keeps the overlay fixed in place */
+  top: 0; /* Aligns it to the top of the screen */
+  left: 0; /* Aligns it to the left of the screen */
+  right: 0; /* Stretches to the right of the screen */
+  bottom: 0; /* Stretches to the bottom of the screen */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  display: flex; /* Uses flexbox layout */
+  justify-content: center; /* Centers the modal content horizontally */
+  align-items: center; /* Centers the modal content vertically */
+  z-index: 999; /* Makes sure the modal is above all other content */
+}
 
-  .previewBox {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 12px;
-    margin: 10px 0 20px;
-    font-size: 0.95rem;
-    white-space: pre-wrap;
-    line-height: 1.4;
-    color: #333;
-    border-radius: 4px;
-  }
-  
-  
+/* Modal Content: The actual modal box where content is displayed */
+.modalContent {
+  background-color: white; /* Sets the background of the modal to white */
+  padding: 2rem; /* Adds padding inside the modal */
+  border-radius: 12px; /* Rounds the corners of the modal */
+  max-width: 500px; /* Limits the width of the modal to 500px */
+  width: 90%; /* Ensures the modal width is 90% of the available space */
+  text-align: center; /* Centers the text inside the modal */
+}
+
+/* Modal Buttons: Container for the action buttons (e.g., confirm/cancel) */
+.modalButtons {
+  margin-top: 1.5rem; /* Adds space above the buttons */
+  display: flex; /* Uses flexbox layout */
+  justify-content: space-around; /* Distributes the buttons with space in between */
+}
+
+/* Confirm Button: Red button that signifies a confirmation action (e.g., delete) */
+.confirmButton {
+  background-color: #dc3545; /* Sets the background color to red */
+  color: white; /* Sets the text color to white */
+  border: none; /* Removes the border */
+  padding: 0.6rem 1.5rem; /* Adds padding around the text */
+  border-radius: 25px; /* Rounds the corners of the button */
+  cursor: pointer; /* Shows a pointer cursor when hovered */
+}
+
+/* Cancel Button: Gray button that cancels the action */
+.cancelButton {
+  background-color: #6c757d; /* Sets the background color to gray */
+  color: white; /* Sets the text color to white */
+  border: none; /* Removes the border */
+  padding: 0.6rem 1.5rem; /* Adds padding around the text */
+  border-radius: 25px; /* Rounds the corners of the button */
+  cursor: pointer; /* Shows a pointer cursor when hovered */
+}
+
+/* Textarea: A multi-line input field inside the modal */
+.textarea {
+  width: 100%; /* Ensures the textarea takes the full width of the modal */
+  padding: 0.75rem; /* Adds padding inside the textarea */
+  margin-top: 1rem; /* Adds space above the textarea */
+  border-radius: 8px; /* Rounds the corners of the textarea */
+  border: 1px solid #ccc; /* Adds a light gray border around the textarea */
+  resize: vertical; /* Allows the textarea to be resized vertically */
+}
+
+/* Preview Box: A box used to show a preview of text (e.g., comments or input) */
+.previewBox {
+  background-color: #f9f9f9; /* Sets a light background color */
+  border: 1px solid #ccc; /* Adds a light gray border around the preview box */
+  padding: 12px; /* Adds padding inside the preview box */
+  margin: 10px 0 20px; /* Adds margin above and below the preview box */
+  font-size: 0.95rem; /* Sets a slightly smaller font size */
+  white-space: pre-wrap; /* Preserves whitespace and wraps text to new lines */
+  line-height: 1.4; /* Sets line height for better readability */
+  color: #333; /* Sets the text color to dark gray */
+  border-radius: 4px; /* Rounds the corners of the preview box */
+}

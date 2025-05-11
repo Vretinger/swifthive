@@ -1,48 +1,48 @@
-/* Modal overlay */
+/* Modal overlay: covers the entire screen with semi-transparent black */
 .modalOverlay {
-    position: fixed;
+    position: fixed; /* Stays in place when scrolling */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    display: flex; /* Enables centering the modal */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Ensure it appears above all other elements */
 }
 
-/* Modal container */
+/* Modal container box */
 .modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
+    background-color: white; /* Modal background */
+    padding: 20px; /* Inner spacing */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center-align modal content */
+    width: 300px; /* Fixed width */
 }
 
-/* Button container */
+/* Container for the action buttons inside the modal */
 .buttonContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    display: flex; /* Align buttons side by side */
+    justify-content: space-between; /* Add space between buttons */
+    margin-top: 20px; /* Space above the button section */
 }
 
-/* Cancel button */
+/* Cancel button styling */
 .cancelButton {
-    background-color: #f39c12;
+    background-color: #f39c12; /* Orange background */
     color: white;
     border: none;
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 4px;
-    width: 45%;
+    width: 45%; /* Take up less than half for spacing */
 }
 
-/* Confirm button */
+/* Confirm button styling */
 .confirmButton {
-    background-color: #e74c3c;
+    background-color: #e74c3c; /* Red background */
     color: white;
     border: none;
     padding: 8px 16px;
@@ -51,11 +51,12 @@
     width: 45%;
 }
 
-/* Button hover effects */
+/* Hover effect for cancel button */
 .cancelButton:hover {
-    background-color: #f1c40f;
+    background-color: #f1c40f; /* Lighter orange */
 }
 
+/* Hover effect for confirm button */
 .confirmButton:hover {
-    background-color: #c0392b;
+    background-color: #c0392b; /* Darker red */
 }

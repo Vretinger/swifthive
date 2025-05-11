@@ -4,23 +4,41 @@ import DeclineModal from "components/applications/DeclineModal";
 import AcceptModal from "components/applications/AcceptModal";
 import { axiosReq } from "api/axios";
 import styles from "styles/applications/ApplicantDetails.module.css";
+import LoadingSpinner from "components/LoadingSpinner";
 
+/**
+ * ApplicantProfile Component
+ * Displays details of a freelancer who applied for a job, and allows accepting or declining the application.
+ */
 const ApplicantProfile = () => {
+  // Retrieve dynamic route parameters from the URL
   const { jobId, freelancerId } = useParams();
+
+  // Access the passed-in state (application info) from the previous page
   const location = useLocation();
+
+  // Navigation hook for moving back or programmatically navigating
   const navigate = useNavigate();
 
+  // Store the freelancer profile data
   const [freelancer, setFreelancer] = useState(null);
+
+  // Manage UI loading and error states
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Application object passed through router location state
   const application = location.state?.application || null;
 
+  // State for managing the Accept modal and message input
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [message, setMessage] = useState("");
+
+  // State for managing the Decline modal and decline reason input
   const [isDeclineModalOpen, setIsDeclineModalOpen] = useState(false);
   const [declineReason, setDeclineReason] = useState("");
 
+  // Fetch freelancer details from API when component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,46 +54,51 @@ const ApplicantProfile = () => {
     fetchData();
   }, [jobId, freelancerId]);
 
+  // Handle accept action and send a PATCH request to update the application
   const handleAcceptSubmit = async () => {
     try {
-      // Accept the application via API request
       await axiosReq.patch(`/api/applications/update/${application.id}/`, {
         status: 'accepted',
         message: message,
       });
 
       setIsAcceptModalOpen(false);
-      navigate(-1);  // Navigate back to the previous page
+      navigate(-1);  // Go back to previous page
     } catch (err) {
       console.error("Error accepting application:", err);
       setError("Unable to accept application.");
     }
   };
 
+  // Handle decline action and send a PATCH request with decline reason
   const handleDeclineSubmit = async () => {
     try {
-      // Decline the application via API request
       await axiosReq.patch(`/api/applications/update/${application.id}/`, {
         status: 'rejected',
         decline_reason: declineReason,
       });
 
       setIsDeclineModalOpen(false);
-      navigate(-1);  // Navigate back to the previous page
+      navigate(-1);  // Go back to previous page
     } catch (err) {
       console.error("Error declining application:", err);
       setError("Unable to decline application.");
     }
   };
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
+  // Conditional rendering for loading, error, or no freelancer data
+  if (loading) {
+    return <LoadingSpinner size="lg" text="Loading freelancer details..." />;
+  }
   if (error) return <div className={styles.errorMessage}>{error}</div>;
   if (!freelancer) return <div className={styles.errorMessage}>No freelancer found.</div>;
 
   return (
     <div className={styles.container}>
+      {/* Back button to return to the previous page */}
       <button onClick={() => navigate(-1)} className={styles.backButton}>← Back</button>
 
+      {/* Main profile section */}
       <div className={styles.profileCard}>
         <img
           src={freelancer.profile_picture || "https://swifthive-api-bad383c6f380.herokuapp.com/media/default_profile.png"}
@@ -90,6 +113,7 @@ const ApplicantProfile = () => {
         </div>
       </div>
 
+      {/* Section for additional details like bio, experience, skills, etc. */}
       <div className={styles.detailsSection}>
         {freelancer.bio && <><h3>Bio</h3><p>{freelancer.bio}</p></>}
         {freelancer.experience && <><h3>Experience</h3><p>{freelancer.experience}</p></>}
@@ -114,22 +138,23 @@ const ApplicantProfile = () => {
           </p>
         )}
 
+        {/* Link to the resume if available from the application object */}
         {application.resume_url && (
-        <p>
-          <strong>Resume: </strong>
-          <a
-            href={application.resume_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.resumeLink}
-          >
-            View Resume
-          </a>
-        </p>
-      )}
+          <p>
+            <strong>Resume: </strong>
+            <a
+              href={application.resume_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.resumeLink}
+            >
+              View Resume
+            </a>
+          </p>
+        )}
       </div>
 
-
+      {/* Buttons to open Accept or Decline modals */}
       <div className={styles.buttonRow}>
         <button
           className={styles.AcceptButton}
@@ -145,6 +170,7 @@ const ApplicantProfile = () => {
         </button>
       </div>
 
+      {/* Accept modal component */}
       {isAcceptModalOpen && (
         <AcceptModal
           onClose={() => setIsAcceptModalOpen(false)}
@@ -156,6 +182,7 @@ const ApplicantProfile = () => {
         />
       )}
 
+      {/* Decline modal component */}
       {isDeclineModalOpen && (
         <DeclineModal
           onClose={() => setIsDeclineModalOpen(false)}

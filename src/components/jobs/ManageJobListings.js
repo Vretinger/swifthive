@@ -1,89 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { axiosReq } from 'api/axios';
-import styles from 'styles/jobs/ManageJobListings.module.css';
+import React, { useState, useEffect } from 'react'; // React hooks
+import { useParams, useNavigate } from 'react-router-dom'; // for dynamic URL parameters and navigation
+import { axiosReq } from 'api/axios'; // Axios for API requests
+import styles from 'styles/jobs/ManageJobListings.module.css'; // Styles for the component
+import LoadingSpinner from "components/LoadingSpinner";
 
 const ManageJobListings = () => {
+  // Getting jobId from URL parameters using useParams
   const { jobId } = useParams();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // For navigation
 
+  // State variables to hold job, applications, freelancers, loading status, and errors
   const [job, setJob] = useState(null);
   const [applications, setApplications] = useState([]);
   const [freelancers, setFreelancers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // Show delete confirmation modal
 
-
+  // Fetch job details and applications on component mount
   useEffect(() => {
     const fetchJobAndApplications = async () => {
       try {
+        // Fetch job details and applications in parallel using Promise.all
         const [jobRes, appsRes] = await Promise.all([
-          axiosReq.get(`/api/job-listings/my-detail/${jobId}/`),
-          axiosReq.get(`/api/applications/list/${jobId}`)
+          axiosReq.get(`/api/job-listings/my-detail/${jobId}/`), // Fetch job details
+          axiosReq.get(`/api/applications/list/${jobId}`) // Fetch job applications
         ]);
 
+        // Extract job data and applications data
         const jobData = jobRes.data;
         const applicationsData = appsRes.data.results || [];
 
+        // Get freelancer ids from applications and fetch freelancer details
         const freelancerIds = applicationsData.map(app => app.freelancer_id);
-
         const freelancerData = await Promise.all(
           freelancerIds.map(id =>
             axiosReq.get(`/api/accounts/freelancers/${id}/`).then(res => ({
               ...res.data,
-              user_id: res.data.user.id, // Attach user_id for reference
+              user_id: res.data.user.id, // Attach user_id to the freelancer data
             }))
           )
         );
 
-        // Combine freelancer data into application objects
+        // Combine freelancer data with application data
         const combinedApplications = applicationsData.map(app => {
           const freelancer = freelancerData.find(f => f.user_id === app.freelancer_id);
           return { ...app, freelancer };
         });
 
+        // Set state with fetched data
         setJob(jobData);
         setApplications(combinedApplications);
         setFreelancers(freelancerData);
       } catch (err) {
+        // Handle any errors
         console.error("Error fetching job or applications:", err);
         setError("Failed to load job listing or applications.");
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
     fetchJobAndApplications();
-  }, [jobId]);
+  }, [jobId]); // Re-run this effect when jobId changes
 
+  // Navigate to job edit page
   const handleEdit = () => navigate(`/edit-job/${jobId}`);
 
+  // State for managing confirmation modals
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // Toggle job status (active/inactive)
   const handleActivateState = async () => {
     try {
+      // Toggle the is_active status of the job
       await axiosReq.put(`/api/job-listings/listings/${jobId}/edit/`, {
         ...job,
         is_active: !job.is_active,
       });
-      setJob(prev => ({ ...prev, is_active: !prev.is_active }));
-      setShowConfirm(false);
+      setJob(prev => ({ ...prev, is_active: !prev.is_active })); // Update the job state
+      setShowConfirm(false); // Close the modal after confirming
     } catch (error) {
       console.error("Error updating job status:", error.response?.data || error.message);
     }
   };
-  
 
+  // Delete the job listing
   const handleDelete = async () => {
     try {
       await axiosReq.delete(`/api/job-listings/listings/${jobId}/edit/`);
-      navigate("/my-job-listings"); // or wherever you want to redirect
+      navigate("/my-job-listings"); // Redirect to job listings page after deletion
     } catch (error) {
       console.error("Error deleting job:", error.response?.data || error.message);
     }
   };
 
+  // Navigate to freelancer's application details page
   const handleFreelancerClick = (freelancerUserId) => {
     const application = applications.find(app => app.freelancer_id === freelancerUserId);
     if (application) {
@@ -93,10 +105,13 @@ const ManageJobListings = () => {
     }
   };
 
+  if (loading) {
+    return <LoadingSpinner size="lg" text="Loading freelancer details..." />;
+  }
 
   return (
     <>
-      {/* Confirmation Modal */}
+      {/* Confirmation Modals for job deactivation/reactivation and deletion */}
       {showConfirm && (
         <div className={styles.ModalOverlay}>
           <div className={styles.ConfirmModal}>
@@ -120,15 +135,13 @@ const ManageJobListings = () => {
         </div>
       )}
 
-
-  
       <div className={styles.container}>
-        {loading && <div className={styles.loading}>Loading...</div>}
         {error && <div className={styles.errorMessage}>{error}</div>}
-  
+
+        {/* Display job details and applications */}
         {!loading && !error && job && (
           <div className={styles.jobListingContainer}>
-            {/* Job Details */}
+            {/* Job Details Section */}
             <div className={styles.jobDetails}>
               <h1>{job.title}</h1>
               <h3 className={job.is_active ? styles.active : styles.inactive}>
@@ -141,8 +154,8 @@ const ManageJobListings = () => {
               <p><strong>Employment Type:</strong> {job.employment_type}</p>
               <p><strong>Application Deadline:</strong> {job.application_deadline}</p>
 
+              {/* Edit and activate/deactivate job buttons */}
               <button onClick={handleEdit} className={styles.editButton}>Edit Job Listing</button>
-
               <button
                 type="button"
                 onClick={() => setShowConfirm(true)}
@@ -151,7 +164,7 @@ const ManageJobListings = () => {
                 {job.is_active ? 'Deactivate Job' : 'Reactivate Job'}
               </button>
 
-              {/** Show delete button only if inactive */}
+              {/* Show delete button only if inactive */}
               {!job.is_active && (
                 <button
                   type="button"
@@ -163,8 +176,7 @@ const ManageJobListings = () => {
               )}
             </div>
 
-  
-            {/* Applications / Freelancers */}
+            {/* Applications Section */}
             <div className={styles.applications}>
               <h2>Applications</h2>
               {freelancers.length === 0 ? (
@@ -207,4 +219,5 @@ const ManageJobListings = () => {
     </>
   );
 }
+
 export default ManageJobListings;

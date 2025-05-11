@@ -5,16 +5,20 @@ import styles from 'styles/applications/JobApplicationForm.module.css';
 import Toast from 'components/Toast';
 
 const JobApplicationForm = () => {
-  const { jobId } = useParams();
-  const navigate = useNavigate();
+  const { jobId } = useParams(); // Get the job ID from the URL parameters
+  const navigate = useNavigate(); // Hook for navigating between pages
 
+  // Form state
   const [coverLetter, setCoverLetter] = useState('');
   const [resume, setResume] = useState(null);
   const [useProfileResume, setUseProfileResume] = useState(false);
+
+  // Feedback message state
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [toast, setToast] = useState(null);
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMsg('');
@@ -27,18 +31,22 @@ const JobApplicationForm = () => {
       formData.append('cover_letter', coverLetter);
       formData.append('use_profile_resume', useProfileResume.toString());
 
+      // Append resume file only if not using profile resume
       if (!useProfileResume && resume) {
         formData.append('resume', resume);
       }
 
+      // Submit application data
       await axiosReq.post('/api/applications/apply/', formData);
 
+      // Handle successful submission
       setSuccessMsg('✅ Application submitted successfully!');
       setToast({ message: 'Application submitted! Redirecting...', type: 'success' });
       setCoverLetter('');
       setResume(null);
       setUseProfileResume(false);
 
+      // Navigate to homepage with toast state
       navigate('/', {
         state: {
           toast: { message: 'Application submitted! Redirecting...', type: 'success' }
@@ -50,6 +58,7 @@ const JobApplicationForm = () => {
       const detail = error.response?.data?.detail;
       const specificError = error.response?.data?.error;
 
+      // Handle known errors
       if (
         detail &&
         typeof detail === 'string' &&
@@ -76,6 +85,7 @@ const JobApplicationForm = () => {
       <div className={styles.container}>
         <h2 className={styles.title}>Apply for this Job</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
+          {/* Cover letter input */}
           <div>
             <label className={styles.label}>Cover Letter</label>
             <textarea
@@ -88,6 +98,7 @@ const JobApplicationForm = () => {
             />
           </div>
 
+          {/* Resume file upload */}
           <div>
             <label className={styles.label}>Upload Resume (PDF/DOC)</label>
             <input
@@ -99,6 +110,7 @@ const JobApplicationForm = () => {
             />
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             className={styles.submitButton}
@@ -106,11 +118,13 @@ const JobApplicationForm = () => {
             Submit Application
           </button>
 
+          {/* Feedback messages */}
           {successMsg && <p className={`${styles.message} ${styles.successMessage}`}>{successMsg}</p>}
           {errorMsg && <p className={`${styles.message} ${styles.errorMessage}`}>{errorMsg}</p>}
         </form>
       </div>
 
+      {/* Toast notification */}
       {toast && (
         <Toast
           message={toast.message}

@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axiosPublic from "api/axios";
 import styles from "styles/freelancers/FreelancerDetails.module.css";
 import LoadingSpinner from "components/LoadingSpinner";
+import ContactModal from "components/freelancers/ContactModal";
+import Toast from "components/Toast";
+
 
 const FreelancerDetails = () => {
     const { id } = useParams(); // Get freelancer ID from URL
@@ -10,6 +13,8 @@ const FreelancerDetails = () => {
     const [freelancer, setFreelancer] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [toast, setToast] = useState({ message: "", type: "" });
 
     useEffect(() => {
         const fetchFreelancerDetails = async () => {
@@ -25,6 +30,10 @@ const FreelancerDetails = () => {
         };
         fetchFreelancerDetails();
     }, [id]);
+
+    const handleContactClick = () => {
+        setIsModalOpen(true);
+      };
 
     if (loading) {
         return <LoadingSpinner size="lg" text="Loading freelancer details..." />;
@@ -80,7 +89,22 @@ const FreelancerDetails = () => {
                 )}
             </div>
 
-            <button className={styles.hireButton}>Contact {freelancer.user.first_name}</button>
+            <button className={styles.hireButton} onClick={handleContactClick}>
+                Contact {freelancer.user.first_name}
+            </button>
+
+            {isModalOpen && (
+                <ContactModal 
+                    onClose={() => setIsModalOpen(false)} 
+                    freelancerEmail={freelancer.user.email} 
+                    freelancerName={freelancer.user.first_name} 
+                    setToast={setToast}
+                />
+                )}
+
+                {toast.message && (
+                    <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: "", type: "" })} />
+                )}
         </div>
     );
 };

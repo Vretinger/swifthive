@@ -49,7 +49,7 @@ const JobApplicationForm = () => {
       // Navigate to homepage with toast state
       navigate('/', {
         state: {
-          toast: { message: 'Application submitted! Redirecting...', type: 'success' }
+          toast: { message: 'Application submitted!', type: 'success' }
         }
       });
 

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Select from 'react-select';
 import styles from 'styles/jobs/ExploreJobs.module.css';
 import LoadingSpinner from "components/LoadingSpinner";
+import { useLocation } from 'react-router-dom';
+import Toast from 'components/Toast';
 
 const ExploreJobbs = () => {
   const [jobListings, setJobListings] = useState([]);
@@ -21,7 +23,18 @@ const ExploreJobbs = () => {
   const [selectedCompanies, setSelectedCompanies] = useState([]);
   const [sortOption, setSortOption] = useState("date");
 
+  const location = useLocation();
+  const toastFromState = location.state?.toast;
+  const [toast, setToast] = useState(toastFromState || null);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+  if (toastFromState) {
+    // Remove the toast from history state so it doesn't persist on reloads or navigation
+    window.history.replaceState({}, document.title);
+  }
+}, [toastFromState]);
 
   useEffect(() => {
     const fetchJobListings = async () => {
@@ -246,6 +259,13 @@ const ExploreJobbs = () => {
           </div>
         ))}
       </div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 };

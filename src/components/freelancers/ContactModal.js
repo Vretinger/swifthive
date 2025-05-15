@@ -22,12 +22,10 @@ const ContactModal = ({ onClose, freelancerEmail, freelancerName, setToast }) =>
     // Validate email before sending the message
     if (!validateEmail(clientEmail)) {
       setEmailError("Please enter a valid email address.");
-      console.log("Invalid email detected");
       return; // Prevent sending the message if the email is invalid
     }
 
     setLoading(true);
-    console.log("Sending message..."); // Debug: Check if function is triggered
 
     try {
       const response = await axiosPublic.post("api/contact/contact-freelancer/", {

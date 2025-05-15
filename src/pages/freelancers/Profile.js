@@ -23,7 +23,6 @@ const MyProfile = () => {
                 const response = await axiosPublic.get(`/api/accounts/freelancers/${currentUser.pk}/`);
                 setProfile(response.data);  // Store the fetched profile data in state
             } catch (error) {
-                console.error("Error fetching profile:", error);  // Log error for debugging
                 setError("Unable to load your profile. Please try again later.");  // Set error state to display error message
             } finally {
                 setLoading(false);  // Set loading to false after API call finishes

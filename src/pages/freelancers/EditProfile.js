@@ -138,14 +138,8 @@ const EditProfile = () => {
     }
 
     try {
-      // Log form data for debugging purposes
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
-
       // Send PUT request to update the freelancer's profile
       const response = await axiosReq.put(`/api/accounts/freelancers/${currentUser.pk}/`, formData);
-      console.log("Response after PUT:", response.data);
 
       // Update the current user's profile image in context
       setCurrentUser((prevUser) => {

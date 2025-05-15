@@ -27,18 +27,16 @@ Swifthive is a full-stack web platform that allows users to register as **freela
 
 Swifthive connects freelancers and clients in a modern marketplace for remote work. Built with React and Django REST Framework, users can create profiles, post jobs, apply to gigs, and manage hiring—all within one platform.
 
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Screenshot of homepage showing "Find Jobs" or "Post a Job" -->`
+<img src="ReadmeAssets/HomePage.png" alt="Home page" style="max-width: 1000px;" />
+
+
+<img src="ReadmeAssets/SwiftHiveShowcaseImage.jpg" alt="Home page" style="max-width: 1000px;" />
 
 ---
 
 ## 🌍 Live Demo
 
-* **Front-End:** [Swifthive Front-End](#)
-* **Back-End API:** [Swifthive API](#)
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Screenshot of deployed site landing page or login page -->`
+[Swifthive](https://swifthive-8bbba3ed51bd.herokuapp.com/)
 
 ---
 
@@ -50,23 +48,24 @@ Swifthive connects freelancers and clients in a modern marketplace for remote wo
 * Browse freelancer profiles
 * View applications and hire candidates
 
+<img src="ReadmeAssets/ClientDashboard.png" alt="Client Dashboard" style="max-width: 1000px;" />
+<img src="ReadmeAssets/CreateJobForm.png" alt="Client Create job form" style="max-width: 1000px;" />
+
 ### 👷 Freelancers
 
 * Register and build a profile
 * Browse job listings
 * Apply for jobs with a custom pitch
 
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Side-by-side screenshots of client and freelancer dashboards -->`
+<img src="ReadmeAssets/FreelancerProfile.png" alt="Freelancer Profile" style="max-width: 1000px;" />
+<img src="ReadmeAssets/FreelancerDashboard.png" alt="Freelancer Dashboard" style="max-width: 1000px;" />
+
 
 ---
 
 ## 🎨 UX & Design
 
 Designed for clarity, ease-of-use, and responsiveness. Color-coded statuses and clear CTAs guide users through hiring or applying.
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Figma/wireframe preview or mobile vs desktop mockups -->`
 
 ---
 
@@ -79,33 +78,8 @@ Designed for clarity, ease-of-use, and responsiveness. Color-coded statuses and 
 * Context API / useState for state management
 * Tailwind / Bootstrap for styling
 
-### Back-End
-
-* Django REST Framework
-* PostgreSQL
-* JWT Auth
-* Cloudinary for media (e.g. user avatars, portfolio files)
-
----
-
-## 📦 Data Models
-
-### `User`
-
-* Role: `freelancer` or `client`
-* Name, Email, Profile Info, Avatar
-
-### `Job`
-
-* Title, Description, Created by, Status
-
-### `Application`
-
-* Linked Job and Freelancer
-* Pitch, Date, Status
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Diagram of model relationships (User → Job → Application) -->`
+### Back-end
+[Backend Project](https://github.com/Vretinger/swifthive-api)
 
 ---
 
@@ -124,14 +98,12 @@ Designed for clarity, ease-of-use, and responsiveness. Color-coded statuses and 
 
 React components are structured modularly for maintainability:
 
-* `Header.js` – Site-wide navigation
-* `JobList.js` – Renders available jobs
-* `JobPostForm.js` – Job creation/edit form
-* `ProfileCard.js` – Shows freelancer details
-* `Dashboard.js` – Client/freelancer home screen
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Component tree or folder structure screenshot -->`
+* `Navbar.js` – Site-wide navigation
+* `ExploreJobs.js` – Renders available jobs
+* `CreateJob.js` – Job creation/edit form
+* `FreelancerDetails.js` – Shows freelancer details
+* `ClientDashboard.js` – Client home screen
+* `freelancerDashboard.js` – freelancer home screen
 
 ---
 
@@ -157,42 +129,28 @@ python manage.py migrate
 
 ## 🚀 Deployment
 
-* Front-End deployed via Vercel / Netlify
-* Back-End deployed via Render / Heroku
+* Front-End deployed via Heroku
+* Back-End deployed via Heroku
 * Environment variables secured in `.env`
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Screenshot of deployed site + API response in Postman -->`
 
 ---
 
 ## 🥮 Testing
-
-### Manual Testing
-
-* Registered as both user types and walked through job creation & application flow
-* Edge case form validation (e.g., empty inputs, large files)
-* Responsive testing (Chrome DevTools mobile mode)
-
-### Automated Testing
-
-* Unit tests for core models (User, Job, Application)
-* API endpoint tests (DRF test client)
-
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Screenshot of test output or coverage report -->`
+[Testing documentation](Testing.md)
 
 ---
 
 ## 🗓️ Agile Workflow
 
-Agile methodology was followed using Trello/GitHub Projects:
+Agile methodology was followed using Trello:
 
 * User stories tracked in sprints
 * Regular commits with clear messages
 
-> 🖼️ **Image placeholder:**
-> `<!-- PLACEHOLDER: Screenshot of Trello board or GitHub Projects board -->`
+
+## [Trello board](https://trello.com/invite/b/68263523210377e9a501d2f0/ATTIbdb2c7d303997cb0887d74444e8647097DC5BFD5/swifthive)
+
+<img src="ReadmeAssets/TrelloBoard.png" alt="Trello Board" style="max-width: 1000px;" />
 
 ---
 

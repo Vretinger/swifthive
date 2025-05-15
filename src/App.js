@@ -22,6 +22,7 @@ import Apply from 'components/applications/JobApplicationForm';
 import FreelancerProfiles from 'components/freelancers/FreelancerProfiles';
 import FreelancerDetails from 'components/freelancers/FreelancerDetails';
 import ApplicantProfile from 'components/applications/ApplicantProfile';
+import Error404 from 'pages/Error404';
 import { CurrentUserProvider } from 'contexts/CurrentUserContext';
 
 // Lazy-loaded components for performance optimization
@@ -32,7 +33,6 @@ const GuestRoute = ({ children }) => {
 };
 const SignUpForm = lazy(() => import('pages/auth/SignUp'));
 const SignInForm = lazy(() => import('pages/auth/SignIn'));
-const NotFound = () => <p>Page not found!</p>;
 
 function App() {
   return (
@@ -53,7 +53,7 @@ function App() {
             <Route path="/freelancer/:id" element={<FreelancerDetails />} />
             <Route path="/job/:jobId" element={<JobDetail />} />
             <Route path="/jobs" element={<ExploreJobs />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<Error404 />} />
 
             {/* Guest Routes */}
             <Route

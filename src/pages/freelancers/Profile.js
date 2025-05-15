@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";  // Import hook for navigation
 import axiosPublic from "api/axios";  // Import the axios instance for public API requests
 import styles from "styles/freelancers/MyProfile.module.css";  // Import CSS module for styling
 import { useCurrentUser } from "contexts/CurrentUserContext";  // Import custom hook to access current user data
+import LoadingSpinner from "components/LoadingSpinner";  // Import loading spinner component for loading state
 
 const MyProfile = () => {
     const { currentUser } = useCurrentUser();  // Get current user data from context
@@ -33,7 +34,9 @@ const MyProfile = () => {
     }, [currentUser]);  // Dependency array to re-run effect when currentUser changes
 
     if (!currentUser) return <div>Loading user data...</div>;  // 👈 Display loading message if currentUser is null
-    if (loading) return <div>Loading...</div>;  // If data is still loading, show loading message
+    if (loading) {
+        return <LoadingSpinner size="lg" text="Loading profile..." />;
+    }  // If data is still loading, show loading message
     if (error) return <div>{error}</div>;  // If error occurred, show the error message
 
     return (

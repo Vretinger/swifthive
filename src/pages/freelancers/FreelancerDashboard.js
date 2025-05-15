@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosReq } from "api/axios";  // Import the axios instance for making API requests
 import { Link } from "react-router-dom";  // Import Link for routing to specific job details page
 import styles from "styles/freelancers/FreelancerDashboard.module.css"; // Import styles for the component
+import LoadingSpinner from "components/LoadingSpinner";  // Import loading spinner component for loading state
 
 const FreelancerApplications = () => {
   // Define state variables
@@ -28,7 +29,9 @@ const FreelancerApplications = () => {
   }, []);  // Empty dependency array to run only once when the component mounts
 
   // Render loading text if data is still being fetched
-  if (loading) return <p>Loading applications...</p>;
+  if (loading) {
+        return <LoadingSpinner size="lg" text="Loading applications..." />;
+    }
 
   // Render error message if there is an error
   if (error) return <p>{error}</p>;

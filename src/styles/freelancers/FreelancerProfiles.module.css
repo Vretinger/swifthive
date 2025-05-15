@@ -64,3 +64,37 @@
 .viewProfileButton:hover {
     background-color: #894B5B; /* Changes the background color to a darker shade on hover */
 }
+
+.paginationButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.prevButton,
+.nextButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.prevButton:disabled,
+.nextButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axiosPublic from "api/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Select from 'react-select';
 import styles from 'styles/jobs/ExploreJobs.module.css';
 import LoadingSpinner from "components/LoadingSpinner";
-import { useLocation } from 'react-router-dom';
 import Toast from 'components/Toast';
 
 const ExploreJobbs = () => {
@@ -27,47 +26,58 @@ const ExploreJobbs = () => {
   const toastFromState = location.state?.toast;
   const [toast, setToast] = useState(toastFromState || null);
 
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-  if (toastFromState) {
-    // Remove the toast from history state so it doesn't persist on reloads or navigation
-    window.history.replaceState({}, document.title);
-  }
-}, [toastFromState]);
+    if (toastFromState) {
+      window.history.replaceState({}, document.title);
+    }
+  }, [toastFromState]);
 
-  useEffect(() => {
-    const fetchJobListings = async () => {
-      try {
-        const response = await axiosPublic.get('/api/job-listings/listings/');
-        const jobs = response.data.results;
+  const fetchJobListings = useCallback(async (pageNum = 1) => {
+    try {
+      setLoading(true);
+      const response = await axiosPublic.get(`/api/job-listings/listings/?page=${pageNum}`);
+      const jobs = response.data.results;
 
+      if (pageNum === 1) {
         setJobListings(jobs);
         setFilteredJobs(jobs);
+      } else {
+        setJobListings(prev => [...prev, ...jobs]);
+        setFilteredJobs(prev => [...prev, ...jobs]);
+      }
 
-        // Extract unique categories, locations, and companies
+      setHasNextPage(!!response.data.next);
+
+      if (pageNum === 1) {
         setCategories([...new Set(jobs.map(job => job.category))]);
         setLocations([...new Set(jobs.map(job => job.location))]);
         setCompanies([...new Set(jobs.map(job => job.company))]);
-      } catch (error) {
-        console.error('Error fetching job listings:', error);
-        setError('Unable to load job listings. Please try again later.');
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchJobListings();
+    } catch (error) {
+      console.error('Error fetching job listings:', error);
+      setError('Unable to load job listings. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchJobListings(1);
+  }, [fetchJobListings]);
 
   const toggleFilterPanel = () => {
     setFilterPanelOpen(!filterPanelOpen);
-    if (sortPanelOpen) setSortPanelOpen(false); // close sort if open
+    if (sortPanelOpen) setSortPanelOpen(false);
   };
 
   const toggleSortPanel = () => {
     setSortPanelOpen(!sortPanelOpen);
-    if (filterPanelOpen) setFilterPanelOpen(false); // close filter if open
+    if (filterPanelOpen) setFilterPanelOpen(false);
   };
 
   const applyFilters = (filters = {
@@ -76,36 +86,39 @@ const ExploreJobbs = () => {
     companies: selectedCompanies,
   }) => {
     const filtered = jobListings.filter((job) => {
-      const matchCategory =
-        filters.categories.length === 0 || filters.categories.includes(job.category);
-      const matchLocation =
-        filters.locations.length === 0 || filters.locations.includes(job.location);
-      const matchCompany =
-        filters.companies.length === 0 || filters.companies.includes(job.company);
+      const matchCategory = filters.categories.length === 0 || filters.categories.includes(job.category);
+      const matchLocation = filters.locations.length === 0 || filters.locations.includes(job.location);
+      const matchCompany = filters.companies.length === 0 || filters.companies.includes(job.company);
       return matchCategory && matchLocation && matchCompany;
     });
-  
-    setFilteredJobs(filtered); // Update the filtered job listings based on the current state of filters
+    setFilteredJobs(filtered);
   };
-  
+
+  const loadNextPage = () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchJobListings(nextPage);
+  };
+
+  const loadPreviousPage = () => {
+    if (page <= 1) return;
+    const previousPage = page - 1;
+    setPage(previousPage);
+    fetchJobListings(previousPage);
+  };
 
   const handleSelectChange = (setter) => (selectedOptions) => {
     const selectedValues = selectedOptions.map((opt) => opt.value);
     setter(selectedValues);
-    
-    // Apply filters immediately
     const updatedFilters = {
       categories: setter === setSelectedCategories ? selectedValues : selectedCategories,
       locations: setter === setSelectedLocations ? selectedValues : selectedLocations,
       companies: setter === setSelectedCompanies ? selectedValues : selectedCompanies,
     };
-
     applyFilters(updatedFilters);
   };
 
-  if (loading) {
-    return <LoadingSpinner size="lg" text="Loading jobs..." />;
-  }
+  if (loading) return <LoadingSpinner size="lg" text="Loading jobs..." />;
 
   return (
     <div className={styles.exploreJobbs}>
@@ -115,7 +128,6 @@ const ExploreJobbs = () => {
         <button className={styles.sortButton} onClick={toggleSortPanel}>
           {sortPanelOpen ? "Hide Sort" : "Sort"}
         </button>
-
         <button className={styles.filterButton} onClick={toggleFilterPanel}>
           {filterPanelOpen ? "Hide Filters" : "Filter"}
         </button>
@@ -124,118 +136,72 @@ const ExploreJobbs = () => {
       {sortPanelOpen && (
         <div className={styles.sortPanel}>
           <label>Sort By</label>
-          <select onChange={(e) => {
-            const newSortOption = e.target.value;
-            setSortOption(newSortOption);
-            
-            // Sort filtered jobs immediately
-            const sortedJobs = [...filteredJobs].sort((a, b) => {
-              if (newSortOption === 'date') {
-                // Sorting by date (newest first)
-                return new Date(b.date_posted) - new Date(a.date_posted);
-              } else if (newSortOption === 'oldest') {
-                // Sorting by date (oldest first)
-                return new Date(a.date_posted) - new Date(b.date_posted);
-              }
-              return 0; // Default case if needed
-            });
-
-            setFilteredJobs(sortedJobs);
-          }} value={sortOption}>
+          <select
+            onChange={(e) => {
+              const newSortOption = e.target.value;
+              setSortOption(newSortOption);
+              const sortedJobs = [...filteredJobs].sort((a, b) => {
+                if (newSortOption === 'date') {
+                  return new Date(b.date_posted) - new Date(a.date_posted);
+                } else if (newSortOption === 'oldest') {
+                  return new Date(a.date_posted) - new Date(b.date_posted);
+                }
+                return 0;
+              });
+              setFilteredJobs(sortedJobs);
+            }}
+            value={sortOption}
+          >
             <option value="date">Post Date (Newest First)</option>
             <option value="oldest">Post Date (Oldest First)</option>
           </select>
         </div>
       )}
 
-
       {filterPanelOpen && (
         <div className={styles.filterPanel}>
-          <div className={styles.filterSection}>
-            <label>Category</label>
-            <Select
-              options={categories.map(cat => ({ value: cat, label: cat }))}
-              isMulti
-              onChange={handleSelectChange(setSelectedCategories)}
-              value={categories
-                .filter(cat => selectedCategories.includes(cat))
-                .map(cat => ({ value: cat, label: cat }))}
-            />
-          </div>
-          <div className={styles.filterSection}>
-            <label>Location</label>
-            <Select
-              options={locations.map(loc => ({ value: loc, label: loc }))}
-              isMulti
-              onChange={handleSelectChange(setSelectedLocations)}
-              value={locations
-                .filter(loc => selectedLocations.includes(loc))
-                .map(loc => ({ value: loc, label: loc }))}
-            />
-          </div>
-          <div className={styles.filterSection}>
-            <label>Company</label>
-            <Select
-              options={companies.map(comp => ({ value: comp, label: comp }))}
-              isMulti
-              onChange={handleSelectChange(setSelectedCompanies)}
-              value={companies
-                .filter(comp => selectedCompanies.includes(comp))
-                .map(comp => ({ value: comp, label: comp }))}
-            />
-          </div>
+          {[
+            { label: "Category", data: categories, state: selectedCategories, setter: setSelectedCategories },
+            { label: "Location", data: locations, state: selectedLocations, setter: setSelectedLocations },
+            { label: "Company", data: companies, state: selectedCompanies, setter: setSelectedCompanies },
+          ].map(({ label, data, state, setter }) => (
+            <div key={label} className={styles.filterSection}>
+              <label>{label}</label>
+              <Select
+                options={data.map(val => ({ value: val, label: val }))}
+                isMulti
+                onChange={handleSelectChange(setter)}
+                value={data.filter(val => state.includes(val)).map(val => ({ value: val, label: val }))}
+              />
+            </div>
+          ))}
         </div>
       )}
 
       {error && <div className={styles.errorMessage}>{error}</div>}
-      {jobListings.length === 0 && <div className={styles.noJobs}>No jobs available</div>}
+      {filteredJobs.length === 0 && <div className={styles.noJobs}>No jobs available</div>}
 
       <div className={styles.activeFilters}>
-        {selectedCategories.length > 0 && (
-          <span className={styles.filterPill}>
-            Categories: {selectedCategories.join(', ')}
-            <button onClick={() => {
-              setSelectedCategories([]); // Remove all selected categories
-              applyFilters({ // Reapply the filter without categories
-                categories: [],
-                locations: selectedLocations,
-                companies: selectedCompanies,
-              });
-            }}>x</button>
-          </span>
-        )}
-
-        {selectedLocations.length > 0 && (
-          <span className={styles.filterPill}>
-            Locations: {selectedLocations.join(', ')}
-            <button onClick={() => {
-              setSelectedLocations([]); // Remove all selected locations
-              applyFilters({ // Reapply the filter without locations
-                categories: selectedCategories,
-                locations: [],
-                companies: selectedCompanies,
-              });
-            }}>x</button>
-          </span>
-        )}
-
-        {selectedCompanies.length > 0 && (
-          <span className={styles.filterPill}>
-            Companies: {selectedCompanies.join(', ')}
-            <button onClick={() => {
-              setSelectedCompanies([]); // Remove all selected companies
-              applyFilters({ // Reapply the filter without companies
-                categories: selectedCategories,
-                locations: selectedLocations,
-                companies: [],
-              });
-            }}>x</button>
-          </span>
+        {[
+          { label: "Categories", state: selectedCategories, setter: setSelectedCategories },
+          { label: "Locations", state: selectedLocations, setter: setSelectedLocations },
+          { label: "Companies", state: selectedCompanies, setter: setSelectedCompanies },
+        ].map(({ label, state, setter }) =>
+          state.length > 0 && (
+            <span key={label} className={styles.filterPill}>
+              {label}: {state.join(', ')}
+              <button onClick={() => {
+                setter([]);
+                applyFilters({ 
+                  categories: label === "Categories" ? [] : selectedCategories,
+                  locations: label === "Locations" ? [] : selectedLocations,
+                  companies: label === "Companies" ? [] : selectedCompanies,
+                });
+              }}>x</button>
+            </span>
+          )
         )}
       </div>
-
-
-
 
       <div className={styles.jobListings}>
         {filteredJobs.map((listing) => (
@@ -259,6 +225,7 @@ const ExploreJobbs = () => {
           </div>
         ))}
       </div>
+
       {toast && (
         <Toast
           message={toast.message}
@@ -266,6 +233,19 @@ const ExploreJobbs = () => {
           onClose={() => setToast(null)}
         />
       )}
+
+      <div className={styles.paginationControls}>
+        {page > 1 && (
+          <button onClick={loadPreviousPage} className={styles.prevPageButton}>
+            Previous
+          </button>
+        )}
+        {hasNextPage && !loading && (
+          <button onClick={loadNextPage} className={styles.nextPageButton}>
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };

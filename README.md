@@ -67,6 +67,8 @@ Swifthive connects freelancers and clients in a modern marketplace for remote wo
 
 Designed for clarity, ease-of-use, and responsiveness. Color-coded statuses and clear CTAs guide users through hiring or applying.
 
+<a href="https://www.figma.com/design/UcNP6Y5jNfUA7imC0S4ONb/SwiftHive?node-id=0-1&t=dSa02FQxN86pNAvE-1" target="_blank">View Wireframes on Figma</a>
+
 ---
 
 ## 🧰 Tech Stack

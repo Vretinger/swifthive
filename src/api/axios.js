@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // Base API URL
-const BASE_URL = "https://swifthive-api-bad383c6f380.herokuapp.com";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 // Configure the default global axios instance
 axios.defaults.baseURL = BASE_URL;

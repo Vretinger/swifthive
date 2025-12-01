@@ -127,12 +127,22 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
+### Env Varibales:
+#### Backends:
+* ALLOWED_HOST
+* DB_URL
+* SECRET_KEY
+
+#### React:
+* REACT_APP_BASE_URL
+
+
 ---
 
 ## 🚀 Deployment
 
-* Front-End deployed via Heroku
-* Back-End deployed via Heroku
+* Front-End deployed via OnRender
+* Back-End deployed via OnRender
 * Environment variables secured in `.env`
 
 ---

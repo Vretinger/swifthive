@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom"; // Import necessary hooks from react-router-dom
 import styles from "styles/auth/SignUpPage.module.css"; // Import CSS module for styling
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap for UI components
+import axiosPublic from "api/axios.js";
 import { Tabs, Tab, Form, Button, Alert } from "react-bootstrap"; // Import Bootstrap components
 import { useSetCurrentUser } from "contexts/CurrentUserContext"; // Custom hook for managing user context
 
@@ -38,83 +39,67 @@ const SignUpPage = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+  e.preventDefault();
 
-    const data = new FormData();
-    data.append("email", formData.email);
-    data.append("password1", formData.password1);
-    data.append("password2", formData.password2);
-    data.append("role", activeTab); // Set role based on the active tab
-    data.append("first_name", formData.first_name);
-    data.append("last_name", formData.last_name);
-    if (activeTab === "client") {
-      data.append("company", formData.company); // Only append company for clients
-    }
+  const data = new FormData();
+  data.append("email", formData.email);
+  data.append("password1", formData.password1);
+  data.append("password2", formData.password2);
+  data.append("role", activeTab);
+  data.append("first_name", formData.first_name);
+  data.append("last_name", formData.last_name);
 
-    setLoading(true); // Set loading to true while submitting
-    setErrors({}); // Reset errors
+  if (activeTab === "client") {
+    data.append("company", formData.company);
+  }
 
-    try {
-      // Step 1: Register the user
-      const response = await fetch(
-        "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/registration/",
+  setLoading(true);
+  setErrors({});
+
+  try {
+    // Step 1: Registration
+    const res = await axiosPublic.post(
+      "/api/auth/registration/",
+      data
+    );
+
+    if (res.status === 201) {
+      // Step 2: Auto-login using axios
+      const loginRes = await axiosPublic.post(
+        "/api/auth/login/",
         {
-          method: "POST",
-          body: data,
+          email: formData.email,
+          password: formData.password1,
         }
       );
 
-      const result = await response.json();
+      const loginData = loginRes.data;
 
-      if (response.ok) {
-        // Step 2: Auto-login after successful registration
-        const loginResponse = await fetch(
-          "https://swifthive-api-bad383c6f380.herokuapp.com/api/auth/login/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: formData.email,
-              password: formData.password1, // Use the same password for login
-            }),
-          }
-        );
+      // Step 3: Store user + tokens
+      setCurrentUser(loginData.user);
+      localStorage.setItem("currentUser", JSON.stringify(loginData.user));
+      localStorage.setItem("access_token", loginData.access_token);
+      localStorage.setItem("refresh_token", loginData.refresh_token);
 
-        const loginResult = await loginResponse.json();
-
-        if (loginResponse.ok) {
-          // Step 3: Store correct user data and tokens
-          setCurrentUser(loginResult.user); // Set user data in the context
-          localStorage.setItem("currentUser", JSON.stringify(loginResult.user)); // Store user in local storage
-          localStorage.setItem('access_token', loginResult.access_token); // Store access token
-          localStorage.setItem('refresh_token', loginResult.refresh_token); // Store refresh token
-
-          setSuccess(true); // Set success to true
-          setErrors({}); // Clear errors
-          
-          // Step 4: Redirect user to the appropriate page based on role
-          if (activeTab === "client") {
-            navigate("/"); // Redirect client to the homepage
-          } else {
-            navigate("/edit-profile"); // Redirect freelancer to the edit profile page
-          }
-        } else {
-          setErrors({ loginError: "Auto-login failed. Please sign in manually." });
-          navigate("/signin"); // If login fails, redirect to sign-in page
-        }
+      // Step 4: Redirect
+      if (activeTab === "client") {
+        navigate("/");
       } else {
-        setErrors(result); // Set registration errors
-        setSuccess(false); // Set success to false if registration fails
+        navigate("/edit-profile");
       }
-    } catch (error) {
-      setErrors({ non_field_errors: ["Network error. Please try again."] }); // Handle network errors
-      setSuccess(false); // Set success to false on network error
-    } finally {
-      setLoading(false); // Set loading to false after the process is completed
     }
-  };
+  } catch (err) {
+    if (err.response?.data) {
+      setErrors(err.response.data);
+    } else {
+      setErrors({
+        non_field_errors: ["Network error. Please try again."]
+      });
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className={styles.signupPage}>

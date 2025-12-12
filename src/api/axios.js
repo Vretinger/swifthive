@@ -22,16 +22,35 @@ export const axiosReq = axios.create({
 });
 
 // Attach access token to all authenticated requests
-axiosReq.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+axiosReq.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      localStorage.getItem("refresh_token")
+    ) {
+      originalRequest._retry = true;
+      try {
+        const refresh = localStorage.getItem("refresh_token");
+        const res = await axios.post(`${BASE_URL}/api/token/refresh/`, { refresh });
+        
+        localStorage.setItem("access_token", res.data.access);
+        axiosReq.defaults.headers.Authorization = `Bearer ${res.data.access}`;
+
+        return axiosReq(originalRequest);
+      } catch (refreshError) {
+        console.log("Refresh failed", refreshError);
+      }
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
+
+    return Promise.reject(error);
+  }
 );
+
+
 
 // Authenticated response instance (used with interceptors)
 export const axiosRes = axios.create({

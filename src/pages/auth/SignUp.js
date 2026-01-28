@@ -112,11 +112,16 @@ const SignUpPage = () => {
         )}
         {Object.keys(errors).length > 0 && (
           <Alert variant="danger">
-            {errors.non_field_errors
-              ? errors.non_field_errors.join(", ")
-              : "There were some errors in your submission."}
+            <ul className="mb-0">
+              {Object.entries(errors).map(([field, messages]) =>
+                messages.map((msg, index) => (
+                  <li key={`${field}-${index}`}>{msg}</li>
+                ))
+              )}
+            </ul>
           </Alert>
         )}
+
 
         {/* Form for registration */}
         <Form onSubmit={handleSubmit}>

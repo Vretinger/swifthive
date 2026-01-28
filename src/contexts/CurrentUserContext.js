@@ -37,7 +37,7 @@ export const CurrentUserProvider = ({ children }) => {
     }
 
     try {
-      const { data } = await axios.post("/api/auth/token/refresh/", {
+      const { data } = await axios.post("api/auth/token/refresh/", {
         refresh: refreshToken,
       });
       localStorage.setItem("access_token", data.access); // Store the new access token

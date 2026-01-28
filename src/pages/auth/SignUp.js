@@ -215,7 +215,7 @@ const SignUpPage = () => {
         {/* Link to sign-in */}
         <div className="mt-3">
           <Link className={styles.Link} to="/signin">
-            Don't have an account? <span>Sign up</span>
+            Already have an account? <span>Sign in</span>
           </Link>
         </div>
       </div>

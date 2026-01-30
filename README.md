@@ -141,8 +141,8 @@ python manage.py migrate
 
 ## 🚀 Deployment
 
-* Front-End deployed via OnRender
-* Back-End deployed via OnRender
+* Front-End deployed via Heroku
+* Back-End deployed via Heroku
 * Environment variables secured in `.env`
 
 ---
